@@ -1,5 +1,7 @@
+import PageHead from "components/PageHead";
+
 const HomeScreen = () => {
-    return <div>Home screen!</div>
+    return <main><PageHead /></main>
 }
 
 export default HomeScreen;

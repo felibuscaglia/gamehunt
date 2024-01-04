@@ -3,10 +3,15 @@
 @tailwind utilities;
 
 :root {
-  --font-family: 'Nunito Sans', sans-serif;
+  --font-family: 'Inter', sans-serif;
+  --primary-brand-color: #25aad0;
 }
 
 body {
   margin: 0;
   font-family: var(--font-family);
+}
+
+li {
+  transition: 0.2s ease all;
 }
