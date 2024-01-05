@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import AutoCompleteInput from "./AutoCompleteInput";
 import Logo from "./Logo";
 
-const UL_ELEMENTS = ["Home", "Topics", "Newsletter"];
+const UL_ELEMENTS = ["Home", "Topics", "Newsletter", "Advertise", "About"];
 
 const SECTION_CLASSNAMES = "flex items-center gap-6 w-1/3";
 const BTN_CLASSNAMES =
@@ -26,11 +26,6 @@ const PageHead = () => {
               {el}
             </li>
           ))}
-          <button
-            className={`${BTN_CLASSNAMES} rounded-full h-8 w-8 flex items-center justify-center -ml-1`}
-          >
-            <IconDots className="text-gray-500" />
-          </button>
         </ul>
       </section>
       <section className={SECTION_CLASSNAMES + " justify-end"}>
@@ -43,7 +38,7 @@ const PageHead = () => {
         </Link>
         <Link
           className="text-white bg-primary-brand-color rounded px-4 py-2 whitespace-nowrap"
-          to={UI_PATHS.SIGN_IN}
+          to={UI_PATHS.SIGN_UP}
         >
           Sign up
         </Link>

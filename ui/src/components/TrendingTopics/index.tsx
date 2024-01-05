@@ -1,5 +1,9 @@
 const TrendingTopics = () => {
-    return <div>Trending topics!</div>
-}
+  return (
+    <div className="w-full py-8">
+      <span className="text-sm font-medium tracking-wide text-gray-500">TRENDING TOPICS</span>
+    </div>
+  );
+};
 
 export default TrendingTopics;

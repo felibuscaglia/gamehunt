@@ -5,7 +5,7 @@ const HomeScreen = () => {
     return (
         <main>
             <PageHead />
-            <section>
+            <section className="w-10/12 mx-auto">
                 <TrendingTopics />
             </section>
         </main>

@@ -5,11 +5,13 @@
 :root {
   --font-family: 'Inter', sans-serif;
   --primary-brand-color: #7E57C2;
+  --text-color: #040404;
 }
 
 body {
   margin: 0;
   font-family: var(--font-family);
+  color: var(--text-color);
 }
 
 li,
