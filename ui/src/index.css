@@ -4,7 +4,7 @@
 
 :root {
   --font-family: 'Inter', sans-serif;
-  --primary-brand-color: #25aad0;
+  --primary-brand-color: #7E57C2;
 }
 
 body {
@@ -12,6 +12,12 @@ body {
   font-family: var(--font-family);
 }
 
-li {
+li,
+button {
   transition: 0.2s ease all;
+}
+
+input {
+  outline: none;
+  font-family: var(--font-family);
 }

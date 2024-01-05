@@ -1,11 +1,8 @@
 import { IconDeviceGamepad } from "@tabler/icons-react";
+import { PRIMARY_BRAND_COLOR } from "lib/constants";
 
 const Logo = () => {
-  return (
-    <div className="border border-black p-2 rounded-full">
-      <IconDeviceGamepad color="black" size={25} />
-    </div>
-  );
+  return <IconDeviceGamepad color={PRIMARY_BRAND_COLOR} size={30} strokeWidth={1.5} />;
 };
 
 export default Logo;

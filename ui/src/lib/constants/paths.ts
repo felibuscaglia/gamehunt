@@ -1,3 +1,5 @@
 export const UI_PATHS = {
-    HOME: '/'
+    HOME: '/',
+    SIGN_IN: '/sign-in',
+    SIGN_UP: "/sign-up"
 }

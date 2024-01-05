@@ -1,0 +1,1 @@
+export const PRIMARY_BRAND_COLOR = "#7E57C2";
