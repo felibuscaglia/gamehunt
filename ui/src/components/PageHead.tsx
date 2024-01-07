@@ -1,4 +1,3 @@
-import { IconDots } from "@tabler/icons-react";
 import { UI_PATHS } from "lib/constants";
 import { Link } from "react-router-dom";
 import AutoCompleteInput from "./AutoCompleteInput";

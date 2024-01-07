@@ -5,6 +5,7 @@ interface IProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   id: string;
   type?: "text" | "password" | "email";
+  required?: boolean;
 }
 
 const Input: React.FC<IProps> = ({
@@ -14,6 +15,7 @@ const Input: React.FC<IProps> = ({
   onChange,
   id,
   type = "text",
+  required = false
 }) => {
   return (
     <div className="flex flex-col gap-1 w-full">
@@ -27,6 +29,7 @@ const Input: React.FC<IProps> = ({
         onChange={onChange}
         id={id}
         type={type}
+        required={required}
       />
     </div>
   );

@@ -1,7 +1,8 @@
 import Button from "components/Button";
 import Input from "components/Input";
 import Logo from "components/Logo";
-import { APP_NAME, UI_PATHS } from "lib/constants";
+import { apiClient } from "lib/axios/apiClient";
+import { API_PATHS, APP_NAME, UI_PATHS } from "lib/constants";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -23,6 +24,17 @@ const SignUpScreen = () => {
     });
   };
 
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    apiClient
+      .post(API_PATHS.SIGN_UP, {})
+      .then(() => {})
+      .catch((err) => {
+        console.log({ err });
+      });
+  };
+
   return (
     <main className="h-screen flex flex-col">
       <nav className="w-10/12 mx-auto py-4">
@@ -32,7 +44,7 @@ const SignUpScreen = () => {
       </nav>
       <div className="flex-grow w-10/12 mx-auto flex flex-col items-center justify-center gap-8">
         <h2 className="text-5xl font-bold">Sign up</h2>
-        <form className="w-1/4 flex flex-col gap-4">
+        <form className="w-1/4 flex flex-col gap-4" onSubmit={handleFormSubmit}>
           <Input
             label="Full name"
             placeholder="Enter your full name..."
