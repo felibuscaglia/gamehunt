@@ -23,3 +23,7 @@ input {
   outline: none;
   font-family: var(--font-family);
 }
+
+.capitalize-first::first-letter {
+  text-transform: capitalize;
+}

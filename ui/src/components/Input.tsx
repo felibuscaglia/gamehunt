@@ -6,6 +6,7 @@ interface IProps {
   id: string;
   type?: "text" | "password" | "email";
   required?: boolean;
+  error?: string;
 }
 
 const Input: React.FC<IProps> = ({
@@ -15,7 +16,8 @@ const Input: React.FC<IProps> = ({
   onChange,
   id,
   type = "text",
-  required = false
+  required = false,
+  error
 }) => {
   return (
     <div className="flex flex-col gap-1 w-full">
@@ -31,6 +33,7 @@ const Input: React.FC<IProps> = ({
         type={type}
         required={required}
       />
+      {error && <span className="text-sm text-red-500 capitalize-first">{error}</span>}
     </div>
   );
 };

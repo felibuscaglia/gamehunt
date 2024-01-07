@@ -8,12 +8,20 @@ import { Link } from "react-router-dom";
 
 const LINK_CLASSNAMES = "underline";
 
+interface IInput {
+  fullName: string;
+  email: string;
+  password: string;
+}
+
 const SignUpScreen = () => {
-  const [input, setInput] = useState({
+  const [input, setInput] = useState<IInput>({
     fullName: "",
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState<{ [K in keyof IInput]?: string[] }>({});
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = ({
     target,
@@ -27,11 +35,15 @@ const SignUpScreen = () => {
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    setLoading(true);
+    setErrors({});
+
     apiClient
       .post(API_PATHS.SIGN_UP, {})
       .then(() => {})
       .catch((err) => {
-        console.log({ err });
+        setErrors(err);
+        setLoading(false);
       });
   };
 
@@ -51,6 +63,8 @@ const SignUpScreen = () => {
             value={input.fullName}
             onChange={handleInputChange}
             id="fullName"
+            error={(errors.fullName || [])[0]}
+            required
           />
           <Input
             label="Email"
@@ -59,6 +73,8 @@ const SignUpScreen = () => {
             onChange={handleInputChange}
             id="email"
             type="email"
+            error={(errors.email || [])[0]}
+            required
           />
           <Input
             label="Password"
@@ -67,8 +83,10 @@ const SignUpScreen = () => {
             onChange={handleInputChange}
             id="password"
             type="password"
+            error={(errors.password || [])[0]}
+            required
           />
-          <Button type="submit" text="Create account" />
+          <Button type="submit" text="Create account" loading={loading} />
         </form>
         <p className="text-xs w-1/2 text-gray-400 text-center">
           By clicking “Create account” above, you acknowledge that you have read

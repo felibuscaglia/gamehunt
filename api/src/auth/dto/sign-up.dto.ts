@@ -1,17 +1,14 @@
 import { CUSTOM_EMAIL_ERROR_MESSAGE } from 'auth/lib/constants';
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty } from 'class-validator';
 
 export class SignUpDto {
-  @IsNotEmpty()
-  @IsString()
+  @IsNotEmpty({ message: "Full name must not be empty" })
   fullName: string;
 
   @IsNotEmpty()
-  @IsString()
   @IsEmail({}, { message: CUSTOM_EMAIL_ERROR_MESSAGE })
   email: string;
 
   @IsNotEmpty()
-  @IsString()
   password: string;
 }
