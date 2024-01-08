@@ -1,10 +1,17 @@
+import { AxiosResponse, HttpStatusCode } from "axios";
 import Button from "components/Button";
 import Input from "components/Input";
 import Logo from "components/Logo";
 import { apiClient } from "lib/axios/apiClient";
-import { API_PATHS, APP_NAME, UI_PATHS } from "lib/constants";
+import {
+  API_PATHS,
+  APP_NAME,
+  UI_PATHS,
+  UNEXPECTED_ERROR_MSG,
+} from "lib/constants";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 
 const LINK_CLASSNAMES = "underline";
 
@@ -21,7 +28,10 @@ const SignUpScreen = () => {
     password: "",
   });
   const [errors, setErrors] = useState<{ [K in keyof IInput]?: string[] }>({});
+  const [emailConflictError, setEmailConflictError] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleInputChange = ({
     target,
@@ -37,12 +47,26 @@ const SignUpScreen = () => {
 
     setLoading(true);
     setErrors({});
+    setEmailConflictError(false);
 
     apiClient
-      .post(API_PATHS.SIGN_UP, {})
-      .then(() => {})
+      .post(API_PATHS.SIGN_UP, input)
+      .then<AxiosResponse>(() =>
+        apiClient.post(API_PATHS.LOGIN, {
+          email: input.email,
+          password: input.password,
+        })
+      )
+      .then(() => navigate(UI_PATHS.HOME))
       .catch((err) => {
-        setErrors(err);
+        if (err?.response?.data?.errors) {
+          setErrors(err.response.data.errors);
+        } else if(err.response.status === HttpStatusCode.Conflict) {
+          setEmailConflictError(true);
+        } else {
+          toast.error(UNEXPECTED_ERROR_MSG);
+        }
+
         setLoading(false);
       });
   };
@@ -56,6 +80,7 @@ const SignUpScreen = () => {
       </nav>
       <div className="flex-grow w-10/12 mx-auto flex flex-col items-center justify-center gap-8">
         <h2 className="text-5xl font-bold">Sign up</h2>
+        {emailConflictError && <p className="text-red-500">Email already in use. Please, login from <Link className="underline" to={UI_PATHS.LOGIN}>here</Link>.</p>}
         <form className="w-1/4 flex flex-col gap-4" onSubmit={handleFormSubmit}>
           <Input
             label="Full name"

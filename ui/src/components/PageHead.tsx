@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import AutoCompleteInput from "./AutoCompleteInput";
 import Logo from "./Logo";
 
-const UL_ELEMENTS = ["Home", "Topics", "Newsletter", "Advertise", "About"];
+const UL_ELEMENTS = ["Home", "Categories", "Newsletter", "Advertise", "About"];
 
 const SECTION_CLASSNAMES = "flex items-center gap-6 w-1/3";
 const BTN_CLASSNAMES =
@@ -31,7 +31,7 @@ const PageHead = () => {
         <AutoCompleteInput />
         <Link
           className="text-gray-500 hover:text-primary-brand-color whitespace-nowrap"
-          to={UI_PATHS.SIGN_IN}
+          to={UI_PATHS.LOGIN}
         >
           Sign in
         </Link>

@@ -15,8 +15,12 @@ export class AuthService {
   public async validateUser(email: string, password: string) {
     let result: Omit<User, 'password'> | null = null;
 
-    const user = await this.usersService.findOne({ email });
-
+    const user = await this.usersService.findOne({ email }, [], {
+      password: true,
+      email: true,
+      fullName: true,
+    });
+    
     if (user && (await compare(password, user.password))) {
       result = user;
     }
@@ -45,7 +49,7 @@ export class AuthService {
     const userAlreadyCreated = await this.usersService.findOne({ email });
 
     if (userAlreadyCreated) {
-      throw new ConflictException('Email already in use.');
+      throw new ConflictException();
     }
 
     const hashedPassword = await hash(signUpDto.password, await genSalt(10));

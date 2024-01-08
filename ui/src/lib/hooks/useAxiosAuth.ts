@@ -34,7 +34,7 @@ const useAxiosAuth = () => {
         }
 
         if (err.response?.status === HttpStatusCode.Unauthorized) {
-          navigate(UI_PATHS.SIGN_IN);
+          navigate(UI_PATHS.LOGIN);
         } else {
           return Promise.reject(err);
         }
