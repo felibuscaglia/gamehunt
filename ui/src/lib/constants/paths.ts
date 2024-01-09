@@ -15,4 +15,6 @@ export const API_PATHS = {
   SIGN_UP: "/auth/sign-up",
   REFRESH_TOKENS: "/auth/refresh",
   GET_ME: "/users/me",
+  SUBMIT_GAME: "/games",
+  GET_DRAFT_USER_GAMES: "/games/user?onlyDrafts=1"
 };

@@ -1,9 +1,9 @@
 import { ConflictException, Injectable } from '@nestjs/common';
-import { User } from 'entities';
 import { UsersService } from 'users/users.service';
-import { compare, genSalt, hash } from 'bcrypt';
-import { JwtService } from '@nestjs/jwt';
 import { SignUpDto } from './dto';
+import { JwtService } from '@nestjs/jwt';
+import { compare, genSalt, hash } from 'bcrypt';
+import { User } from 'entities';
 
 @Injectable()
 export class AuthService {
@@ -17,23 +17,25 @@ export class AuthService {
 
     const user = await this.usersService.findOne({ email }, [], {
       password: true,
-      email: true,
       fullName: true,
+      id: true,
+      email: true,
     });
-    
+
     if (user && (await compare(password, user.password))) {
-      result = user;
+      const { password, ...userData } = user;
+
+      result = userData;
     }
 
     return result;
   }
 
   public async login(user: User) {
-    const { email, fullName, id } = user;
     const payload = {
-      email,
-      fullName,
-      id,
+      email: user.email,
+      fullName: user.fullName,
+      id: user.id,
     };
 
     return {
@@ -46,7 +48,9 @@ export class AuthService {
   public async signUp(signUpDto: SignUpDto) {
     const { email } = signUpDto;
 
-    const userAlreadyCreated = await this.usersService.findOne({ email });
+    const userAlreadyCreated = await this.usersService.findOne({
+      email,
+    });
 
     if (userAlreadyCreated) {
       throw new ConflictException();

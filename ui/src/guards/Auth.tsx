@@ -1,4 +1,4 @@
-import { HttpStatusCode } from "axios";
+import { AxiosRequestConfig, HttpStatusCode } from "axios";
 import PageHead from "components/PageHead";
 import useAxiosAuth from "lib/hooks/useAxiosAuth";
 import { useState, useEffect } from "react";
@@ -8,11 +8,13 @@ import LoadingScreen from "screens/Loading";
 interface IAuthGuardProps<T> {
   children: (data: T) => React.ReactNode;
   apiPath: string;
+  method?: AxiosRequestConfig["method"];
 }
 
 const AuthGuard = <T,>({
   children,
   apiPath,
+  method = "GET",
 }: IAuthGuardProps<T>) => {
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
@@ -21,8 +23,10 @@ const AuthGuard = <T,>({
   const authApiClient = useAxiosAuth();
 
   useEffect(() => {
-    authApiClient
-      .get(apiPath)
+    authApiClient({
+      method,
+      url: apiPath,
+    })
       .then(({ data }) => {
         setApiData(data);
         setLoading(false);
@@ -52,6 +56,7 @@ const AuthGuard = <T,>({
 
   return (
     <>
+      <PageHead />
       {children(apiData)}
     </>
   );

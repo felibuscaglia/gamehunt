@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --font-family: 'Inter', sans-serif;
-  --primary-brand-color: #7E57C2;
+  --font-family: "Inter", sans-serif;
+
+  --primary-brand-color: #7e57c2;
+  --primary-brand-color-light: rgba(126, 87, 194, 0.3);
+  --primary-brand-color-medium: rgba(126, 87, 194, 0.7);
+
   --text-color: #040404;
 }
 
@@ -26,8 +30,4 @@ input {
 
 .capitalize-first::first-letter {
   text-transform: capitalize;
-}
-
-.bg-primary-brand-color-light {
-  background-color: rgba(126, 87, 194, .3);
 }

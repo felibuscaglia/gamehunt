@@ -14,13 +14,10 @@ export class RefreshJwtStrategy extends PassportStrategy(
       secretOrKey: process.env.JWT_SECRET,
     });
   }
+
   async validate(payload: any) {
     const { fullName, id, email } = payload;
 
-    return {
-      fullName,
-      id,
-      email,
-    };
+    return { fullName, id, email };
   }
 }

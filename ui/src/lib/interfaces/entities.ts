@@ -3,4 +3,12 @@ export interface IAuthUser {
   fullName: string;
 }
 
-export interface IGame {}
+interface IUser {
+
+}
+
+export interface IGame {
+  id: string;
+  name: string;
+  creator: IUser;
+}

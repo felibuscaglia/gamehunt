@@ -37,7 +37,7 @@ export class AuthController {
       httpOnly: true,
       domain: this.configService.get('UI_DOMAIN'),
     });
-    response.cookie(REFRESH_TOKEN_COOKIE_NAME, accessToken, {
+    response.cookie(REFRESH_TOKEN_COOKIE_NAME, refreshToken, {
       httpOnly: true,
       domain: this.configService.get('UI_DOMAIN'),
     });

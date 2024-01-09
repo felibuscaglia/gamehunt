@@ -5,6 +5,8 @@ module.exports = {
     extend: {
       colors: {
         "primary-brand-color": "var(--primary-brand-color)",
+        "primary-brand-color-light": "var(--primary-brand-color-light)",
+        "primary-brand-color-medium": "var(--primary-brand-color-medium)"
       },
     },
   },
