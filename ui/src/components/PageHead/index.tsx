@@ -1,7 +1,12 @@
-import { UI_PATHS } from "lib/constants";
+import { API_PATHS, IS_LOGGED_IN_KEY, UI_PATHS } from "lib/constants";
 import { Link } from "react-router-dom";
-import AutoCompleteInput from "./AutoCompleteInput";
-import Logo from "./Logo";
+import AutoCompleteInput from "../AutoCompleteInput";
+import Logo from "../Logo";
+import AuthButtons from "../AuthButtons";
+import UserPanel from "./UserPanel";
+import { useEffect, useState } from "react";
+import useAxiosAuth from "lib/hooks/useAxiosAuth";
+import { IAuthUser } from "lib/interfaces";
 
 const UL_ELEMENTS = ["Home", "Categories", "Newsletter", "Advertise", "About"];
 
@@ -10,6 +15,20 @@ const BTN_CLASSNAMES =
   "hover:bg-gray-100 text-gray-500 py-1 px-2 cursor-pointer hover:text-gray-700";
 
 const PageHead = () => {
+  const [loadingUser, setLoadingUser] = useState(true);
+  const [userNotLoggedIn, setUserNotLoggedIn] = useState(false);
+  const [user, setUser] = useState<IAuthUser>();
+  const axiosAuth = useAxiosAuth();
+
+  useEffect(() => {
+    axiosAuth.get<IAuthUser>(API_PATHS.GET_ME)
+      .then(({ data }) => {
+        setUser(data);
+        setLoadingUser(false);
+      })
+      .catch(() => setUserNotLoggedIn(true))
+  }, []);
+
   return (
     <nav className="border-b border-gray-100 p-4 mb-4 flex items-center justify-between">
       <section className={SECTION_CLASSNAMES}>
@@ -29,18 +48,11 @@ const PageHead = () => {
       </section>
       <section className={SECTION_CLASSNAMES + " justify-end"}>
         <AutoCompleteInput />
-        <Link
-          className="text-gray-500 hover:text-primary-brand-color whitespace-nowrap"
-          to={UI_PATHS.LOGIN}
-        >
-          Sign in
-        </Link>
-        <Link
-          className="text-white bg-primary-brand-color rounded px-4 py-2 whitespace-nowrap"
-          to={UI_PATHS.SIGN_UP}
-        >
-          Sign up
-        </Link>
+        {localStorage.getItem(IS_LOGGED_IN_KEY) === "1" || userNotLoggedIn ? (
+          <UserPanel loading={loadingUser} user={user} />
+        ) : (
+          <AuthButtons />
+        )}
       </section>
     </nav>
   );

@@ -27,3 +27,7 @@ input {
 .capitalize-first::first-letter {
   text-transform: capitalize;
 }
+
+.bg-primary-brand-color-light {
+  background-color: rgba(126, 87, 194, .3);
+}

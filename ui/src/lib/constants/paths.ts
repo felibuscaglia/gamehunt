@@ -1,9 +1,12 @@
 export const UI_PATHS = {
   HOME: "/",
-  LOGIN: "/sign-in",
+  LOGIN: "/login",
   SIGN_UP: "/sign-up",
   TERMS: "/terms-and-conditions",
   PRIVACY_POLICY: "/privacy-policy",
+  RECOVER_PASSWORD: "/recover-password",
+  SUBMIT_GAME: "/games/new",
+  NOTIFICATIONS: "/notifications",
 };
 
 export const API_PATHS = {
@@ -11,4 +14,5 @@ export const API_PATHS = {
   SIGN_OUT: "/auth/sign-out",
   SIGN_UP: "/auth/sign-up",
   REFRESH_TOKENS: "/auth/refresh",
+  GET_ME: "/users/me",
 };

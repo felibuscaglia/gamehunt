@@ -42,7 +42,10 @@ export class AuthController {
       domain: this.configService.get('UI_DOMAIN'),
     });
 
-    return { accessToken, refreshToken };
+    return {
+      accessToken,
+      refreshToken,
+    };
   }
 
   @Post('sign-out')
