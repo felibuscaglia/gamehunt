@@ -23,14 +23,16 @@ const GameSubmitFormSectionSelector: React.FC<IProps> = ({
   setSelectedSection,
 }) => {
   return (
-    <div className="flex flex-col w-3/12 gap-1">
-      {SECTIONS.map((section, i) => (
-        <Section
-          {...section}
-          selected={selectedSection === i}
-          onClick={() => setSelectedSection(i)}
-        />
-      ))}
+    <div className="w-3/12">
+      <div className="flex flex-col gap-1 sticky top-[200px]">
+        {SECTIONS.map((section, i) => (
+          <Section
+            {...section}
+            selected={selectedSection === i}
+            onClick={() => setSelectedSection(i)}
+          />
+        ))}
+      </div>
     </div>
   );
 };

@@ -21,16 +21,17 @@ const PageHead = () => {
   const axiosAuth = useAxiosAuth();
 
   useEffect(() => {
-    axiosAuth.get<IAuthUser>(API_PATHS.GET_ME)
+    axiosAuth
+      .get<IAuthUser>(API_PATHS.GET_ME)
       .then(({ data }) => {
         setUser(data);
         setLoadingUser(false);
       })
-      .catch(() => setUserNotLoggedIn(true))
+      .catch(() => setUserNotLoggedIn(true));
   }, []);
 
   return (
-    <nav className="border-b border-gray-100 p-4 mb-4 flex items-center justify-between">
+    <nav className="sticky top-0 bg-white border-b border-gray-100 p-4 mb-4 flex items-center justify-between h-20">
       <section className={SECTION_CLASSNAMES}>
         <Link to={UI_PATHS.HOME}>
           <Logo />
