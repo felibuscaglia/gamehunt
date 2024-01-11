@@ -1,16 +1,16 @@
 import {
   IconDeviceGamepad,
+  IconLink,
   IconPhoto,
-  IconPlus,
   IconUsersGroup,
 } from "@tabler/icons-react";
 import Section from "./Section";
 
 const SECTIONS = [
   { name: "Main info", icon: IconDeviceGamepad },
+  { name: "Links", icon: IconLink },
   { name: "Media", icon: IconPhoto },
   { name: "Creators", icon: IconUsersGroup },
-  { name: "Extras", icon: IconPlus },
 ];
 
 interface IProps {

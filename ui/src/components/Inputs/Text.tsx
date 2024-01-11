@@ -10,9 +10,11 @@ interface IProps {
   type?: "text" | "password" | "email";
   required?: boolean;
   error?: string;
+  textSize?: "base" | "small";
+  limit?: number;
 }
 
-const Input: React.FC<IProps> = ({
+const TextInput: React.FC<IProps> = ({
   placeholder,
   label,
   value,
@@ -21,19 +23,41 @@ const Input: React.FC<IProps> = ({
   type = "text",
   required = false,
   error,
+  textSize = "base",
+  limit,
 }) => {
   const [display, setDisplay] = useState(false);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+
+    if (limit && inputValue.length > limit) {
+      return;
+    }
+
+    onChange(e);
+  };
+
   return (
     <div className="flex flex-col gap-1 w-full">
       {label && (
-        <label className="text-sm text-gray-500 font-medium">{label}</label>
+        <div className="flex items-center justify-between">
+          <label className="text-sm text-gray-500 font-medium">{label}</label>
+          {limit && (
+            <span className="text-sm text-gray-500">
+              {value.length}/{limit}
+            </span>
+          )}
+        </div>
       )}
       <div className="bg-gray-100 rounded px-3 py-2 flex items-center justify-between">
         <input
-          className="placeholder:text-gray-400 bg-transparent w-full"
+          className={`${
+            textSize === "base" ? "text-base" : "text-sm"
+          } placeholder:text-gray-400 bg-transparent w-full`}
           placeholder={placeholder}
           value={value}
-          onChange={onChange}
+          onChange={handleInputChange}
           id={id}
           type={type === "password" && display ? "text" : type}
           required={required}
@@ -55,4 +79,4 @@ const Input: React.FC<IProps> = ({
   );
 };
 
-export default Input;
+export default TextInput;

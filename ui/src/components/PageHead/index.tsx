@@ -1,6 +1,6 @@
 import { API_PATHS, IS_LOGGED_IN_KEY, UI_PATHS } from "lib/constants";
 import { Link } from "react-router-dom";
-import AutoCompleteInput from "../AutoCompleteInput";
+import AutoCompleteInput from "../Inputs/AutoComplete";
 import Logo from "../Logo";
 import AuthButtons from "../AuthButtons";
 import UserPanel from "./UserPanel";
@@ -48,8 +48,8 @@ const PageHead = () => {
         </ul>
       </section>
       <section className={SECTION_CLASSNAMES + " justify-end"}>
-        <AutoCompleteInput />
-        {localStorage.getItem(IS_LOGGED_IN_KEY) === "1" || userNotLoggedIn ? (
+        <AutoCompleteInput withIcon placeholder="Search games..." />
+        {localStorage.getItem(IS_LOGGED_IN_KEY) === "1" || !userNotLoggedIn ? (
           <UserPanel loading={loadingUser} user={user} />
         ) : (
           <AuthButtons />

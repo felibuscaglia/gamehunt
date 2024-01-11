@@ -1,5 +1,5 @@
 import { HttpStatusCode } from "axios";
-import Input from "components/Input";
+import TextInput from "components/Inputs/Text";
 import AuthFormLayout from "layouts/AuthForm";
 import { apiClient } from "lib/axios/apiClient";
 import { API_PATHS, IS_LOGGED_IN_KEY, UI_PATHS, UNEXPECTED_ERROR_MSG } from "lib/constants";
@@ -63,7 +63,7 @@ const LogInScreen = () => {
         </Link>
       }
     >
-      <Input
+      <TextInput
         label="Email"
         value={input.email}
         onChange={handleInputChange}
@@ -72,7 +72,7 @@ const LogInScreen = () => {
         placeholder="Enter your email address..."
         required
       />
-      <Input
+      <TextInput
         label="Password"
         value={input.password}
         onChange={handleInputChange}

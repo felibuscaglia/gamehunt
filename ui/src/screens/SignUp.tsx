@@ -1,5 +1,5 @@
 import { AxiosResponse, HttpStatusCode } from "axios";
-import Input from "components/Input";
+import TextInput from "components/Inputs/Text";
 import AuthFormLayout from "layouts/AuthForm";
 import { apiClient } from "lib/axios/apiClient";
 import {
@@ -101,7 +101,7 @@ const SignUpScreen = () => {
         </p>
       }
     >
-      <Input
+      <TextInput
         label="Full name"
         placeholder="Enter your full name..."
         value={input.fullName}
@@ -110,7 +110,7 @@ const SignUpScreen = () => {
         error={(errors.fullName || [])[0]}
         required
       />
-      <Input
+      <TextInput
         label="Email"
         placeholder="Enter your email address..."
         value={input.email}
@@ -120,7 +120,7 @@ const SignUpScreen = () => {
         error={(errors.email || [])[0]}
         required
       />
-      <Input
+      <TextInput
         label="Password"
         placeholder="Enter your password..."
         value={input.password}

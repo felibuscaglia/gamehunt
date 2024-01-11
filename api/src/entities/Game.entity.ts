@@ -20,6 +20,12 @@ class Game {
   @Column({ nullable: false, default: 'Draft game' })
   name: string;
 
+  @Column({ nullable: true })
+  tagline?: string;
+
+  @Column({ nullable: true })
+  description?: string;
+
   @Column({
     type: 'enum',
     enum: GameStatus,

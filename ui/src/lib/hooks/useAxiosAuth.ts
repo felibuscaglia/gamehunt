@@ -1,5 +1,6 @@
 import { HttpStatusCode } from "axios";
 import { authClient, apiClient } from "lib/axios/apiClient";
+import { IS_LOGGED_IN_KEY } from "lib/constants";
 import { API_PATHS, UI_PATHS } from "lib/constants/paths";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -34,7 +35,8 @@ const useAxiosAuth = () => {
         }
 
         if (err.response?.status === HttpStatusCode.Unauthorized) {
-          navigate(UI_PATHS.LOGIN);
+          localStorage.removeItem(IS_LOGGED_IN_KEY);
+          navigate(UI_PATHS.HOME);
         } else {
           return Promise.reject(err);
         }
