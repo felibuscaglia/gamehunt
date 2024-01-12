@@ -7,6 +7,8 @@ export const UI_PATHS = {
   RECOVER_PASSWORD: "/recover-password",
   SUBMIT_GAME: "/games/new",
   NOTIFICATIONS: "/notifications",
+  EDIT_CATEGORIES: "/admin/categories",
+  EDIT_USERS: "/admin/users",
 };
 
 export const API_PATHS = {
@@ -16,5 +18,6 @@ export const API_PATHS = {
   REFRESH_TOKENS: "/auth/refresh",
   GET_ME: "/users/me",
   SUBMIT_GAME: "/games",
-  GET_DRAFT_USER_GAMES: "/games/user?onlyDrafts=1"
+  GET_DRAFT_USER_GAMES: "/games/user?onlyDrafts=1",
+  GET_CATEGORIES: "/categories"
 };

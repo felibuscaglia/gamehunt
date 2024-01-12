@@ -1,12 +1,17 @@
 import { IGame } from "lib/interfaces";
-import SectionsSelector from "./SectionSelector";
-import Button from "components/Button";
 import { useState } from "react";
 import MainInfoSection from "./Sections/MainInfo";
 import LinksSection from "./Sections/Links";
 import MediaSection from "./Sections/Media";
 import CreatorsSection from "./Sections/Creators";
 import { GameFormContext } from "lib/contexts/GameForm.context";
+import SidebarLayout from "layouts/Sidebar";
+import {
+  IconDeviceGamepad,
+  IconLink,
+  IconPhoto,
+  IconUsersGroup,
+} from "@tabler/icons-react";
 
 const sectionComponent = (selectedSection: number) => {
   let component: React.ReactNode;
@@ -29,6 +34,13 @@ const sectionComponent = (selectedSection: number) => {
   return component;
 };
 
+const SIDEBAR_SECTIONS = [
+  { text: "Main info", icon: IconDeviceGamepad },
+  { text: "Links", icon: IconLink },
+  { text: "Media", icon: IconPhoto },
+  { text: "Creators", icon: IconUsersGroup },
+];
+
 interface IProps {
   game: IGame;
 }
@@ -38,23 +50,17 @@ const GameSubmitForm: React.FC<IProps> = ({ game }) => {
   const [input, setInput] = useState({ ...game });
 
   return (
-    <section className="w-10/12 mx-auto">
-      <div className="border-b sticky top-20 bg-white border-b-gray-200 py-5 flex items-center justify-between">
-        <h2 className="text-center text-3xl font-bold">{input.name}</h2>
-        <div className="w-1/12">
-          <Button text="Publish" />
-        </div>
-      </div>
-      <div className="flex gap-8 mt-8 justify-space-between flex-1">
-        <SectionsSelector
-          selectedSection={selectedSection}
-          setSelectedSection={setSelectedSection}
-        />
-        <GameFormContext.Provider value={{ input, setInput }}>
-          <form className="w-full">{sectionComponent(selectedSection)}</form>
-        </GameFormContext.Provider>
-      </div>
-    </section>
+    <SidebarLayout
+      btnText="Publish"
+      title={input.name}
+      selectedSectionIndex={selectedSection}
+      sections={SIDEBAR_SECTIONS}
+      onSectionClick={(index: number) => setSelectedSection(index)}
+    >
+      <GameFormContext.Provider value={{ input, setInput }}>
+        <form className="w-full">{sectionComponent(selectedSection)}</form>
+      </GameFormContext.Provider>
+    </SidebarLayout>
   );
 };
 

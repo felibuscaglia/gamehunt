@@ -1,14 +1,14 @@
 import { Icon } from "@tabler/icons-react";
 
 interface IProps {
-  name: string;
+  text: string;
   icon: Icon;
   selected: boolean;
   onClick: () => void;
 }
 
 const GameSubmitFormSection: React.FC<IProps> = ({
-  name,
+  text,
   icon: Icon,
   selected,
   onClick,
@@ -23,7 +23,7 @@ const GameSubmitFormSection: React.FC<IProps> = ({
       } rounded flex items-center gap-2`}
     >
       <Icon />
-      <span>{name}</span>
+      <span>{text}</span>
     </button>
   );
 };

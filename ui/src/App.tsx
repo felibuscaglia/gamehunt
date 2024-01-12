@@ -6,7 +6,8 @@ import LogInScreen from "screens/Login";
 import GameSubmitScreen from "screens/GameSubmit";
 
 import { Toaster } from "react-hot-toast";
-import 'react-loading-skeleton/dist/skeleton.css';
+import "react-loading-skeleton/dist/skeleton.css";
+import AdminPortalScreen from "screens/AdminPortal";
 
 const App = () => {
   return (
@@ -17,6 +18,11 @@ const App = () => {
           <Route element={<SignUpScreen />} path={UI_PATHS.SIGN_UP} />
           <Route element={<LogInScreen />} path={UI_PATHS.LOGIN} />
           <Route element={<GameSubmitScreen />} path={UI_PATHS.SUBMIT_GAME} />
+          <Route
+            element={<AdminPortalScreen />}
+            path={UI_PATHS.EDIT_CATEGORIES}
+          />
+          <Route element={<AdminPortalScreen />} path={UI_PATHS.EDIT_USERS} />
         </Routes>
       </Router>
       <Toaster

@@ -5,8 +5,8 @@ import Logo from "../Logo";
 import AuthButtons from "../AuthButtons";
 import UserPanel from "./UserPanel";
 import { useEffect, useState } from "react";
-import useAxiosAuth from "lib/hooks/useAxiosAuth";
 import { IAuthUser } from "lib/interfaces";
+import { apiClient } from "lib/axios/apiClient";
 
 const UL_ELEMENTS = ["Home", "Categories", "Newsletter", "Advertise", "About"];
 
@@ -18,10 +18,9 @@ const PageHead = () => {
   const [loadingUser, setLoadingUser] = useState(true);
   const [userNotLoggedIn, setUserNotLoggedIn] = useState(false);
   const [user, setUser] = useState<IAuthUser>();
-  const axiosAuth = useAxiosAuth();
 
   useEffect(() => {
-    axiosAuth
+    apiClient
       .get<IAuthUser>(API_PATHS.GET_ME)
       .then(({ data }) => {
         setUser(data);

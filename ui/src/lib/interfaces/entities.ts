@@ -12,3 +12,7 @@ export interface IGame {
   tagline?: string;
   description?: string;
 }
+
+export interface ICategory {
+  name: string;
+}
