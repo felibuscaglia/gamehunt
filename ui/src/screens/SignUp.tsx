@@ -5,6 +5,7 @@ import { apiClient } from "lib/axios/apiClient";
 import {
   API_PATHS,
   APP_NAME,
+  IS_LOGGED_IN_KEY,
   UI_PATHS,
   UNEXPECTED_ERROR_MSG,
 } from "lib/constants";
@@ -56,7 +57,10 @@ const SignUpScreen = () => {
           password: input.password,
         })
       )
-      .then(() => navigate(UI_PATHS.HOME))
+      .then(() => {
+        localStorage.setItem(IS_LOGGED_IN_KEY, "1");
+        navigate(UI_PATHS.HOME);
+      })
       .catch((err) => {
         if (err?.response?.data?.errors) {
           setErrors(err.response.data.errors);

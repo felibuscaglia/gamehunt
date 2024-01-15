@@ -48,7 +48,7 @@ const PageHead = () => {
       </section>
       <section className={SECTION_CLASSNAMES + " justify-end"}>
         <AutoCompleteInput withIcon placeholder="Search games..." />
-        {localStorage.getItem(IS_LOGGED_IN_KEY) === "1" && !userNotLoggedIn ? (
+        {localStorage.getItem(IS_LOGGED_IN_KEY) === "1" || user ? (
           <UserPanel loading={loadingUser} user={user} />
         ) : (
           <AuthButtons />
