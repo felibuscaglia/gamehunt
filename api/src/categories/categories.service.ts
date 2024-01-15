@@ -10,7 +10,10 @@ export class CategoriesService {
     private readonly categoriesRepository: Repository<Category>,
   ) {}
 
-  public findAll() {
-    return this.categoriesRepository.find();
+  public findAll(limit?: number, offset?: number) {
+    return this.categoriesRepository.find({
+      take: limit,
+      skip: offset * limit,
+    });
   }
 }

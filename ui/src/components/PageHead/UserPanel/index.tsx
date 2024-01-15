@@ -28,5 +28,3 @@ const UserPanel: React.FC<IProps> = ({ loading, user }) => {
 };
 
 export default UserPanel;
-
-// 53 34

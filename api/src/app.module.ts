@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { GamesModule } from './games/games.module';
 import { CategoriesModule } from './categories/categories.module';
+import { AdminModule } from './admin/admin.module';
 import entities from './entities';
 
 @Module({
@@ -29,6 +30,7 @@ import entities from './entities';
     UsersModule,
     GamesModule,
     CategoriesModule,
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [],

@@ -6,7 +6,10 @@ import ErrorScreen from "screens/Error";
 import LoadingScreen from "screens/Loading";
 
 interface IAuthGuardProps<T> {
-  children: (data: T) => React.ReactNode;
+  children: (
+    data: T,
+    setData: React.Dispatch<React.SetStateAction<T | null>>
+  ) => React.ReactNode;
   apiPath: string;
   method?: AxiosRequestConfig["method"];
 }
@@ -57,7 +60,7 @@ const AuthGuard = <T,>({
   return (
     <>
       <PageHead />
-      {children(apiData)}
+      {children(apiData, setApiData)}
     </>
   );
 };

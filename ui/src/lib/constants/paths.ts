@@ -19,5 +19,6 @@ export const API_PATHS = {
   GET_ME: "/users/me",
   SUBMIT_GAME: "/games",
   GET_DRAFT_USER_GAMES: "/games/user?onlyDrafts=1",
-  GET_CATEGORIES: "/categories"
+  GET_CATEGORIES: "/categories",
+  GET_ADMIN_CATEGORIES: "/admin/categories",
 };

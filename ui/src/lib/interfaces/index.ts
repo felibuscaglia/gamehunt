@@ -13,3 +13,7 @@ export interface ISidebarSection {
   icon: Icon;
   path?: string;
 }
+
+export interface IInfiniteScrollListElement {
+  name: string;
+}
