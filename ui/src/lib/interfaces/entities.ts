@@ -1,6 +1,9 @@
+import { USER_ROLES } from "lib/enums";
+
 export interface IAuthUser {
   email: string;
   fullName: string;
+  role: USER_ROLES;
 }
 
 interface IUser {}

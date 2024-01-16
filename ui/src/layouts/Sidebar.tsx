@@ -6,6 +6,7 @@ interface IProps {
   children: React.ReactNode;
   title: string;
   btnText?: string;
+  onBtnClick?: () => void;
   selectedSectionIndex: number;
   sections: ISidebarSection[];
   onSectionClick: (index: number) => void;
@@ -18,6 +19,7 @@ const SidebarLayout: React.FC<IProps> = ({
   selectedSectionIndex,
   sections,
   onSectionClick,
+  onBtnClick,
 }) => {
   return (
     <section className="w-10/12 mx-auto">
@@ -25,7 +27,7 @@ const SidebarLayout: React.FC<IProps> = ({
         <h2 className="text-center text-3xl font-bold">{title}</h2>
         {btnText && (
           <div className="w-1/12">
-            <Button text="Publish" />
+            <Button text={btnText} onClick={onBtnClick} />
           </div>
         )}
       </div>

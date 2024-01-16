@@ -4,6 +4,7 @@ import AuthGuard from "guards/Auth";
 import SidebarLayout from "layouts/Sidebar";
 import { API_PATHS, UI_PATHS } from "lib/constants";
 import { ICategory, ISidebarSection } from "lib/interfaces";
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const currLocationInfo = (pathname: string) => {
@@ -41,10 +42,18 @@ const SIDEBAR_SECTIONS: ISidebarSection[] = [
 ];
 
 const AdminPortalScreen = () => {
+  const [editMode, setEditMode] = useState(false);
+
   const location = useLocation();
   const navigate = useNavigate();
 
   const currentLocationInfo = currLocationInfo(location.pathname);
+
+  const handleSidebarBtnClick = () => {
+    if (!editMode) {
+      setEditMode(true);
+    }
+  };
 
   return (
     <AuthGuard<ICategory[]> apiPath={currentLocationInfo.apiPath}>
@@ -53,11 +62,18 @@ const AdminPortalScreen = () => {
           title={currentLocationInfo.title}
           selectedSectionIndex={currentLocationInfo.index}
           sections={SIDEBAR_SECTIONS}
+          btnText="New"
+          onBtnClick={handleSidebarBtnClick}
           onSectionClick={(index: number) =>
             navigate(SIDEBAR_SECTIONS[index].path || "")
           }
         >
-          <AdminPanel content={content} setContent={setContent} />
+          <AdminPanel
+            content={content}
+            setContent={setContent}
+            editMode={editMode}
+            setEditMode={setEditMode}
+          />
         </SidebarLayout>
       )}
     </AuthGuard>

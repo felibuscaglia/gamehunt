@@ -7,12 +7,11 @@ import { USER_ROLES } from 'users/lib/enums';
 
 @Controller('admin')
 @Roles(USER_ROLES.ADMIN)
-@UseGuards(JwtGuard)
+@UseGuards(JwtGuard, RolesGuard)
 export class AdminController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
   @Get('/categories')
-  @UseGuards(RolesGuard)
   getCategories(
     @Query('limit') limit?: number,
     @Query('offset') offset?: number,

@@ -21,7 +21,7 @@ const LinksSection = () => {
         <h6 className="font-bold text-2xl">Where can users find your game?</h6>
       <section className="w-1/2 flex flex-col gap-4">
         {LINK_OPTIONS.map((linkOption) => (
-          <CheckboxInput label={linkOption} />
+          <CheckboxInput key={`checkbox-input-option-${linkOption}`} label={linkOption} />
         ))}
       </section>
       <hr className="border-t border-t-gray-200 my-8" />

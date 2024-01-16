@@ -3,7 +3,8 @@ import { PRIMARY_BRAND_COLOR, UI_PATHS } from "lib/constants";
 import { IAuthUser } from "lib/interfaces";
 import Skeleton from "react-loading-skeleton";
 import { Link } from "react-router-dom";
-import Dropdown from './Dropdown';
+import Dropdown from "./Dropdown";
+import { USER_ROLES } from "lib/enums";
 
 interface IProps {
   loading: boolean;
@@ -22,7 +23,11 @@ const UserPanel: React.FC<IProps> = ({ loading, user }) => {
       <Link to={UI_PATHS.NOTIFICATIONS}>
         <IconBell color={PRIMARY_BRAND_COLOR} />
       </Link>
-      {loading ? <Skeleton circle height={40} width={40} /> : <Dropdown />}
+      {loading ? (
+        <Skeleton circle height={40} width={40} />
+      ) : (
+        <Dropdown isAdmin={user?.role === USER_ROLES.ADMIN} />
+      )}
     </div>
   );
 };

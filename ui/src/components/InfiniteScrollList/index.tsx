@@ -1,5 +1,7 @@
 import { IInfiniteScrollListElement } from "lib/interfaces";
 import InfiniteScroll from "react-infinite-scroll-component";
+import Logo from "../Logo";
+import Element from "./Element";
 
 interface IProps {
   elements: IInfiniteScrollListElement[];
@@ -12,15 +14,26 @@ const InfiniteScrollList: React.FC<IProps> = ({
   hasMore,
   fetchData,
 }) => {
+  const endMessage = elements.length ? (
+    <></>
+  ) : (
+    <div className="mt-20 flex items-center justify-center gap-4 h-full">
+      <Logo />
+      <h4 className="text-center text-xl font-bold">Nothing here yet...</h4>
+    </div>
+  );
+
   return (
     <InfiniteScroll
       dataLength={elements.length}
       hasMore={hasMore}
       next={fetchData}
       loader={<h4>Loading...</h4>}
+      endMessage={endMessage}
+      height={300}
     >
       {elements.map((el) => (
-        <div className="bg-red-900">{el.name}</div>
+        <Element {...el} key={`infinite-scroll-element-${el.name}`} />
       ))}
     </InfiniteScroll>
   );

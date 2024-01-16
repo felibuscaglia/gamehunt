@@ -16,6 +16,7 @@ const Sidebar: React.FC<IProps> = ({ selectedSection, onSectionClick, sections }
             {...section}
             selected={selectedSection === i}
             onClick={() => onSectionClick(i)}
+            key={`sidebar-section-${i}`}
           />
         ))}
       </div>

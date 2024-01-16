@@ -1,4 +1,4 @@
-import { IconEye, IconEyeOff } from "@tabler/icons-react";
+import { Icon, IconEye, IconEyeOff } from "@tabler/icons-react";
 import { useState } from "react";
 
 interface IProps {
@@ -12,6 +12,7 @@ interface IProps {
   error?: string;
   textSize?: "base" | "small";
   limit?: number;
+  icon?: Icon;
 }
 
 const TextInput: React.FC<IProps> = ({
@@ -25,6 +26,7 @@ const TextInput: React.FC<IProps> = ({
   error,
   textSize = "base",
   limit,
+  icon: Icon = null,
 }) => {
   const [display, setDisplay] = useState(false);
 
@@ -51,6 +53,7 @@ const TextInput: React.FC<IProps> = ({
         </div>
       )}
       <div className="bg-gray-100 rounded px-3 py-2 flex items-center justify-between">
+        {Icon && <Icon size={20} className="text-gray-400 mr-2" />}
         <input
           className={`${
             textSize === "base" ? "text-base" : "text-sm"
