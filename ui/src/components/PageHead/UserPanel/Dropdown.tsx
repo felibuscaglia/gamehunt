@@ -8,7 +8,7 @@ import {
 } from "lib/constants";
 import useAxiosAuth from "lib/hooks/useAxiosAuth";
 import { Fragment } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface IProps {
   isAdmin: boolean;
@@ -17,13 +17,12 @@ interface IProps {
 const ICON_SIZE = 15;
 
 const UserPanelDropdown: React.FC<IProps> = ({ isAdmin }) => {
-  const navigate = useNavigate();
   const axiosAuth = useAxiosAuth();
 
   const logout = () => {
     axiosAuth.post(API_PATHS.SIGN_OUT);
     localStorage.removeItem(IS_LOGGED_IN_KEY);
-    navigate(UI_PATHS.HOME);
+    window.location.reload();
   };
 
   return (

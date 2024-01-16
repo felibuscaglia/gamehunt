@@ -8,7 +8,7 @@ import { USER_ROLES } from "lib/enums";
 
 interface IProps {
   loading: boolean;
-  user?: IAuthUser;
+  user?: IAuthUser | null;
 }
 
 const UserPanel: React.FC<IProps> = ({ loading, user }) => {

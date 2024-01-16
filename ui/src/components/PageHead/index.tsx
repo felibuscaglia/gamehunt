@@ -4,9 +4,8 @@ import AutoCompleteInput from "../Inputs/AutoComplete";
 import Logo from "../Logo";
 import AuthButtons from "../AuthButtons";
 import UserPanel from "./UserPanel";
-import { useEffect, useState } from "react";
-import { IAuthUser } from "lib/interfaces";
-import { apiClient } from "lib/axios/apiClient";
+import { useContext } from "react";
+import { UserContext } from "lib/contexts/User.context";
 
 const UL_ELEMENTS = ["Home", "Categories", "Newsletter", "Advertise", "About"];
 
@@ -15,18 +14,7 @@ const BTN_CLASSNAMES =
   "hover:bg-gray-100 text-gray-500 py-1 px-2 cursor-pointer hover:text-gray-700";
 
 const PageHead = () => {
-  const [loadingUser, setLoadingUser] = useState(true);
-  const [user, setUser] = useState<IAuthUser>();
-
-  useEffect(() => {
-    apiClient
-      .get<IAuthUser>(API_PATHS.GET_ME) // TODO: Move this to the app level. 
-      .then(({ data }) => {
-        setUser(data);
-        setLoadingUser(false);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+  const { user } = useContext(UserContext);
 
   return (
     <nav className="z-50 sticky top-0 bg-white border-b border-gray-100 p-4 mb-4 flex items-center justify-between h-20">
@@ -48,7 +36,7 @@ const PageHead = () => {
       <section className={SECTION_CLASSNAMES + " justify-end"}>
         <AutoCompleteInput withIcon placeholder="Search games..." />
         {localStorage.getItem(IS_LOGGED_IN_KEY) === "1" || user ? (
-          <UserPanel loading={loadingUser} user={user} />
+          <UserPanel loading={user === undefined} user={user} />
         ) : (
           <AuthButtons />
         )}
