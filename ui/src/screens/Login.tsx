@@ -2,16 +2,24 @@ import { HttpStatusCode } from "axios";
 import TextInput from "components/Inputs/Text";
 import AuthFormLayout from "layouts/AuthForm";
 import { apiClient } from "lib/axios/apiClient";
-import { API_PATHS, IS_LOGGED_IN_KEY, UI_PATHS, UNEXPECTED_ERROR_MSG } from "lib/constants";
+import {
+  API_PATHS,
+  IS_LOGGED_IN_KEY,
+  UI_PATHS,
+  UNEXPECTED_ERROR_MSG,
+} from "lib/constants";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "store";
+import { loadUser } from "store/features/loadingSlice";
 
 const LogInScreen = () => {
   const [input, setInput] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handleInputChange = ({
@@ -33,6 +41,7 @@ const LogInScreen = () => {
       .post(API_PATHS.LOGIN, input)
       .then(() => {
         localStorage.setItem(IS_LOGGED_IN_KEY, "1");
+        dispatch(loadUser(true));
         navigate(UI_PATHS.HOME);
       })
       .catch((err) => {
