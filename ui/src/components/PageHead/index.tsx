@@ -14,8 +14,7 @@ const BTN_CLASSNAMES =
 
 const PageHead = () => {
   const user = useAppSelector((state) => state.user.user);
-  console.log({ user });
-  const loadingUser = useAppSelector((state) => state.user.loading);
+  const loadingUser = useAppSelector((state) => state.loading.user);
 
   return (
     <nav className="z-50 sticky top-0 bg-white border-b border-gray-100 p-4 mb-4 flex items-center justify-between h-20">

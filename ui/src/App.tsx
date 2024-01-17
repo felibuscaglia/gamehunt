@@ -11,20 +11,30 @@ import AdminPortalScreen from "screens/AdminPortal";
 import { useEffect } from "react";
 import { apiClient } from "lib/axios/apiClient";
 import { IAuthUser } from "lib/interfaces";
-import { useAppDispatch } from "store";
+import { useAppDispatch, useAppSelector } from "store";
 import { addUser } from "store/features/userSlice";
+import { loadUser } from "store/features/loadingSlice";
 
 const App = () => {
+  const loadingUser = useAppSelector((state) => state.loading.user);
+  const user = useAppSelector((state) => state.user.user);
   const dispatch = useAppDispatch();
 
+  const dispatchUser = (user: IAuthUser | null) => {
+    dispatch(addUser(user));
+    dispatch(loadUser(false));
+  };
+
   useEffect(() => {
-    apiClient
-      .get<IAuthUser>(API_PATHS.GET_ME)
-      .then(({ data }) => {
-        dispatch(addUser(data));
-      })
-      .catch(() => dispatch(addUser(null)));
-  }, [dispatch]);
+    console.log("I ENTER HERRE BEFORE!");
+    if (!user && loadingUser) {
+      console.log("I ENTER HERRE INSIDE!");
+      apiClient
+        .get<IAuthUser>(API_PATHS.GET_ME)
+        .then(({ data }) => dispatchUser(data))
+        .catch(() => dispatchUser(null));
+    }
+  }, [loadingUser, dispatch]);
 
   return (
     <>
