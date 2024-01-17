@@ -5,7 +5,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { GamesModule } from './games/games.module';
-import { CategoriesModule } from './categories/categories.module';
+import { GenresModule } from './genres/genre.module';
 import { AdminModule } from './admin/admin.module';
 import entities from './entities';
 
@@ -29,7 +29,7 @@ import entities from './entities';
     AuthModule,
     UsersModule,
     GamesModule,
-    CategoriesModule,
+    GenresModule,
     AdminModule,
   ],
   controllers: [AppController],

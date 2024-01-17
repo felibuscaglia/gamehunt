@@ -2,22 +2,19 @@ import Button from "components/Button";
 import TextInput from "components/Inputs/Text";
 import { API_PATHS } from "lib/constants";
 import useAxiosAuth from "lib/hooks/useAxiosAuth";
-import { ICategory } from "lib/interfaces";
+import { IGenre } from "lib/interfaces";
 import { useState } from "react";
 
 interface IProps {
   exitEditMode: () => void;
-  appendNewCategory: (newCategory: ICategory) => void;
+  appendNewGenre: (newGenre: IGenre) => void;
 }
 
 interface IInput {
   name: string;
 }
 
-const AdminPanelForm: React.FC<IProps> = ({
-  exitEditMode,
-  appendNewCategory,
-}) => {
+const AdminPanelForm: React.FC<IProps> = ({ exitEditMode, appendNewGenre }) => {
   const [input, setInput] = useState<IInput>({ name: "" });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<{ [K in keyof IInput]?: string[] }>({});
@@ -40,9 +37,9 @@ const AdminPanelForm: React.FC<IProps> = ({
     setErrors({});
 
     axiosAuth
-      .post<ICategory>(API_PATHS.CREATE_CATEGORY, input)
-      .then(({ data: newCategory }) => {
-        appendNewCategory(newCategory);
+      .post<IGenre>(API_PATHS.CREATE_GENRE, input)
+      .then(({ data: newGenre }) => {
+        appendNewGenre(newGenre);
         exitEditMode();
       })
       .catch((err) => {
@@ -63,7 +60,7 @@ const AdminPanelForm: React.FC<IProps> = ({
         onSubmit={handleFormSubmit}
         className="flex flex-col items-center gap-8"
       >
-        <h3 className="text-2xl font-bold text-center">New category</h3>
+        <h3 className="text-2xl font-bold text-center">New genre</h3>
         <TextInput
           value={input.name}
           id="name"

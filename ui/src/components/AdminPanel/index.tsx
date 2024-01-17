@@ -3,13 +3,13 @@ import InfiniteScrollList from "components/InfiniteScrollList";
 import TextInput from "components/Inputs/Text";
 import { API_PATHS } from "lib/constants";
 import useAxiosAuth from "lib/hooks/useAxiosAuth";
-import { ICategory } from "lib/interfaces";
+import { IGenre } from "lib/interfaces";
 import { useState } from "react";
 import Form from "./Form";
 
 interface IProps {
-  content: ICategory[];
-  setContent: (updatedContent: ICategory[]) => void;
+  content: IGenre[];
+  setContent: (updatedContent: IGenre[]) => void;
   editMode: boolean;
   setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -31,8 +31,8 @@ const AdminPanel: React.FC<IProps> = ({
 
   const fetchData = () => {
     axiosAuth
-      .get<ICategory[]>(
-        `${API_PATHS.GET_ADMIN_CATEGORIES}?limit=${CONTENT_REQUEST_LIMIT}&offset=${offset}`
+      .get<IGenre[]>(
+        `${API_PATHS.GET_ADMIN_GENRES}?limit=${CONTENT_REQUEST_LIMIT}&offset=${offset}`
       )
       .then(({ data: newContent }) => {
         setOffset(offset + 1);
@@ -47,8 +47,8 @@ const AdminPanel: React.FC<IProps> = ({
       {editMode ? (
         <Form
           exitEditMode={() => setEditMode(false)}
-          appendNewCategory={(newCategory: ICategory) =>
-            setContent(content.concat(newCategory))
+          appendNewGenre={(newGenre: IGenre) =>
+            setContent(content.concat(newGenre))
           }
         />
       ) : (
@@ -60,7 +60,7 @@ const AdminPanel: React.FC<IProps> = ({
                 value=""
                 onChange={() => {}}
                 id=""
-                placeholder="Search categories by name..."
+                placeholder="Search genres by name..."
                 textSize="small"
               />
             </div>

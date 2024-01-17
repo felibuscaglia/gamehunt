@@ -7,7 +7,7 @@ export const UI_PATHS = {
   RECOVER_PASSWORD: "/recover-password",
   SUBMIT_GAME: "/games/new",
   NOTIFICATIONS: "/notifications",
-  EDIT_CATEGORIES: "/admin/categories",
+  EDIT_GENRES: "/admin/genres",
   EDIT_USERS: "/admin/users",
 };
 
@@ -19,7 +19,7 @@ export const API_PATHS = {
   GET_ME: "/users/me",
   SUBMIT_GAME: "/games",
   GET_DRAFT_USER_GAMES: "/games/user?onlyDrafts=1",
-  GET_CATEGORIES: "/categories",
-  CREATE_CATEGORY: "/categories",
-  GET_ADMIN_CATEGORIES: "/admin/categories",
+  GET_GENRES: "/genres",
+  CREATE_GENRE: "/genres",
+  GET_ADMIN_GENRES: "/admin/genres",
 };

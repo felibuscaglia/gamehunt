@@ -46,7 +46,7 @@ const UserPanelDropdown: React.FC<IProps> = ({ isAdmin }) => {
             {isAdmin && (
               <Menu.Item>
                 <Link
-                  to={UI_PATHS.EDIT_CATEGORIES}
+                  to={UI_PATHS.EDIT_GENRES}
                   className="px-2 flex items-center gap-2 py-2 hover:underline hover:text-primary-brand-color"
                 >
                   <IconUserPentagon size={ICON_SIZE} />

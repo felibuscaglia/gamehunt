@@ -1,6 +1,6 @@
 import User from './User.entity';
 import Game from './Game.entity';
-import Category from './Category.entity';
+import Genre from './Genre';
 
-export { User, Game, Category };
-export default [User, Game, Category];
+export { User, Game, Genre };
+export default [User, Game, Genre];

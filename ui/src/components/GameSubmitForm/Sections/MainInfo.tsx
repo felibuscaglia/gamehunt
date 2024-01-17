@@ -59,15 +59,15 @@ const MainInfoSection = () => {
         />
       </section>
       <hr className="border-t border-t-gray-200 my-8" />
-      <h6 className="font-bold text-2xl">Categories</h6>
+      <h6 className="font-bold text-2xl">Genres</h6>
       <p className="mt-4 mb-8 text-gray-700">
-        Select up to 3 categories. They should clearly define its genre,
-        purpose, or the specific gaming experience it offers.
+        Select up to 3 genres that clearly define its purpose or the specific
+        gaming experience it offers.
       </p>
       <section className={SECTION_CLASSNAMES}>
         <AutoCompleteInput
           textSize="small"
-          placeholder="Search categories..."
+          placeholder="Search genres..."
         />
       </section>
       <hr className="border-t border-t-gray-200 my-8" />

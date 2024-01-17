@@ -3,7 +3,7 @@ import AdminPanel from "components/AdminPanel";
 import AuthGuard from "guards/Auth";
 import SidebarLayout from "layouts/Sidebar";
 import { API_PATHS, UI_PATHS } from "lib/constants";
-import { ICategory, ISidebarSection } from "lib/interfaces";
+import { IGenre, ISidebarSection } from "lib/interfaces";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -15,12 +15,12 @@ const currLocationInfo = (pathname: string) => {
   };
 
   switch (pathname) {
-    case UI_PATHS.EDIT_CATEGORIES:
-      info.apiPath = `${API_PATHS.GET_ADMIN_CATEGORIES}?limit=20&offset=0`;
-      info.title = "Categories";
+    case UI_PATHS.EDIT_GENRES:
+      info.apiPath = `${API_PATHS.GET_ADMIN_GENRES}?limit=20&offset=0`;
+      info.title = "Genres";
       break;
     case UI_PATHS.EDIT_USERS:
-      info.apiPath = `${API_PATHS.GET_ADMIN_CATEGORIES}?limit=20&offset=0`;
+      info.apiPath = `${API_PATHS.GET_ADMIN_GENRES}?limit=20&offset=0`;
       info.index = 1;
       break;
   }
@@ -30,9 +30,9 @@ const currLocationInfo = (pathname: string) => {
 
 const SIDEBAR_SECTIONS: ISidebarSection[] = [
   {
-    text: "Categories",
+    text: "Genres",
     icon: IconCategory,
-    path: UI_PATHS.EDIT_CATEGORIES,
+    path: UI_PATHS.EDIT_GENRES,
   },
   {
     text: "Users",
@@ -56,7 +56,7 @@ const AdminPortalScreen = () => {
   };
 
   return (
-    <AuthGuard<ICategory[]> apiPath={currentLocationInfo.apiPath}>
+    <AuthGuard<IGenre[]> apiPath={currentLocationInfo.apiPath}>
       {(content, setContent) => (
         <SidebarLayout
           title={currentLocationInfo.title}

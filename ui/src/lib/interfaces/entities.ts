@@ -16,6 +16,6 @@ export interface IGame {
   description?: string;
 }
 
-export interface ICategory {
+export interface IGenre {
   name: string;
 }

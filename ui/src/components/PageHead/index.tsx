@@ -7,7 +7,7 @@ import UserPanel from "./UserPanel";
 import { useContext } from "react";
 import { UserContext } from "lib/contexts/User.context";
 
-const UL_ELEMENTS = ["Home", "Categories", "Newsletter", "Advertise", "About"];
+const UL_ELEMENTS = ["Home", "Genres", "Newsletter", "Advertise", "About"];
 
 const SECTION_CLASSNAMES = "flex items-center gap-6 w-1/3";
 const BTN_CLASSNAMES =
