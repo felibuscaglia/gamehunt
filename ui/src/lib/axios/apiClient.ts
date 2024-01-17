@@ -1,6 +1,4 @@
-import axios, { AxiosError } from "axios";
-import { UNEXPECTED_ERROR_MSG } from "lib/constants";
-import toast from "react-hot-toast";
+import axios from "axios";
 
 const apiClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,

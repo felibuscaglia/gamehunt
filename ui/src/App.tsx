@@ -8,40 +8,36 @@ import GameSubmitScreen from "screens/GameSubmit";
 import { Toaster } from "react-hot-toast";
 import "react-loading-skeleton/dist/skeleton.css";
 import AdminPortalScreen from "screens/AdminPortal";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { apiClient } from "lib/axios/apiClient";
 import { IAuthUser } from "lib/interfaces";
-import { UserContext } from "lib/contexts/User.context";
+import { useAppDispatch } from "store";
+import { addUser } from "store/features/userSlice";
 
 const App = () => {
-  const [user, setUser] = useState<IAuthUser | null | undefined>();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     apiClient
       .get<IAuthUser>(API_PATHS.GET_ME)
       .then(({ data }) => {
-        setUser(data);
+        dispatch(addUser(data));
       })
-      .catch(() => setUser(null));
-  }, []);
+      .catch(() => dispatch(addUser(null)));
+  }, [dispatch]);
 
   return (
     <>
-      <UserContext.Provider value={{ user, setUser }}>
-        <Router>
-          <Routes>
-            <Route element={<HomeScreen />} path={UI_PATHS.HOME} />
-            <Route element={<SignUpScreen />} path={UI_PATHS.SIGN_UP} />
-            <Route element={<LogInScreen />} path={UI_PATHS.LOGIN} />
-            <Route element={<GameSubmitScreen />} path={UI_PATHS.SUBMIT_GAME} />
-            <Route
-              element={<AdminPortalScreen />}
-              path={UI_PATHS.EDIT_GENRES}
-            />
-            <Route element={<AdminPortalScreen />} path={UI_PATHS.EDIT_USERS} />
-          </Routes>
-        </Router>
-      </UserContext.Provider>
+      <Router>
+        <Routes>
+          <Route element={<HomeScreen />} path={UI_PATHS.HOME} />
+          <Route element={<SignUpScreen />} path={UI_PATHS.SIGN_UP} />
+          <Route element={<LogInScreen />} path={UI_PATHS.LOGIN} />
+          <Route element={<GameSubmitScreen />} path={UI_PATHS.SUBMIT_GAME} />
+          <Route element={<AdminPortalScreen />} path={UI_PATHS.EDIT_GENRES} />
+          <Route element={<AdminPortalScreen />} path={UI_PATHS.EDIT_USERS} />
+        </Routes>
+      </Router>
       <Toaster
         position="bottom-center"
         toastOptions={{
