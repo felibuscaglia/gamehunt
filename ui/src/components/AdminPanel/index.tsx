@@ -43,7 +43,7 @@ const AdminPanel: React.FC<IProps> = ({
   };
 
   return (
-    <div className="w-full min-h-96">
+    <div className="w-full min-h-96 h-full">
       {editMode ? (
         <Form
           exitEditMode={() => setEditMode(false)}

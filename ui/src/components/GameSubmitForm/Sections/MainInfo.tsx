@@ -1,11 +1,13 @@
 import TextInput from "components/Inputs/Text";
 import TextArea from "components/Inputs/TextArea";
-import AutoCompleteInput from "components/Inputs/AutoComplete";
 import Button from "components/Button";
 import RadioInput from "components/Inputs/Radio";
-import { IRadioButtonOption } from "lib/interfaces";
+import { IGenre, IRadioButtonOption } from "lib/interfaces";
 import { useContext } from "react";
 import { GameFormContext } from "lib/contexts/GameForm.context";
+import SelectInput from "components/Inputs/Select";
+import { useAppSelector } from "store";
+import { IconPlus } from "@tabler/icons-react";
 
 const SECTION_CLASSNAMES = "w-1/2 flex flex-col gap-8";
 
@@ -17,6 +19,7 @@ const RADIO_BUTTON_OPTIONS: IRadioButtonOption[] = [
 
 const MainInfoSection = () => {
   const { input, setInput } = useContext(GameFormContext);
+  const genres = useAppSelector((state) => state.genres.genres);
 
   const handleInputChange = ({
     target,
@@ -64,11 +67,22 @@ const MainInfoSection = () => {
         Select up to 3 genres that clearly define its purpose or the specific
         gaming experience it offers.
       </p>
-      <section className={SECTION_CLASSNAMES}>
-        <AutoCompleteInput
-          textSize="small"
-          placeholder="Search genres..."
+      <section className="flex items-center gap-4 justify-between">
+        <SelectInput<IGenre>
+          selected={null}
+          setSelected={() => {}}
+          displayKey="name"
+          options={genres}
         />
+        <SelectInput<IGenre>
+          selected={null}
+          setSelected={() => {}}
+          displayKey="name"
+          options={genres}
+        />
+        <button className="bg-primary-brand-color text-white font-medium p-2 rounded border border-primary-brand-color hover:bg-transparent hover:text-primary-brand-color">
+          <IconPlus size={15} />
+        </button>
       </section>
       <hr className="border-t border-t-gray-200 my-8" />
       <h6 className="font-bold text-2xl mb-8">Pricing</h6>

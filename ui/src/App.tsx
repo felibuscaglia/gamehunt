@@ -10,15 +10,19 @@ import "react-loading-skeleton/dist/skeleton.css";
 import AdminPortalScreen from "screens/AdminPortal";
 import { useEffect } from "react";
 import { apiClient } from "lib/axios/apiClient";
-import { IAuthUser } from "lib/interfaces";
+import { IAuthUser, IGenre } from "lib/interfaces";
 import { useAppDispatch, useAppSelector } from "store";
 import { addUser } from "store/features/userSlice";
-import { loadUser } from "store/features/loadingSlice";
+import { loadGenres, loadUser } from "store/features/loadingSlice";
+import { saveGenres } from "store/features/genresSlice";
+import useAxiosAuth from "lib/hooks/useAxiosAuth";
 
 const App = () => {
   const loadingUser = useAppSelector((state) => state.loading.user);
   const user = useAppSelector((state) => state.user.user);
   const dispatch = useAppDispatch();
+
+  const axiosAuth = useAxiosAuth();
 
   const dispatchUser = (user: IAuthUser | null) => {
     dispatch(addUser(user));
@@ -26,10 +30,19 @@ const App = () => {
   };
 
   useEffect(() => {
-    console.log("I ENTER HERRE BEFORE!");
+    console.log("I ENTER HERE!");
+    apiClient
+      .get<IGenre[]>(API_PATHS.GET_GENRES)
+      .then(({ data: genres }) => {
+        dispatch(saveGenres(genres));
+        dispatch(loadGenres(false));
+      })
+      .catch((err) => console.error(err));
+  }, [dispatch]);
+
+  useEffect(() => {
     if (!user && loadingUser) {
-      console.log("I ENTER HERRE INSIDE!");
-      apiClient
+      axiosAuth
         .get<IAuthUser>(API_PATHS.GET_ME)
         .then(({ data }) => dispatchUser(data))
         .catch(() => dispatchUser(null));
@@ -37,27 +50,14 @@ const App = () => {
   }, [loadingUser, dispatch]);
 
   return (
-    <>
-      <Router>
-        <Routes>
-          <Route element={<HomeScreen />} path={UI_PATHS.HOME} />
-          <Route element={<SignUpScreen />} path={UI_PATHS.SIGN_UP} />
-          <Route element={<LogInScreen />} path={UI_PATHS.LOGIN} />
-          <Route element={<GameSubmitScreen />} path={UI_PATHS.SUBMIT_GAME} />
-          <Route element={<AdminPortalScreen />} path={UI_PATHS.EDIT_GENRES} />
-          <Route element={<AdminPortalScreen />} path={UI_PATHS.EDIT_USERS} />
-        </Routes>
-      </Router>
-      <Toaster
-        position="bottom-center"
-        toastOptions={{
-          error: {
-            duration: 4000,
-            style: { fontFamily: "var(--font-family)" },
-          },
-        }}
-      />
-    </>
+    <Routes>
+      <Route element={<HomeScreen />} path={UI_PATHS.HOME} />
+      <Route element={<SignUpScreen />} path={UI_PATHS.SIGN_UP} />
+      <Route element={<LogInScreen />} path={UI_PATHS.LOGIN} />
+      <Route element={<GameSubmitScreen />} path={UI_PATHS.SUBMIT_GAME} />
+      <Route element={<AdminPortalScreen />} path={UI_PATHS.EDIT_GENRES} />
+      <Route element={<AdminPortalScreen />} path={UI_PATHS.EDIT_USERS} />
+    </Routes>
   );
 };
 

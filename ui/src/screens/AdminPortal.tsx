@@ -35,7 +35,7 @@ const SIDEBAR_SECTIONS: ISidebarSection[] = [
     path: UI_PATHS.EDIT_GENRES,
   },
   {
-    text: "Users",
+    text: "Subgenres",
     icon: IconCategory,
     path: UI_PATHS.EDIT_USERS,
   },

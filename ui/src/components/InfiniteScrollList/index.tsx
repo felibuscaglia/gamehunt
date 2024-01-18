@@ -30,7 +30,7 @@ const InfiniteScrollList: React.FC<IProps> = ({
       next={fetchData}
       loader={<h4>Loading...</h4>}
       endMessage={endMessage}
-      height={300}
+      height={'100%'}
     >
       {elements.map((el) => (
         <Element {...el} key={`infinite-scroll-element-${el.name}`} />
