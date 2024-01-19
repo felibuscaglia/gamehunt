@@ -8,7 +8,7 @@ export const UI_PATHS = {
   SUBMIT_GAME: "/games/new",
   NOTIFICATIONS: "/notifications",
   EDIT_GENRES: "/admin/genres",
-  EDIT_USERS: "/admin/users",
+  EDIT_SUBGENRES: "/admin/subgenres",
 };
 
 export const API_PATHS = {
@@ -21,5 +21,7 @@ export const API_PATHS = {
   GET_DRAFT_USER_GAMES: "/games/user?onlyDrafts=1",
   GET_GENRES: "/genres",
   CREATE_GENRE: "/genres",
+  CREATE_SUBGENRE: "/subgenres",
   GET_ADMIN_GENRES: "/admin/genres",
+  GET_ADMIN_SUBGENRES: "/admin/subgenres",
 };

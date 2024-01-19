@@ -1,10 +1,10 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import Subgenre from './Subgenre';
+import Subgenre from './Subgenre.entity';
 
 @Entity('genre')
 class Genre {
-  @PrimaryGeneratedColumn('uuid', { name: 'genre_id' })
-  id: string;
+  @PrimaryGeneratedColumn({ name: 'genre_id' })
+  id: number;
 
   @Column({ unique: true, nullable: false })
   name: string;

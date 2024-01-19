@@ -3,8 +3,8 @@ import Genre from './Genre.entity';
 
 @Entity('subgenre')
 class Subgenre {
-  @PrimaryGeneratedColumn('uuid', { name: 'subgenre_id' })
-  id: string;
+  @PrimaryGeneratedColumn({ name: 'subgenre_id' })
+  id: number;
 
   @Column({ nullable: false })
   name: string;

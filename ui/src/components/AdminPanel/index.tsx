@@ -1,17 +1,18 @@
 import { IconSearch } from "@tabler/icons-react";
 import InfiniteScrollList from "components/InfiniteScrollList";
 import TextInput from "components/Inputs/Text";
-import { API_PATHS } from "lib/constants";
 import useAxiosAuth from "lib/hooks/useAxiosAuth";
-import { IGenre } from "lib/interfaces";
+import { IAdminFormProps, IGenre, ISubgenre } from "lib/interfaces";
 import { useState } from "react";
-import Form from "./Form";
 
 interface IProps {
-  content: IGenre[];
+  content: Array<IGenre | ISubgenre>;
   setContent: (updatedContent: IGenre[]) => void;
   editMode: boolean;
   setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
+  fetchContentApiPath: string;
+  entityName: string;
+  formComponent: React.FC<IAdminFormProps>;
 }
 
 const CONTENT_REQUEST_LIMIT = 20;
@@ -21,8 +22,13 @@ const AdminPanel: React.FC<IProps> = ({
   setContent,
   editMode,
   setEditMode,
+  entityName,
+  fetchContentApiPath,
+  formComponent: Form,
 }) => {
-  const [offset, setOffset] = useState(0);
+  entityName = entityName.toLowerCase().slice(0, entityName.length - 1);
+
+  const [offset, setOffset] = useState(1);
   const [hasMoreContent, setHasMoreContent] = useState(
     content.length === CONTENT_REQUEST_LIMIT
   );
@@ -31,8 +37,8 @@ const AdminPanel: React.FC<IProps> = ({
 
   const fetchData = () => {
     axiosAuth
-      .get<IGenre[]>(
-        `${API_PATHS.GET_ADMIN_GENRES}?limit=${CONTENT_REQUEST_LIMIT}&offset=${offset}`
+      .get<Array<IGenre | ISubgenre>>(
+        `${fetchContentApiPath}?limit=${CONTENT_REQUEST_LIMIT}&offset=${offset}`
       )
       .then(({ data: newContent }) => {
         setOffset(offset + 1);
@@ -47,9 +53,10 @@ const AdminPanel: React.FC<IProps> = ({
       {editMode ? (
         <Form
           exitEditMode={() => setEditMode(false)}
-          appendNewGenre={(newGenre: IGenre) =>
-            setContent(content.concat(newGenre))
+          appendNew={(newElement: IGenre | ISubgenre) =>
+            setContent(content.concat(newElement))
           }
+          entityName={entityName}
         />
       ) : (
         <>
@@ -60,7 +67,7 @@ const AdminPanel: React.FC<IProps> = ({
                 value=""
                 onChange={() => {}}
                 id=""
-                placeholder="Search genres by name..."
+                placeholder={`Search ${entityName} by name...`}
                 textSize="small"
               />
             </div>

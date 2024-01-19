@@ -1,4 +1,5 @@
 import { Icon } from "@tabler/icons-react";
+import { IGenre, ISubgenre } from "./entities";
 
 export * from "./entities";
 
@@ -16,4 +17,10 @@ export interface ISidebarSection {
 
 export interface IInfiniteScrollListElement {
   name: string;
+}
+
+export interface IAdminFormProps {
+  exitEditMode: () => void;
+  appendNew: (newElement: IGenre | ISubgenre) => void;
+  entityName: string;
 }
