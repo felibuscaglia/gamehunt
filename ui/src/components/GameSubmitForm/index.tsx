@@ -57,7 +57,7 @@ const GameSubmitForm: React.FC<IProps> = ({ game }) => {
       sections={SIDEBAR_SECTIONS}
       onSectionClick={(index: number) => setSelectedSection(index)}
     >
-      <GameFormContext.Provider value={{ input, setInput }}>
+      <GameFormContext.Provider value={{ input, setInput, setSelectedSection }}>
         <form className="w-full">{sectionComponent(selectedSection)}</form>
       </GameFormContext.Provider>
     </SidebarLayout>

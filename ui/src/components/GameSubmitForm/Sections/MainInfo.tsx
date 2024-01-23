@@ -8,15 +8,23 @@ import { GameFormContext } from "lib/contexts/GameForm.context";
 import SelectInput from "components/Inputs/Select";
 import { useAppSelector } from "store";
 import { IconPlus, IconX } from "@tabler/icons-react";
-import { TEXT_SIZE } from "lib/enums";
+import {
+  GameCreationSidebarSectionIndexes,
+  GamePricing,
+  TEXT_SIZE,
+} from "lib/enums";
 import { SUBGENRES_LIMIT } from "lib/constants/game-creation";
 
 const SECTION_CLASSNAMES = "w-1/2 flex flex-col gap-8";
 
 const RADIO_BUTTON_OPTIONS: IRadioButtonOption[] = [
-  { id: "free", value: "free", text: "Free" },
-  { id: "paid", value: "paid", text: "Paid" },
-  { id: "paid2", value: "paid2", text: "Paid (with a free trial or plan)" },
+  { id: "free", value: GamePricing.FREE, text: "Free" },
+  { id: "paid", value: GamePricing.PAID, text: "Paid" },
+  {
+    id: "paid2",
+    value: GamePricing.PAID_WITH_FREE_TRIAL,
+    text: "Paid (with a free trial or plan)",
+  },
 ];
 
 const MainInfoSection = () => {
@@ -25,7 +33,7 @@ const MainInfoSection = () => {
     null
   );
 
-  const { input, setInput } = useContext(GameFormContext);
+  const { input, setInput, setSelectedSection } = useContext(GameFormContext);
   const genres = useAppSelector((state) => state.genres.genres);
 
   const INPUT_SUBGENRES = input.subgenres || [];
@@ -135,7 +143,9 @@ const MainInfoSection = () => {
         </button>
       </section>
       <section
-        className={`${INPUT_SUBGENRES.length ? "mt-4" : "mt-0"} flex items-center gap-4`}
+        className={`${
+          INPUT_SUBGENRES.length ? "mt-4" : "mt-0"
+        } flex items-center gap-4`}
       >
         {INPUT_SUBGENRES.map(({ name }, i) => (
           <div
@@ -151,9 +161,24 @@ const MainInfoSection = () => {
       </section>
       <hr className="border-t border-t-gray-200 my-8" />
       <h6 className="font-bold text-2xl mb-8">Pricing</h6>
-      <RadioInput options={RADIO_BUTTON_OPTIONS} />
+      <RadioInput
+        options={RADIO_BUTTON_OPTIONS}
+        selectedValue={input.pricing}
+        onChange={({ target }) =>
+          setInput({ ...input, pricing: target.value as GamePricing })
+        }
+      />
       <div className="w-2/12 my-8">
-        <Button text="Next step: Links" textSize="small" />
+        <Button
+          onClick={() =>
+            { 
+              setSelectedSection(GameCreationSidebarSectionIndexes.LINKS);
+              window.scrollTo(0, 0);
+            }
+          }
+          text="Next step: Links"
+          textSize="small"
+        />
       </div>
     </div>
   );

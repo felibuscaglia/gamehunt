@@ -5,7 +5,7 @@ export * from "./entities";
 
 export interface IRadioButtonOption {
   id: string;
-  value: string;
+  value: string | number;
   text: string;
 }
 

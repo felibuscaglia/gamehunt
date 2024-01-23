@@ -1,4 +1,4 @@
-import { USER_ROLES } from "lib/enums";
+import { GamePricing, USER_ROLES } from "lib/enums";
 
 export interface IAuthUser {
   email: string;
@@ -15,6 +15,7 @@ export interface IGame {
   tagline?: string;
   description?: string;
   subgenres?: ISubgenre[];
+  pricing?: GamePricing;
 }
 
 export interface IGenre {

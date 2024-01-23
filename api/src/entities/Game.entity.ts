@@ -9,6 +9,7 @@ import {
 import User from './User.entity';
 import { GameStatus } from 'games/lib/enums';
 import Subgenre from './Subgenre.entity';
+import { GamePricing } from 'games/lib/enums/game-pricing.enum';
 
 @Entity('game')
 class Game {
@@ -33,6 +34,12 @@ class Game {
     default: GameStatus.DRAFT,
   })
   status: GameStatus;
+
+  @Column({
+    type: 'enum',
+    enum: GamePricing,
+  })
+  pricing?: GamePricing;
 
   @ManyToMany(() => Subgenre, { eager: true })
   @JoinTable({
