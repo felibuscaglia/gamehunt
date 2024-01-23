@@ -2,12 +2,13 @@ import TextInput from "components/Inputs/Text";
 import TextArea from "components/Inputs/TextArea";
 import Button from "components/Button";
 import RadioInput from "components/Inputs/Radio";
-import { IGenre, IRadioButtonOption } from "lib/interfaces";
-import { useContext } from "react";
+import { IGenre, IRadioButtonOption, ISubgenre } from "lib/interfaces";
+import { useContext, useState } from "react";
 import { GameFormContext } from "lib/contexts/GameForm.context";
 import SelectInput from "components/Inputs/Select";
 import { useAppSelector } from "store";
 import { IconPlus } from "@tabler/icons-react";
+import { TEXT_SIZE } from "lib/enums";
 
 const SECTION_CLASSNAMES = "w-1/2 flex flex-col gap-8";
 
@@ -18,8 +19,15 @@ const RADIO_BUTTON_OPTIONS: IRadioButtonOption[] = [
 ];
 
 const MainInfoSection = () => {
+  const [selectedGenre, setSelectedGenre] = useState<IGenre | null>(null);
+  const [selectedSubgenre, setSelectedSubgenre] = useState<ISubgenre | null>(
+    null
+  );
+
   const { input, setInput } = useContext(GameFormContext);
   const genres = useAppSelector((state) => state.genres.genres);
+
+  console.log({ genres });
 
   const handleInputChange = ({
     target,
@@ -69,16 +77,19 @@ const MainInfoSection = () => {
       </p>
       <section className="flex items-center gap-4 justify-between">
         <SelectInput<IGenre>
-          selected={null}
-          setSelected={() => {}}
+          selected={selectedGenre}
+          setSelected={(g) => setSelectedGenre(g)}
           displayKey="name"
           options={genres}
+          textSize={TEXT_SIZE.SMALL}
         />
-        <SelectInput<IGenre>
-          selected={null}
-          setSelected={() => {}}
+        <SelectInput<ISubgenre>
+          selected={selectedSubgenre}
+          setSelected={(sg) => setSelectedSubgenre(sg)}
           displayKey="name"
-          options={genres}
+          options={selectedGenre?.subgenres || []}
+          textSize={TEXT_SIZE.SMALL}
+          disabled={selectedGenre === null}
         />
         <button className="bg-primary-brand-color text-white font-medium p-2 rounded border border-primary-brand-color hover:bg-transparent hover:text-primary-brand-color">
           <IconPlus size={15} />

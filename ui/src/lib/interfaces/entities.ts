@@ -19,9 +19,11 @@ export interface IGame {
 export interface IGenre {
   id: number;
   name: string;
+  subgenres?: ISubgenre[];
 }
 
 export interface ISubgenre {
   id: number;
   name: string;
+  genre: IGenre;
 }

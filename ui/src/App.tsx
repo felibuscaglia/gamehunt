@@ -10,12 +10,17 @@ import "react-loading-skeleton/dist/skeleton.css";
 import AdminPortalScreen from "screens/AdminPortal";
 import { useEffect } from "react";
 import { apiClient } from "lib/axios/apiClient";
-import { IAuthUser, IGenre } from "lib/interfaces";
+import { IAuthUser, IGenre, ISubgenre } from "lib/interfaces";
 import { useAppDispatch, useAppSelector } from "store";
 import { addUser } from "store/features/userSlice";
-import { loadGenres, loadUser } from "store/features/loadingSlice";
+import {
+  loadGenres,
+  loadSubgenres,
+  loadUser,
+} from "store/features/loadingSlice";
 import { saveGenres } from "store/features/genresSlice";
 import useAxiosAuth from "lib/hooks/useAxiosAuth";
+import { saveSubgenres } from "store/features/subgenresSlice";
 
 const App = () => {
   const loadingUser = useAppSelector((state) => state.loading.user);
@@ -30,12 +35,19 @@ const App = () => {
   };
 
   useEffect(() => {
-    console.log("I ENTER HERE!");
     apiClient
-      .get<IGenre[]>(API_PATHS.GET_GENRES)
+      .get<IGenre[]>(API_PATHS.GET_GENRES_WITH_SUBGENRES)
       .then(({ data: genres }) => {
         dispatch(saveGenres(genres));
         dispatch(loadGenres(false));
+      })
+      .catch((err) => console.error(err));
+
+    apiClient
+      .get<ISubgenre[]>(API_PATHS.GET_SUBGENRES)
+      .then(({ data: subGenres }) => {
+        dispatch(saveSubgenres(subGenres));
+        dispatch(loadSubgenres(false));
       })
       .catch((err) => console.error(err));
   }, [dispatch]);

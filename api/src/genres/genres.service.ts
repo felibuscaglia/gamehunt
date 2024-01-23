@@ -11,7 +11,7 @@ export class GenresService {
     private readonly genresRepository: Repository<Genre>,
   ) {}
 
-  public findAll(limit?: number, offset?: number) {
+  public findAll(limit?: number, offset?: number, relations?: string[]) {
     const options: FindManyOptions<Genre> = {};
 
     if (limit) {
@@ -20,6 +20,10 @@ export class GenresService {
 
     if (offset && limit) {
       options.skip = offset * limit;
+    }
+
+    if (relations) {
+      options.relations = relations;
     }
 
     return this.genresRepository.find(options);

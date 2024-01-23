@@ -10,6 +10,7 @@ interface IProps<T> {
   options: T[];
   textSize?: TEXT_SIZE;
   error?: string;
+  disabled?: boolean;
 }
 
 const SelectInput = <T,>({
@@ -19,12 +20,13 @@ const SelectInput = <T,>({
   options,
   textSize = TEXT_SIZE.BASE,
   error,
+  disabled = false,
 }: IProps<T>) => {
   return (
-    <Listbox value={selected} onChange={setSelected}>
+    <Listbox value={selected} onChange={setSelected} disabled={disabled}>
       <div className="relative w-full">
         <Listbox.Button
-          className={`bg-gray-100 ${textSize} rounded px-3 py-2 flex items-center justify-between w-full`}
+          className={`${textSize} rounded px-3 py-2 flex items-center justify-between w-full ${disabled ? "cursor-not-allowed bg-gray-300" : "cursor-pointer bg-gray-100"}`}
         >
           {selected ? (
             <span>{String(selected[displayKey])}</span>

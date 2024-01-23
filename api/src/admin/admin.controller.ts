@@ -1,6 +1,6 @@
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { JwtGuard } from 'auth/guards';
-import { GenresService } from 'genres/genre.service';
+import { GenresService } from 'genres/genres.service';
 import { SubgenresService } from 'subgenres/subgenres.service';
 import { Roles } from 'users/decorators';
 import { RolesGuard } from 'users/guards/roles.guard';

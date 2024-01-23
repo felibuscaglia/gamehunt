@@ -20,6 +20,8 @@ export const API_PATHS = {
   SUBMIT_GAME: "/games",
   GET_DRAFT_USER_GAMES: "/games/user?onlyDrafts=1",
   GET_GENRES: "/genres",
+  GET_GENRES_WITH_SUBGENRES: "/genres?includeSubgenres=true",
+  GET_SUBGENRES: "/subgenres",
   CREATE_GENRE: "/genres",
   CREATE_SUBGENRE: "/subgenres",
   GET_ADMIN_GENRES: "/admin/genres",

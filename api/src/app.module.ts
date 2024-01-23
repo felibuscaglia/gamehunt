@@ -5,7 +5,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { GamesModule } from './games/games.module';
-import { GenresModule } from './genres/genre.module';
+import { GenresModule } from './genres/genres.module';
 import { AdminModule } from './admin/admin.module';
 import { SubgenresModule } from './subgenres/subgenres.module';
 import entities from './entities';
