@@ -7,8 +7,9 @@ import { useContext, useState } from "react";
 import { GameFormContext } from "lib/contexts/GameForm.context";
 import SelectInput from "components/Inputs/Select";
 import { useAppSelector } from "store";
-import { IconPlus } from "@tabler/icons-react";
+import { IconPlus, IconX } from "@tabler/icons-react";
 import { TEXT_SIZE } from "lib/enums";
+import { SUBGENRES_LIMIT } from "lib/constants/game-creation";
 
 const SECTION_CLASSNAMES = "w-1/2 flex flex-col gap-8";
 
@@ -27,7 +28,11 @@ const MainInfoSection = () => {
   const { input, setInput } = useContext(GameFormContext);
   const genres = useAppSelector((state) => state.genres.genres);
 
-  console.log({ genres });
+  const INPUT_SUBGENRES = input.subgenres || [];
+  const HAS_REACHED_SUBGENRES_LIMIT = INPUT_SUBGENRES.length >= SUBGENRES_LIMIT;
+  const SUBGENRE_ALREADY_SELECTED = !!INPUT_SUBGENRES.find(
+    (subgenre) => subgenre.name === selectedSubgenre?.name
+  );
 
   const handleInputChange = ({
     target,
@@ -35,6 +40,30 @@ const MainInfoSection = () => {
     setInput({
       ...input,
       [target.id]: target.value,
+    });
+  };
+
+  const handleAddBtnClick = () => {
+    if (
+      selectedSubgenre &&
+      !HAS_REACHED_SUBGENRES_LIMIT &&
+      !SUBGENRE_ALREADY_SELECTED
+    ) {
+      setInput((prevInput) => ({
+        ...prevInput,
+        subgenres: [...(prevInput.subgenres || []), selectedSubgenre],
+      }));
+    }
+  };
+
+  const removeSubgenre = (subgenreIndex: number) => {
+    setInput((prevInput) => {
+      const newSubgenres = [...(prevInput.subgenres || [])];
+      newSubgenres.splice(subgenreIndex, 1);
+      return {
+        ...prevInput,
+        subgenres: newSubgenres,
+      };
     });
   };
 
@@ -72,8 +101,8 @@ const MainInfoSection = () => {
       <hr className="border-t border-t-gray-200 my-8" />
       <h6 className="font-bold text-2xl">Genres</h6>
       <p className="mt-4 mb-8 text-gray-700">
-        Select up to 3 genres that clearly define its purpose or the specific
-        gaming experience it offers.
+        Select up to {SUBGENRES_LIMIT} genres that clearly define its purpose or
+        the specific gaming experience it offers.
       </p>
       <section className="flex items-center gap-4 justify-between">
         <SelectInput<IGenre>
@@ -82,6 +111,7 @@ const MainInfoSection = () => {
           displayKey="name"
           options={genres}
           textSize={TEXT_SIZE.SMALL}
+          disabled={HAS_REACHED_SUBGENRES_LIMIT}
         />
         <SelectInput<ISubgenre>
           selected={selectedSubgenre}
@@ -89,11 +119,35 @@ const MainInfoSection = () => {
           displayKey="name"
           options={selectedGenre?.subgenres || []}
           textSize={TEXT_SIZE.SMALL}
-          disabled={selectedGenre === null}
+          disabled={selectedGenre === null || HAS_REACHED_SUBGENRES_LIMIT}
         />
-        <button className="bg-primary-brand-color text-white font-medium p-2 rounded border border-primary-brand-color hover:bg-transparent hover:text-primary-brand-color">
+        <button
+          onClick={handleAddBtnClick}
+          disabled={
+            selectedSubgenre === null ||
+            HAS_REACHED_SUBGENRES_LIMIT ||
+            SUBGENRE_ALREADY_SELECTED
+          }
+          className="bg-primary-brand-color text-white font-medium p-2 rounded border border-primary-brand-color hover:bg-transparent hover:text-primary-brand-color disabled:hover:text-white disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:bg-primary-brand-color"
+          type="button"
+        >
           <IconPlus size={15} />
         </button>
+      </section>
+      <section
+        className={`${INPUT_SUBGENRES.length ? "mt-4" : "mt-0"} flex items-center gap-4`}
+      >
+        {INPUT_SUBGENRES.map(({ name }, i) => (
+          <div
+            className="flex items-center gap-1 px-2 py-1 bg-primary-brand-color rounded-lg text-white"
+            key={`selected-subgenre-${name}`}
+          >
+            <button type="button" onClick={() => removeSubgenre(i)}>
+              <IconX size={15} />
+            </button>
+            <span className="text-sm">{name}</span>
+          </div>
+        ))}
       </section>
       <hr className="border-t border-t-gray-200 my-8" />
       <h6 className="font-bold text-2xl mb-8">Pricing</h6>

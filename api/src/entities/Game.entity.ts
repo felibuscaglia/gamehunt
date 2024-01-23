@@ -1,13 +1,14 @@
 import {
   Column,
   Entity,
-  JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import User from './User.entity';
 import { GameStatus } from 'games/lib/enums';
+import Subgenre from './Subgenre.entity';
 
 @Entity('game')
 class Game {
@@ -32,6 +33,17 @@ class Game {
     default: GameStatus.DRAFT,
   })
   status: GameStatus;
+
+  @ManyToMany(() => Subgenre, { eager: true })
+  @JoinTable({
+    name: 'game_subgenre',
+    joinColumn: { name: 'game_id', referencedColumnName: 'id' },
+    inverseJoinColumn: {
+      name: 'subgenre_id',
+      referencedColumnName: 'id',
+    },
+  })
+  subgenres: Subgenre[];
 }
 
 export default Game;

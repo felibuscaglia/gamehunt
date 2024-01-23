@@ -14,6 +14,7 @@ export interface IGame {
   creator: IUser;
   tagline?: string;
   description?: string;
+  subgenres?: ISubgenre[];
 }
 
 export interface IGenre {
