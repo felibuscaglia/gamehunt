@@ -7,13 +7,14 @@ import { useContext, useState } from "react";
 import { GameFormContext } from "lib/contexts/GameForm.context";
 import SelectInput from "components/Inputs/Select";
 import { useAppSelector } from "store";
-import { IconPlus, IconX } from "@tabler/icons-react";
+import { IconX } from "@tabler/icons-react";
 import {
   GameCreationSidebarSectionIndexes,
   GamePricing,
   TEXT_SIZE,
 } from "lib/enums";
 import { SUBGENRES_LIMIT } from "lib/constants/game-creation";
+import PlusButton from "components/Button/Plus";
 
 const SECTION_CLASSNAMES = "w-1/2 flex flex-col gap-8";
 
@@ -129,18 +130,14 @@ const MainInfoSection = () => {
           textSize={TEXT_SIZE.SMALL}
           disabled={selectedGenre === null || HAS_REACHED_SUBGENRES_LIMIT}
         />
-        <button
+        <PlusButton
           onClick={handleAddBtnClick}
           disabled={
             selectedSubgenre === null ||
             HAS_REACHED_SUBGENRES_LIMIT ||
             SUBGENRE_ALREADY_SELECTED
           }
-          className="bg-primary-brand-color text-white font-medium p-2 rounded border border-primary-brand-color hover:bg-transparent hover:text-primary-brand-color disabled:hover:text-white disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:bg-primary-brand-color"
-          type="button"
-        >
-          <IconPlus size={15} />
-        </button>
+        />
       </section>
       <section
         className={`${
@@ -170,12 +167,10 @@ const MainInfoSection = () => {
       />
       <div className="w-2/12 my-8">
         <Button
-          onClick={() =>
-            { 
-              setSelectedSection(GameCreationSidebarSectionIndexes.LINKS);
-              window.scrollTo(0, 0);
-            }
-          }
+          onClick={() => {
+            setSelectedSection(GameCreationSidebarSectionIndexes.LINKS);
+            window.scrollTo(0, 0);
+          }}
           text="Next step: Links"
           textSize="small"
         />

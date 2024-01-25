@@ -24,3 +24,8 @@ export interface IAdminFormProps {
   appendNew: (newElement: IGenre | ISubgenre) => void;
   entityName: string;
 }
+
+export interface IGameLinkSelectOption {
+  id: string;
+  value: string;
+}

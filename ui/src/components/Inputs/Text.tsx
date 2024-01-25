@@ -13,6 +13,7 @@ interface IProps {
   textSize?: "base" | "small";
   limit?: number;
   icon?: Icon;
+  disabled?: boolean;
 }
 
 const TextInput: React.FC<IProps> = ({
@@ -27,6 +28,7 @@ const TextInput: React.FC<IProps> = ({
   textSize = "base",
   limit,
   icon: Icon = null,
+  disabled = false
 }) => {
   const [display, setDisplay] = useState(false);
 

@@ -4,12 +4,14 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import User from './User.entity';
 import { GameStatus } from 'games/lib/enums';
 import Subgenre from './Subgenre.entity';
 import { GamePricing } from 'games/lib/enums/game-pricing.enum';
+import GameLink from './GameLink.entity';
 
 @Entity('game')
 class Game {
@@ -38,6 +40,7 @@ class Game {
   @Column({
     type: 'enum',
     enum: GamePricing,
+    nullable: true,
   })
   pricing?: GamePricing;
 
@@ -51,6 +54,9 @@ class Game {
     },
   })
   subgenres: Subgenre[];
+
+  @OneToMany(() => GameLink, (link) => link.game)
+  links: GameLink[];
 }
 
 export default Game;

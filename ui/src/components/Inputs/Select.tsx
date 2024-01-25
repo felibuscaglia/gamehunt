@@ -26,7 +26,11 @@ const SelectInput = <T,>({
     <Listbox value={selected} onChange={setSelected} disabled={disabled}>
       <div className="relative w-full">
         <Listbox.Button
-          className={`${textSize} rounded px-3 py-2 flex items-center justify-between w-full ${disabled ? "cursor-not-allowed bg-gray-300" : "cursor-pointer bg-gray-100"}`}
+          className={`${textSize} rounded px-3 py-2 flex items-center justify-between w-full ${
+            disabled
+              ? "cursor-not-allowed bg-gray-300"
+              : "cursor-pointer bg-gray-100"
+          }`}
         >
           {selected ? (
             <span>{String(selected[displayKey])}</span>
@@ -46,7 +50,7 @@ const SelectInput = <T,>({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none">
+          <Listbox.Options className="z-50 absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none">
             {options.map((option, i) => (
               <Listbox.Option
                 key={`listbox-option-${i}`}
@@ -68,11 +72,11 @@ const SelectInput = <T,>({
                     >
                       {String(option[displayKey])}
                     </span>
-                    {selected ? (
+                    {selected && (
                       <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-primary-brand-color">
                         <IconCheck className="h-5 w-5" aria-hidden="true" />
                       </span>
-                    ) : null}
+                    )}
                   </>
                 )}
               </Listbox.Option>
