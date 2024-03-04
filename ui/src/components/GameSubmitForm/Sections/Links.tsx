@@ -60,9 +60,22 @@ const LinksSection = () => {
   };
 
   const addLink = () => {
-    setInput({
-      ...input,
-      links: (input.links || []).concat({ url: "" } as IGameLink),
+    setInput((prevInput) => ({
+      ...prevInput,
+      links: (prevInput.links || []).concat({ url: "" } as IGameLink),
+    }));
+  };
+
+  const removeLink = (linkIndex: number) => {
+    setInput((prevInput) => {
+      const links = prevInput.links || [];
+
+      links.splice(linkIndex, 1);
+
+      return {
+        ...prevInput,
+        links,
+      };
     });
   };
 
@@ -83,6 +96,7 @@ const LinksSection = () => {
                 input: url,
               }}
               inputId={`game-link-${i}`}
+              onRemoveBtnClick={i > 0 ? () => removeLink(i) : undefined}
               key={`game-link-${i}`}
             />
           ))
@@ -100,10 +114,11 @@ const LinksSection = () => {
             inputId="game-link-0"
           />
         )}
-        <div className="self-end">
+        <div>
           <PlusButton onClick={addLink} />
         </div>
       </section>
+      <span>Main distribution platform??</span>
     </div>
   );
 };

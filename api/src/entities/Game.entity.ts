@@ -1,10 +1,12 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   JoinTable,
   ManyToMany,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import User from './User.entity';
@@ -12,6 +14,7 @@ import { GameStatus } from 'games/lib/enums';
 import Subgenre from './Subgenre.entity';
 import { GamePricing } from 'games/lib/enums/game-pricing.enum';
 import GameLink from './GameLink.entity';
+import File from './File.entity';
 
 @Entity('game')
 class Game {
@@ -57,6 +60,10 @@ class Game {
 
   @OneToMany(() => GameLink, (link) => link.game)
   links: GameLink[];
+
+  @OneToOne(() => File, { nullable: true })
+  @JoinColumn({ name: 'thumbnail_id' })
+  thumbnail?: File;
 }
 
 export default Game;

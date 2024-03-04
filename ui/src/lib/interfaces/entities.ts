@@ -17,6 +17,7 @@ export interface IGame {
   subgenres?: ISubgenre[];
   pricing?: GamePricing;
   links?: IGameLink[];
+  thumbnail?: IFile;
 }
 
 export interface IGenre {
@@ -36,4 +37,9 @@ export interface IGameLink {
   url: string;
   platform: Platform;
   game: IGame;
+}
+
+export interface IFile {
+  id: string;
+  url: string;
 }
