@@ -8,7 +8,7 @@ import { GamesModule } from './games/games.module';
 import { GenresModule } from './genres/genres.module';
 import { AdminModule } from './admin/admin.module';
 import { SubgenresModule } from './subgenres/subgenres.module';
-import { FilesModule } from './files/files.module';
+import { ImagesModule } from './images/images.module';
 import entities from './entities';
 
 @Module({
@@ -34,7 +34,7 @@ import entities from './entities';
     GenresModule,
     AdminModule,
     SubgenresModule,
-    FilesModule,
+    ImagesModule,
   ],
   controllers: [AppController],
   providers: [],

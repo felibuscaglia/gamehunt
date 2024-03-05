@@ -4,7 +4,6 @@ import HomeScreen from "screens/Home";
 import SignUpScreen from "screens/SignUp";
 import LogInScreen from "screens/Login";
 import GameSubmitScreen from "screens/GameSubmit";
-
 import { Toaster } from "react-hot-toast";
 import "react-loading-skeleton/dist/skeleton.css";
 import AdminPortalScreen from "screens/AdminPortal";
@@ -62,14 +61,17 @@ const App = () => {
   }, [loadingUser, dispatch]);
 
   return (
-    <Routes>
-      <Route element={<HomeScreen />} path={UI_PATHS.HOME} />
-      <Route element={<SignUpScreen />} path={UI_PATHS.SIGN_UP} />
-      <Route element={<LogInScreen />} path={UI_PATHS.LOGIN} />
-      <Route element={<GameSubmitScreen />} path={UI_PATHS.SUBMIT_GAME} />
-      <Route element={<AdminPortalScreen />} path={UI_PATHS.EDIT_GENRES} />
-      <Route element={<AdminPortalScreen />} path={UI_PATHS.EDIT_SUBGENRES} />
-    </Routes>
+    <>
+      <Routes>
+        <Route element={<HomeScreen />} path={UI_PATHS.HOME} />
+        <Route element={<SignUpScreen />} path={UI_PATHS.SIGN_UP} />
+        <Route element={<LogInScreen />} path={UI_PATHS.LOGIN} />
+        <Route element={<GameSubmitScreen />} path={UI_PATHS.SUBMIT_GAME} />
+        <Route element={<AdminPortalScreen />} path={UI_PATHS.EDIT_GENRES} />
+        <Route element={<AdminPortalScreen />} path={UI_PATHS.EDIT_SUBGENRES} />
+      </Routes>
+      <Toaster position="bottom-center" />
+    </>
   );
 };
 

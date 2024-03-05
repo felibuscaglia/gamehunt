@@ -47,7 +47,7 @@ interface IProps {
 
 const GameSubmitForm: React.FC<IProps> = ({ game }) => {
   const [selectedSection, setSelectedSection] = useState(0);
-  const [input, setInput] = useState({ ...game });
+  const [input, setInput] = useState<IGame>({ ...game, gallery: [] });
 
   return (
     <SidebarLayout

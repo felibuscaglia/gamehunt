@@ -26,5 +26,6 @@ export const API_PATHS = {
   CREATE_SUBGENRE: "/subgenres",
   GET_ADMIN_GENRES: "/admin/genres",
   GET_ADMIN_SUBGENRES: "/admin/subgenres",
-  UPLOAD_FILE: "/files",
+  UPLOAD_IMAGE: "/images",
+  BULK_UPLOAD_IMAGES: "/images/bulk"
 };

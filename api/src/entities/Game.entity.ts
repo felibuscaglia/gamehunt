@@ -14,7 +14,7 @@ import { GameStatus } from 'games/lib/enums';
 import Subgenre from './Subgenre.entity';
 import { GamePricing } from 'games/lib/enums/game-pricing.enum';
 import GameLink from './GameLink.entity';
-import File from './File.entity';
+import Image from './Image.entity';
 
 @Entity('game')
 class Game {
@@ -61,9 +61,20 @@ class Game {
   @OneToMany(() => GameLink, (link) => link.game)
   links: GameLink[];
 
-  @OneToOne(() => File, { nullable: true })
+  @OneToOne(() => Image, { nullable: true })
   @JoinColumn({ name: 'thumbnail_id' })
-  thumbnail?: File;
+  thumbnail?: Image;
+
+  @ManyToMany(() => Image, { eager: true })
+  @JoinTable({
+    name: 'game_gallery',
+    joinColumn: { name: 'game_id', referencedColumnName: 'id' },
+    inverseJoinColumn: {
+      name: 'image_id',
+      referencedColumnName: 'id',
+    },
+  })
+  gallery: Image[];
 }
 
 export default Game;
