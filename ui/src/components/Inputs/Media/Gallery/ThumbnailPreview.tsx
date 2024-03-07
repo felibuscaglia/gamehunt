@@ -1,16 +1,18 @@
-import { IconTrash, IconX } from "@tabler/icons-react";
+import { IconPlus, IconX } from "@tabler/icons-react";
 import { IImage } from "lib/interfaces";
 
 interface IProps {
   gallery: IImage[];
   onThumbnailClick: (index: number) => void;
   onRemoveBtnClick: (index: number) => void;
+  onAddBtnClick: () => void;
 }
 
 const GalleryThumbnailPreview: React.FC<IProps> = ({
   gallery,
   onThumbnailClick,
-  onRemoveBtnClick
+  onRemoveBtnClick,
+  onAddBtnClick,
 }) => {
   return (
     <div className="flex items-center gap-4">
@@ -30,6 +32,13 @@ const GalleryThumbnailPreview: React.FC<IProps> = ({
           </button>
         </div>
       ))}
+      <button
+        onClick={onAddBtnClick}
+        type="button"
+        className="h-14 w-14 flex items-center justify-center border-2 border-dashed rounded border-gray-300"
+      >
+        <IconPlus className="text-gray-500" />
+      </button>
     </div>
   );
 };

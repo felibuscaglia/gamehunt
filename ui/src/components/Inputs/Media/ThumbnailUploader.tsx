@@ -75,7 +75,7 @@ const ThumbnailUploader = () => {
         </div>
       ) : (
         <div
-          className="bg-center bg-contain rounded h-20 w-20"
+          className="bg-center bg-contain bg-no-repeat rounded h-20 w-20"
           style={{ backgroundImage: `url('${input.thumbnail.url}')` }}
         />
       )}

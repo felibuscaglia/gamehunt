@@ -2,10 +2,15 @@ import Button from "components/Button";
 import GalleryInput from "components/Inputs/Media/Gallery";
 import ThumbnailUploader from "components/Inputs/Media/ThumbnailUploader";
 import TextInput from "components/Inputs/Text";
+import { GameFormContext } from "lib/contexts/GameForm.context";
+import { GameCreationSidebarSectionIndexes } from "lib/enums";
+import { useContext } from "react";
 
 const TITLE_CLASSNAMES = "font-bold text-2xl";
 
 const MediaSection = () => {
+  const { input, setInput, setSelectedSection } = useContext(GameFormContext);
+
   return (
     <div className="flex flex-col gap-8">
       <h6 className={TITLE_CLASSNAMES}>Thumbnail</h6>
@@ -28,15 +33,24 @@ const MediaSection = () => {
       <div className="w-1/2">
         <TextInput
           label="Link"
-          value=""
-          id=""
-          onChange={() => {}}
+          value={input.videoUrl || ""}
+          id="videoUrl"
+          onChange={({ target }) =>
+            setInput({ ...input, videoUrl: target.value })
+          }
           textSize="small"
           placeholder="Enter your Loom/YouTube video URL here..."
         />
       </div>
       <div className="w-1/5 mb-8">
-        <Button text="Next step: Creators" textSize="small" />
+        <Button
+          text="Next step: Creators"
+          textSize="small"
+          onClick={() => {
+            setSelectedSection(GameCreationSidebarSectionIndexes.CREATORS);
+            window.scrollTo(0, 0);
+          }}
+        />
       </div>
     </div>
   );

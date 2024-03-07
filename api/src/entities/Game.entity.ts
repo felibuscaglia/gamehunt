@@ -75,6 +75,9 @@ class Game {
     },
   })
   gallery: Image[];
+
+  @Column({ nullable: true })
+  videoUrl?: string;
 }
 
 export default Game;

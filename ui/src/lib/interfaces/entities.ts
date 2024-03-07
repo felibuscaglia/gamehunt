@@ -19,6 +19,7 @@ export interface IGame {
   links?: IGameLink[];
   thumbnail?: IImage;
   gallery: IImage[];
+  videoUrl?: string;
 }
 
 export interface IGenre {
@@ -43,4 +44,5 @@ export interface IGameLink {
 export interface IImage {
   id: string;
   url: string;
+  externalId: string;
 }

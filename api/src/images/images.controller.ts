@@ -1,5 +1,7 @@
 import {
   Controller,
+  Delete,
+  Param,
   Post,
   UploadedFile,
   UploadedFiles,
@@ -32,5 +34,10 @@ export class ImagesController {
     files: Array<Express.Multer.File>,
   ) {
     return this.imagesService.bulkUpload(files);
+  }
+
+  @Delete('/:imageExternalId')
+  deleteImage(@Param('imageExternalId') imageExternalId: string) {
+    return this.imagesService.delete(imageExternalId);
   }
 }

@@ -7,6 +7,9 @@ class Image {
 
   @Column({ unique: true, nullable: false })
   url: string;
+
+  @Column('uuid', { unique: true, nullable: false })
+  externalId: string;
 }
 
 export default Image;

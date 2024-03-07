@@ -2,7 +2,7 @@ import { API_PATHS } from "lib/constants";
 import { GameFormContext } from "lib/contexts/GameForm.context";
 import useAxiosAuth from "lib/hooks/useAxiosAuth";
 import { IImage } from "lib/interfaces";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import ThumbnailPreview from "./ThumbnailPreview";
 import Placeholder from "./Placeholder";
@@ -12,6 +12,8 @@ const GalleryInput = () => {
   const [selectedImage, setSelectedImage] = useState(0);
 
   const axiosAuth = useAxiosAuth();
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const { input, setInput } = useContext(GameFormContext);
 
@@ -31,10 +33,10 @@ const GalleryInput = () => {
         },
       })
       .then(({ data }) => {
-        setInput({
-          ...input,
-          gallery: data,
-        });
+        setInput((prevInput) => ({
+          ...prevInput,
+          gallery: prevInput.gallery.concat(data),
+        }));
         setUploading(false);
       })
       .catch((err) => {
@@ -55,10 +57,25 @@ const GalleryInput = () => {
   };
 
   const removeImage = (index: number) => {
+    const prevGallery = [...input.gallery];
+
+    axiosAuth
+      .delete(
+        API_PATHS.DELETE_IMAGE.replace(
+          ":imageExternalId",
+          prevGallery[selectedImage].externalId
+        )
+      )
+      .catch((err) => console.error(err));
+
     setInput((prevInput) => {
+      const updatedGallery = prevInput.gallery;
+
+      updatedGallery.splice(index, 1);
+
       return {
-        ...input,
-        gallery: input.gallery.splice(index, 1),
+        ...prevInput,
+        gallery: updatedGallery,
       };
     });
   };
@@ -68,14 +85,32 @@ const GalleryInput = () => {
   return (
     <div className="flex flex-col gap-8">
       {input.gallery.length ? (
-        <img className="rounded w-1/2 h-1/2" src={SELECTED_IMAGE.url} />
+        <>
+          <div
+            className="w-full h-80 bg-center bg-contain bg-no-repeat"
+            style={{ backgroundImage: `url('${SELECTED_IMAGE.url}')` }}
+          />
+          <ThumbnailPreview
+            onThumbnailClick={(index: number) => setSelectedImage(index)}
+            gallery={input.gallery}
+            onRemoveBtnClick={removeImage}
+            onAddBtnClick={() => inputRef.current?.click()}
+          />
+        </>
       ) : (
-        <Placeholder onFileChange={handleFileChange} uploading={uploading} />
+        <Placeholder
+          onClick={() => inputRef.current?.click()}
+          uploading={uploading}
+        />
       )}
-      <ThumbnailPreview
-        onThumbnailClick={(index: number) => setSelectedImage(index)}
-        gallery={input.gallery}
-        onRemoveBtnClick={removeImage}
+      <input
+        type="file"
+        id="file"
+        ref={inputRef}
+        onChange={handleFileChange}
+        accept="image/*"
+        className="hidden"
+        multiple
       />
     </div>
   );

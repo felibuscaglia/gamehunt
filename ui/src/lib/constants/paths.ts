@@ -27,5 +27,6 @@ export const API_PATHS = {
   GET_ADMIN_GENRES: "/admin/genres",
   GET_ADMIN_SUBGENRES: "/admin/subgenres",
   UPLOAD_IMAGE: "/images",
+  DELETE_IMAGE: "/images/:imageExternalId",
   BULK_UPLOAD_IMAGES: "/images/bulk"
 };

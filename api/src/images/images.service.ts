@@ -1,11 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { InjectRepository } from '@nestjs/typeorm';
+import {
+  UploadcareSimpleAuthSchema,
+  deleteFile,
+} from '@uploadcare/rest-client';
 import { uploadFile } from '@uploadcare/upload-client';
 import { Image } from 'entities';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ImagesService {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(
+    private readonly configService: ConfigService,
+    @InjectRepository(Image)
+    private readonly imagesRepository: Repository<Image>,
+  ) {}
 
   public async upload(image: Express.Multer.File) {
     try {
@@ -18,8 +28,9 @@ export class ImagesService {
       const newImage = new Image();
 
       newImage.url = uploadedImage.cdnUrl;
+      newImage.externalId = uploadedImage.uuid;
 
-      return newImage;
+      return this.imagesRepository.save(newImage);
     } catch (err) {
       throw new Error(err);
     }
@@ -37,5 +48,21 @@ export class ImagesService {
     }
 
     return uploadedImages;
+  }
+
+  public delete(externalId: string) {
+    this.imagesRepository.delete({ externalId });
+
+    deleteFile(
+      {
+        uuid: externalId,
+      },
+      {
+        authSchema: new UploadcareSimpleAuthSchema({
+          publicKey: this.configService.get('UPLOADCARE_API_KEY'),
+          secretKey: this.configService.get('UPLOADCARE_SECRET_KEY'),
+        }),
+      },
+    );
   }
 }
