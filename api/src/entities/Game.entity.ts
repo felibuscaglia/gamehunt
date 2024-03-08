@@ -4,6 +4,7 @@ import {
   JoinColumn,
   JoinTable,
   ManyToMany,
+  ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -13,15 +14,18 @@ import Subgenre from './Subgenre.entity';
 import { GamePricing } from 'games/lib/enums/game-pricing.enum';
 import GameLink from './GameLink.entity';
 import Image from './Image.entity';
-import GameCreator from './GameCreator.entity';
+import User from './User.entity';
 
 @Entity('game')
 class Game {
   @PrimaryGeneratedColumn('uuid', { name: 'game_id' })
   id: string;
 
-  @OneToMany(() => GameCreator, (creator) => creator.game)
-  creators: GameCreator[];
+  @ManyToOne(() => User, (user) => user.games)
+  creator: User;
+
+  @Column({ nullable: false, default: true })
+  creatorInvolvedInDevelopment: boolean;
 
   @Column({ nullable: false, default: 'Draft game' })
   name: string;

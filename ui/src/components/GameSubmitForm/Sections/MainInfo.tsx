@@ -21,11 +21,6 @@ const SECTION_CLASSNAMES = "w-1/2 flex flex-col gap-8";
 const RADIO_BUTTON_OPTIONS: IRadioButtonOption[] = [
   { id: "free", value: GamePricing.FREE, text: "Free" },
   { id: "paid", value: GamePricing.PAID, text: "Paid" },
-  {
-    id: "paid2",
-    value: GamePricing.PAID_WITH_FREE_TRIAL,
-    text: "Paid (with a free trial or plan)",
-  },
 ];
 
 const MainInfoSection = () => {

@@ -30,7 +30,7 @@ const MediaSection = () => {
           from YouTube or Loom (optional).
         </p>
       </div>
-      <div className="w-1/2">
+      <div className="w-1/2 mb-8">
         <TextInput
           label="Link"
           value={input.videoUrl || ""}
@@ -40,16 +40,6 @@ const MediaSection = () => {
           }
           textSize="small"
           placeholder="Enter your Loom/YouTube video URL here..."
-        />
-      </div>
-      <div className="w-1/5 mb-8">
-        <Button
-          text="Next step: Creators"
-          textSize="small"
-          onClick={() => {
-            setSelectedSection(GameCreationSidebarSectionIndexes.CREATORS);
-            window.scrollTo(0, 0);
-          }}
         />
       </div>
     </div>

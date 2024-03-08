@@ -21,6 +21,13 @@ export class UsersService {
     });
   }
 
+  public findMany(whereOptions: FindOptionsWhere<User>, limit?: number) {
+    return this.usersRepository.find({
+      where: whereOptions,
+      take: limit,
+    });
+  }
+
   public create(fullName: string, email: string, password: string) {
     const newUser = new User();
 

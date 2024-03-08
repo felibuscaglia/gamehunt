@@ -6,26 +6,19 @@ export interface IAuthUser {
   role: USER_ROLES;
 }
 
-interface IUser {
+export interface IUser {
   id: string;
   fullName: string;
   email: string;
-  games: IGameCreator[];
+  games: IGame[];
   role: USER_ROLES;
-}
-
-interface IGameCreator {
-  id: string;
-  user: IUser;
-  game: IGame;
-  confirmed: boolean;
-  involvedInDevelopment: boolean;
 }
 
 export interface IGame {
   id: string;
   name: string;
-  creators: IGameCreator[];
+  creator: IGame;
+  creatorInvolvedInDevelopment: boolean;
   tagline?: string;
   description?: string;
   subgenres?: ISubgenre[];

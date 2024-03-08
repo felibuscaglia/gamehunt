@@ -17,6 +17,7 @@ export const API_PATHS = {
   SIGN_UP: "/auth/sign-up",
   REFRESH_TOKENS: "/auth/refresh",
   GET_ME: "/users/me",
+  GET_USERS: "/users",
   SUBMIT_GAME: "/games",
   GET_DRAFT_USER_GAMES: "/games/user?onlyDrafts=1",
   GET_GENRES: "/genres",
@@ -28,5 +29,5 @@ export const API_PATHS = {
   GET_ADMIN_SUBGENRES: "/admin/subgenres",
   UPLOAD_IMAGE: "/images",
   DELETE_IMAGE: "/images/:imageExternalId",
-  BULK_UPLOAD_IMAGES: "/images/bulk"
+  BULK_UPLOAD_IMAGES: "/images/bulk",
 };

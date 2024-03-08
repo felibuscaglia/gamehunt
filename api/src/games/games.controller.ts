@@ -7,11 +7,10 @@ import { GamesService } from './games.service';
 @Controller('games')
 export class GamesController {
   constructor(private readonly gamesService: GamesService) {}
-  
+
   @UseGuards(JwtGuard)
   @Post()
-  async createGame(@CurrentUser() user: User) {
-    return await this.gamesService.create(user);
+  createGame(@CurrentUser() user: User) {
+    return this.gamesService.create(user);
   }
-
 }

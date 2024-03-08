@@ -3,7 +3,6 @@ import { useState } from "react";
 import MainInfoSection from "./Sections/MainInfo";
 import LinksSection from "./Sections/Links";
 import MediaSection from "./Sections/Media";
-import CreatorsSection from "./Sections/Creators";
 import { GameFormContext } from "lib/contexts/GameForm.context";
 import SidebarLayout from "layouts/Sidebar";
 import {
@@ -26,9 +25,6 @@ const sectionComponent = (selectedSection: number) => {
     case 2:
       component = <MediaSection />;
       break;
-    case 3:
-      component = <CreatorsSection />;
-      break;
   }
 
   return component;
@@ -38,7 +34,6 @@ const SIDEBAR_SECTIONS = [
   { text: "Main info", icon: IconDeviceGamepad },
   { text: "Links", icon: IconLink },
   { text: "Media", icon: IconPhoto },
-  { text: "Creators", icon: IconUsersGroup },
 ];
 
 interface IProps {

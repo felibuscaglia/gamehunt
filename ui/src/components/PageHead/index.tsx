@@ -8,7 +8,7 @@ import { useAppSelector } from "store";
 
 const UL_ELEMENTS = ["Home", "Genres", "Newsletter", "Advertise", "About"];
 
-const SECTION_CLASSNAMES = "flex items-center gap-6 w-1/3";
+const SECTION_CLASSNAMES = "flex items-center gap-6";
 const BTN_CLASSNAMES =
   "hover:bg-gray-100 text-gray-500 py-1 px-2 cursor-pointer hover:text-gray-700";
 
@@ -18,7 +18,7 @@ const PageHead = () => {
 
   return (
     <nav className="z-50 sticky top-0 bg-white border-b border-gray-100 p-4 mb-4 flex items-center justify-between h-20">
-      <section className={SECTION_CLASSNAMES}>
+      <section className={SECTION_CLASSNAMES + " w-1/3"}>
         <Link to={UI_PATHS.HOME}>
           <Logo />
         </Link>
@@ -33,8 +33,15 @@ const PageHead = () => {
           ))}
         </ul>
       </section>
-      <section className={SECTION_CLASSNAMES + " justify-end"}>
-        <AutoCompleteInput withIcon placeholder="Search games..." />
+      <section className={SECTION_CLASSNAMES + " justify-end w-5/12"}>
+        <AutoCompleteInput
+          searchApiPath="as"
+          withIcon
+          placeholder="Search games..."
+          limit={2}
+          displayKey=""
+          onSelect={() => {}}
+        />
         {localStorage.getItem(IS_LOGGED_IN_KEY) === "1" && user !== null ? (
           <UserPanel loading={loadingUser} user={user} />
         ) : (
