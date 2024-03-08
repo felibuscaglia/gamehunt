@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import Game from './Game.entity';
 import { USER_ROLES } from 'users/lib/enums';
+import GameCreator from './GameCreator.entity';
 
 @Entity('user')
 class User {
@@ -16,8 +16,8 @@ class User {
   @Column({ nullable: false, unique: true })
   email: string;
 
-  @OneToMany(() => Game, (game) => game.creator)
-  games: Game[];
+  @OneToMany(() => GameCreator, (creator) => creator.user)
+  games: GameCreator[];
 
   @Column({
     type: 'enum',

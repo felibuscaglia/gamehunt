@@ -10,8 +10,8 @@ export class GamesController {
   
   @UseGuards(JwtGuard)
   @Post()
-  createGame(@CurrentUser() user: User) {
-    return this.gamesService.create(user);
+  async createGame(@CurrentUser() user: User) {
+    return await this.gamesService.create(user);
   }
 
 }
