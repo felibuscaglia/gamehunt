@@ -69,6 +69,7 @@ const App = () => {
         <Route element={<GameSubmitScreen />} path={UI_PATHS.SUBMIT_GAME} />
         <Route element={<AdminPortalScreen />} path={UI_PATHS.EDIT_GENRES} />
         <Route element={<AdminPortalScreen />} path={UI_PATHS.EDIT_SUBGENRES} />
+        <Route element={<AdminPortalScreen />} path={UI_PATHS.EDIT_PLATFORMS  } />
       </Routes>
       <Toaster position="bottom-center" />
     </>

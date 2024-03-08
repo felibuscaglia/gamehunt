@@ -2,7 +2,12 @@ import TextInput from "components/Inputs/Text";
 import TextArea from "components/Inputs/TextArea";
 import Button from "components/Button";
 import RadioInput from "components/Inputs/Radio";
-import { IGenre, IRadioButtonOption, ISubgenre } from "lib/interfaces";
+import {
+  IGenre,
+  IPlatform,
+  IRadioButtonOption,
+  ISubgenre,
+} from "lib/interfaces";
 import { useContext, useState } from "react";
 import { GameFormContext } from "lib/contexts/GameForm.context";
 import SelectInput from "components/Inputs/Select";
@@ -15,6 +20,8 @@ import {
 } from "lib/enums";
 import { SUBGENRES_LIMIT } from "lib/constants/game-creation";
 import PlusButton from "components/Button/Plus";
+import AutoCompleteInput from "components/Inputs/AutoComplete";
+import { API_PATHS } from "lib/constants";
 
 const SECTION_CLASSNAMES = "w-1/2 flex flex-col gap-8";
 
@@ -67,6 +74,28 @@ const MainInfoSection = () => {
       return {
         ...prevInput,
         subgenres: newSubgenres,
+      };
+    });
+  };
+
+  const handlePlatformSelect = (selectedPlatform: IPlatform) => {
+    if (
+      !input.platforms.find((platform) => platform.id === selectedPlatform.id)
+    ) {
+      setInput((prevInput) => ({
+        ...prevInput,
+        platforms: prevInput.platforms.concat(selectedPlatform),
+      }));
+    }
+  };
+
+  const removePlatform = (platformIndex: number) => {
+    setInput((prevInput) => {
+      const newPlatforms = [...(prevInput.platforms || [])];
+      newPlatforms.splice(platformIndex, 1);
+      return {
+        ...prevInput,
+        platforms: newPlatforms,
       };
     });
   };
@@ -145,6 +174,38 @@ const MainInfoSection = () => {
             key={`selected-subgenre-${name}`}
           >
             <button type="button" onClick={() => removeSubgenre(i)}>
+              <IconX size={15} />
+            </button>
+            <span className="text-sm">{name}</span>
+          </div>
+        ))}
+      </section>
+      <hr className="border-t border-t-gray-200 my-8" />
+      <h6 className="font-bold text-2xl">Platforms</h6>
+      <p className="mt-4 mb-8 text-gray-700">
+        Select the platform(s) where your game can be played.
+      </p>
+      <section className="w-1/2">
+        <AutoCompleteInput<IPlatform>
+          searchApiPath={API_PATHS.GET_PLATFORMS}
+          limit={6}
+          displayKey="name"
+          onSelect={handlePlatformSelect}
+          placeholder="Search for the platform name..."
+          textSize={TEXT_SIZE.SMALL}
+        />
+      </section>
+      <section
+        className={`${
+          input.platforms.length ? "mt-4" : "mt-0"
+        } flex items-center gap-4`}
+      >
+        {input.platforms.map(({ name, id }, i) => (
+          <div
+            className="flex items-center gap-1 px-2 py-1 bg-primary-brand-color rounded-lg text-white"
+            key={`selected-platform-${id}`}
+          >
+            <button type="button" onClick={() => removePlatform(i)}>
               <IconX size={15} />
             </button>
             <span className="text-sm">{name}</span>

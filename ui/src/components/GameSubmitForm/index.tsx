@@ -5,12 +5,7 @@ import LinksSection from "./Sections/Links";
 import MediaSection from "./Sections/Media";
 import { GameFormContext } from "lib/contexts/GameForm.context";
 import SidebarLayout from "layouts/Sidebar";
-import {
-  IconDeviceGamepad,
-  IconLink,
-  IconPhoto,
-  IconUsersGroup,
-} from "@tabler/icons-react";
+import { IconDeviceGamepad, IconLink, IconPhoto } from "@tabler/icons-react";
 
 const sectionComponent = (selectedSection: number) => {
   let component: React.ReactNode;
@@ -44,7 +39,8 @@ const GameSubmitForm: React.FC<IProps> = ({ game }) => {
   const [selectedSection, setSelectedSection] = useState(0);
   const [input, setInput] = useState<IGame>({
     ...game,
-    gallery: [],
+    gallery: game.gallery || [],
+    platforms: game.platforms || [],
   });
 
   return (

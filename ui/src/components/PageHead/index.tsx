@@ -6,7 +6,14 @@ import AuthButtons from "../AuthButtons";
 import UserPanel from "./UserPanel";
 import { useAppSelector } from "store";
 
-const UL_ELEMENTS = ["Home", "Genres", "Newsletter", "Advertise", "About"];
+const UL_ELEMENTS = [
+  "Home",
+  "Genres",
+  "Platforms",
+  "Newsletter",
+  "Advertise",
+  "About",
+];
 
 const SECTION_CLASSNAMES = "flex items-center gap-6";
 const BTN_CLASSNAMES =

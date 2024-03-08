@@ -1,6 +1,7 @@
-import { IconCategory } from "@tabler/icons-react";
+import { IconCategory, IconDeviceGamepad3 } from "@tabler/icons-react";
 import AdminPanel from "components/AdminPanel";
 import AdminPanelGenreForm from "components/AdminPanel/Forms/Genre";
+import AdminPanelPlatformForm from "components/AdminPanel/Forms/Platform";
 import AdminPanelSubgenreForm from "components/AdminPanel/Forms/Subgenre";
 import AuthGuard from "guards/Auth";
 import SidebarLayout from "layouts/Sidebar";
@@ -18,6 +19,14 @@ const currLocationInfo = (pathname: string) => {
         title: "Subgenres",
         fetchDataPath: API_PATHS.GET_ADMIN_SUBGENRES,
         form: AdminPanelSubgenreForm,
+      };
+    case UI_PATHS.EDIT_PLATFORMS:
+      return {
+        apiPath: `${API_PATHS.GET_ADMIN_PLATFORMS}?limit=20&offset=0`,
+        index: 2,
+        title: "Platforms",
+        fetchDataPath: API_PATHS.GET_ADMIN_PLATFORMS,
+        form: AdminPanelPlatformForm,
       };
     default:
       return {
@@ -41,6 +50,11 @@ const SIDEBAR_SECTIONS: ISidebarSection[] = [
     icon: IconCategory,
     path: UI_PATHS.EDIT_SUBGENRES,
   },
+  {
+    text: "Platforms",
+    icon: IconDeviceGamepad3,
+    path: UI_PATHS.EDIT_PLATFORMS
+  }
 ];
 
 const AdminPortalScreen = () => {

@@ -16,7 +16,7 @@ const UserPanel: React.FC<IProps> = ({ loading, user }) => {
     <div className="flex items-center gap-4">
       <Link
         to={UI_PATHS.SUBMIT_GAME}
-        className="whitespace-nowrap text-primary-brand-color"
+        className="whitespace-nowrap text-primary-brand-color bg-primary-brand-color-extra-light py-2 px-4 rounded"
       >
         Submit
       </Link>

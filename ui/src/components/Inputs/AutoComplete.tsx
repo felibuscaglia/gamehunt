@@ -21,7 +21,7 @@ const AutoCompleteInput = <T,>({
   searchApiPath,
   limit,
   displayKey,
-  onSelect
+  onSelect,
 }: IProps<T>) => {
   const [input, setInput] = useState("");
   const [results, setResults] = useState<T[]>([]);
@@ -56,8 +56,15 @@ const AutoCompleteInput = <T,>({
     };
   }, [input, searchApiPath, limit]);
 
+  const handleComboboxChange = (op: T) => {
+    setInput("");
+    onSelect(op);
+  };
+
   return (
-    <Combobox onChange={onSelect}>
+    <Combobox
+      onChange={(selectedOption: T) => handleComboboxChange(selectedOption)}
+    >
       <div className="flex w-full items-center gap-2 bg-gray-100 rounded px-3 py-2 placeholder:text-gray-400">
         {withIcon && <IconSearch size={20} className="text-gray-400" />}
         <Combobox.Input
@@ -65,6 +72,7 @@ const AutoCompleteInput = <T,>({
           placeholder={placeholder}
           displayValue={(el: T) => (el ? (el[displayKey] as string) : "")}
           onChange={({ target }) => setInput(target.value)}
+          value={input}
         />
       </div>
       <Transition
@@ -74,7 +82,9 @@ const AutoCompleteInput = <T,>({
         leaveTo="opacity-0"
         afterLeave={() => setInput("")}
       >
-        <Combobox.Options className="mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+        <Combobox.Options
+          className={`mt-1 w-full overflow-auto ${textSize} rounded-md bg-white shadow-lg`}
+        >
           {nothingFound ? (
             <div className="w-full px-3 py-2 text-gray-400 italic">
               Nothing found.

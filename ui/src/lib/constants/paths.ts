@@ -9,6 +9,7 @@ export const UI_PATHS = {
   NOTIFICATIONS: "/notifications",
   EDIT_GENRES: "/admin/genres",
   EDIT_SUBGENRES: "/admin/subgenres",
+  EDIT_PLATFORMS: "/admin/platforms",
 };
 
 export const API_PATHS = {
@@ -30,4 +31,9 @@ export const API_PATHS = {
   UPLOAD_IMAGE: "/images",
   DELETE_IMAGE: "/images/:imageExternalId",
   BULK_UPLOAD_IMAGES: "/images/bulk",
+  GET_ADMIN_PLATFORMS: "/admin/platforms",
+  GET_PLATFORMS: "/platforms",
+  GET_ADMIN_GAME_MODES: "/admin/game-modes",
+  GET_GAME_MODES: "/game-modes",
+  SAVE_PLATFORM: "/platforms",
 };

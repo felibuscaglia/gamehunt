@@ -15,6 +15,8 @@ import { GamePricing } from 'games/lib/enums/game-pricing.enum';
 import GameLink from './GameLink.entity';
 import Image from './Image.entity';
 import User from './User.entity';
+import Platform from './Platform.entity';
+import GameMode from './GameMode.entity';
 
 @Entity('game')
 class Game {
@@ -78,6 +80,28 @@ class Game {
     },
   })
   gallery: Image[];
+
+  @ManyToMany(() => Platform, { eager: true })
+  @JoinTable({
+    name: 'game_platform',
+    joinColumn: { name: 'game_id', referencedColumnName: 'id' },
+    inverseJoinColumn: {
+      name: 'platform_id',
+      referencedColumnName: 'id',
+    },
+  })
+  platforms: Platform[];
+
+  @ManyToMany(() => GameMode, { eager: true })
+  @JoinTable({
+    name: 'game_mode',
+    joinColumn: { name: 'game_id', referencedColumnName: 'id' },
+    inverseJoinColumn: {
+      name: 'mode_id',
+      referencedColumnName: 'id',
+    },
+  })
+  modes: GameMode[];
 
   @Column({ nullable: true })
   videoUrl?: string;

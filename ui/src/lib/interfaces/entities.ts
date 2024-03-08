@@ -27,6 +27,7 @@ export interface IGame {
   thumbnail?: IImage;
   gallery: IImage[];
   videoUrl?: string;
+  platforms: IPlatform[];
 }
 
 export interface IGenre {
@@ -52,4 +53,9 @@ export interface IImage {
   id: string;
   url: string;
   externalId: string;
+}
+
+export interface IPlatform {
+  id: number;
+  name: string;
 }
