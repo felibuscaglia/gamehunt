@@ -23,7 +23,7 @@ const SidebarLayout: React.FC<IProps> = ({
 }) => {
   return (
     <section className="w-10/12 mx-auto">
-      <div className="border-b sticky top-20 bg-white border-b-gray-200 py-5 flex items-center justify-between z-50">
+      <div className="border-b sticky top-20 bg-white border-b-gray-200 py-5 flex items-center justify-between z-40">
         <h2 className="text-center text-3xl font-bold">{title}</h2>
         {btnText && (
           <div className="w-1/12">

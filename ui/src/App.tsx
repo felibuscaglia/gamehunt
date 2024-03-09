@@ -1,5 +1,5 @@
 import { API_PATHS, UI_PATHS } from "lib/constants";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import HomeScreen from "screens/Home";
 import SignUpScreen from "screens/SignUp";
 import LogInScreen from "screens/Login";
@@ -69,7 +69,11 @@ const App = () => {
         <Route element={<GameSubmitScreen />} path={UI_PATHS.SUBMIT_GAME} />
         <Route element={<AdminPortalScreen />} path={UI_PATHS.EDIT_GENRES} />
         <Route element={<AdminPortalScreen />} path={UI_PATHS.EDIT_SUBGENRES} />
-        <Route element={<AdminPortalScreen />} path={UI_PATHS.EDIT_PLATFORMS  } />
+        <Route element={<AdminPortalScreen />} path={UI_PATHS.EDIT_PLATFORMS} />
+        <Route
+          element={<AdminPortalScreen />}
+          path={UI_PATHS.EDIT_GAME_MODES}
+        />
       </Routes>
       <Toaster position="bottom-center" />
     </>

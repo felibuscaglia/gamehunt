@@ -10,6 +10,7 @@ export const UI_PATHS = {
   EDIT_GENRES: "/admin/genres",
   EDIT_SUBGENRES: "/admin/subgenres",
   EDIT_PLATFORMS: "/admin/platforms",
+  EDIT_GAME_MODES: "/admin/game-modes"
 };
 
 export const API_PATHS = {
@@ -36,4 +37,5 @@ export const API_PATHS = {
   GET_ADMIN_GAME_MODES: "/admin/game-modes",
   GET_GAME_MODES: "/game-modes",
   SAVE_PLATFORM: "/platforms",
+  SAVE_GAME_MODE: "/game-modes"
 };

@@ -1,5 +1,6 @@
-import { IconCategory, IconDeviceGamepad3 } from "@tabler/icons-react";
+import { IconCategory, IconDeviceGamepad2, IconDeviceGamepad3 } from "@tabler/icons-react";
 import AdminPanel from "components/AdminPanel";
+import AdminPanelGameModeForm from "components/AdminPanel/Forms/GameMode";
 import AdminPanelGenreForm from "components/AdminPanel/Forms/Genre";
 import AdminPanelPlatformForm from "components/AdminPanel/Forms/Platform";
 import AdminPanelSubgenreForm from "components/AdminPanel/Forms/Subgenre";
@@ -28,6 +29,14 @@ const currLocationInfo = (pathname: string) => {
         fetchDataPath: API_PATHS.GET_ADMIN_PLATFORMS,
         form: AdminPanelPlatformForm,
       };
+    case UI_PATHS.EDIT_GAME_MODES:
+      return {
+        apiPath: `${API_PATHS.GET_ADMIN_GAME_MODES}?limit=20&offset=0`,
+        index: 3,
+        title: "Game modes",
+        fetchDataPath: API_PATHS.GET_ADMIN_GAME_MODES,
+        form: AdminPanelGameModeForm,
+      };
     default:
       return {
         apiPath: `${API_PATHS.GET_ADMIN_GENRES}?limit=20&offset=0`,
@@ -53,7 +62,12 @@ const SIDEBAR_SECTIONS: ISidebarSection[] = [
   {
     text: "Platforms",
     icon: IconDeviceGamepad3,
-    path: UI_PATHS.EDIT_PLATFORMS
+    path: UI_PATHS.EDIT_PLATFORMS,
+  },
+  { 
+    text: "Game modes",
+    icon: IconDeviceGamepad2,
+    path: UI_PATHS.EDIT_GAME_MODES
   }
 ];
 

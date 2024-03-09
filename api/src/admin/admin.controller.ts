@@ -37,7 +37,7 @@ export class AdminController {
     @Query('limit') limit?: number,
     @Query('offset') offset?: number,
   ) {
-    return this.platformsService.findAll({ take: limit, skip: offset * limit });
+    return this.platformsService.find({ limit, offset });
   }
 
   @Get('/game-modes')
@@ -45,6 +45,6 @@ export class AdminController {
     @Query('limit') limit?: number,
     @Query('offset') offset?: number,
   ) {
-    return this.gameModesService.findAll(limit, offset);
+    return this.gameModesService.find({ limit, offset });
   }
 }

@@ -3,12 +3,14 @@ import TextArea from "components/Inputs/TextArea";
 import Button from "components/Button";
 import RadioInput from "components/Inputs/Radio";
 import {
+  IGame,
+  IGameMode,
   IGenre,
   IPlatform,
   IRadioButtonOption,
   ISubgenre,
 } from "lib/interfaces";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GameFormContext } from "lib/contexts/GameForm.context";
 import SelectInput from "components/Inputs/Select";
 import { useAppSelector } from "store";
@@ -20,7 +22,7 @@ import {
 } from "lib/enums";
 import { SUBGENRES_LIMIT } from "lib/constants/game-creation";
 import PlusButton from "components/Button/Plus";
-import AutoCompleteInput from "components/Inputs/AutoComplete";
+import useAxiosAuth from "lib/hooks/useAxiosAuth";
 import { API_PATHS } from "lib/constants";
 
 const SECTION_CLASSNAMES = "w-1/2 flex flex-col gap-8";
@@ -30,20 +32,50 @@ const RADIO_BUTTON_OPTIONS: IRadioButtonOption[] = [
   { id: "paid", value: GamePricing.PAID, text: "Paid" },
 ];
 
+interface ISelected {
+  genre: IGenre | null;
+  subgenre: ISubgenre | null;
+  platform: IPlatform | null;
+  mode: IGameMode | null;
+}
+
 const MainInfoSection = () => {
-  const [selectedGenre, setSelectedGenre] = useState<IGenre | null>(null);
-  const [selectedSubgenre, setSelectedSubgenre] = useState<ISubgenre | null>(
-    null
-  );
+  const [platforms, setPlatforms] = useState<IPlatform[]>([]);
+  const [modes, setModes] = useState<IGameMode[]>([]);
+  const [loading, setLoading] = useState({ platforms: true, modes: true });
+  const [selected, setSelected] = useState<ISelected>({
+    genre: null,
+    subgenre: null,
+    platform: null,
+    mode: null
+  });
 
   const { input, setInput, setSelectedSection } = useContext(GameFormContext);
+  const axiosAuth = useAxiosAuth();
+
   const genres = useAppSelector((state) => state.genres.genres);
 
   const INPUT_SUBGENRES = input.subgenres || [];
   const HAS_REACHED_SUBGENRES_LIMIT = INPUT_SUBGENRES.length >= SUBGENRES_LIMIT;
   const SUBGENRE_ALREADY_SELECTED = !!INPUT_SUBGENRES.find(
-    (subgenre) => subgenre.name === selectedSubgenre?.name
+    (subgenre) => subgenre.name === selected.subgenre?.name
   );
+
+  useEffect(() => {
+    axiosAuth
+      .get<IPlatform[]>(API_PATHS.GET_PLATFORMS)
+      .then(({ data }) => setPlatforms(data))
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(prevState => ({ ...prevState, platforms: false })));
+  }, []);
+
+  useEffect(() => {
+    axiosAuth
+      .get<IGameMode[]>(API_PATHS.GET_GAME_MODES)
+      .then(({ data }) => setModes(data))
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(prevState => ({ ...prevState, modes: false })));
+  }, []);
 
   const handleInputChange = ({
     target,
@@ -55,6 +87,7 @@ const MainInfoSection = () => {
   };
 
   const handleAddBtnClick = () => {
+    const selectedSubgenre = selected.subgenre;
     if (
       selectedSubgenre &&
       !HAS_REACHED_SUBGENRES_LIMIT &&
@@ -67,38 +100,45 @@ const MainInfoSection = () => {
     }
   };
 
-  const removeSubgenre = (subgenreIndex: number) => {
-    setInput((prevInput) => {
-      const newSubgenres = [...(prevInput.subgenres || [])];
-      newSubgenres.splice(subgenreIndex, 1);
-      return {
-        ...prevInput,
-        subgenres: newSubgenres,
-      };
-    });
-  };
+  const handleAddPlatformBtnClick = () => {
+    const SELECTED_PLATFORM = selected.platform;
+    const PLATFORM_ALREADY_SELECTED = !!input.platforms.find(
+      (platform) => platform.id === selected.platform?.id
+    );
 
-  const handlePlatformSelect = (selectedPlatform: IPlatform) => {
-    if (
-      !input.platforms.find((platform) => platform.id === selectedPlatform.id)
-    ) {
+    if (SELECTED_PLATFORM && !PLATFORM_ALREADY_SELECTED) {
       setInput((prevInput) => ({
         ...prevInput,
-        platforms: prevInput.platforms.concat(selectedPlatform),
+        platforms: [...(prevInput.platforms || []), SELECTED_PLATFORM],
       }));
     }
   };
 
-  const removePlatform = (platformIndex: number) => {
+  const handleAddModeBtnClick = () => {
+    const SELECTED_GAME_MODE = selected.mode;
+    const GAME_MODE_ALREADY_SELECTED = !!input.modes.find(
+      (mode) => mode.id === selected.mode?.id
+    );
+
+    if (SELECTED_GAME_MODE && !GAME_MODE_ALREADY_SELECTED) {
+      setInput((prevInput) => ({
+        ...prevInput,
+        modes: [...(prevInput.modes || []), SELECTED_GAME_MODE],
+      }));
+    }
+  };
+
+  const removeItemAtIndex = (index: number, arrayName: keyof IGame) => {
     setInput((prevInput) => {
-      const newPlatforms = [...(prevInput.platforms || [])];
-      newPlatforms.splice(platformIndex, 1);
+      const newArray = [...(prevInput[arrayName] as any || [])];
+      newArray.splice(index, 1);
       return {
         ...prevInput,
-        platforms: newPlatforms,
+        [arrayName]: newArray,
       };
     });
   };
+  
 
   return (
     <div>
@@ -139,25 +179,25 @@ const MainInfoSection = () => {
       </p>
       <section className="flex items-center gap-4 justify-between">
         <SelectInput<IGenre>
-          selected={selectedGenre}
-          setSelected={(g) => setSelectedGenre(g)}
+          selected={selected.genre}
+          setSelected={(g) => setSelected({ ...selected, genre: g })}
           displayKey="name"
           options={genres}
           textSize={TEXT_SIZE.SMALL}
           disabled={HAS_REACHED_SUBGENRES_LIMIT}
         />
         <SelectInput<ISubgenre>
-          selected={selectedSubgenre}
-          setSelected={(sg) => setSelectedSubgenre(sg)}
+          selected={selected.subgenre}
+          setSelected={(sg) => setSelected({ ...selected, subgenre: sg })}
           displayKey="name"
-          options={selectedGenre?.subgenres || []}
+          options={selected.genre?.subgenres || []}
           textSize={TEXT_SIZE.SMALL}
-          disabled={selectedGenre === null || HAS_REACHED_SUBGENRES_LIMIT}
+          disabled={selected.genre === null || HAS_REACHED_SUBGENRES_LIMIT}
         />
         <PlusButton
           onClick={handleAddBtnClick}
           disabled={
-            selectedSubgenre === null ||
+            selected.subgenre === null ||
             HAS_REACHED_SUBGENRES_LIMIT ||
             SUBGENRE_ALREADY_SELECTED
           }
@@ -173,7 +213,7 @@ const MainInfoSection = () => {
             className="flex items-center gap-1 px-2 py-1 bg-primary-brand-color rounded-lg text-white"
             key={`selected-subgenre-${name}`}
           >
-            <button type="button" onClick={() => removeSubgenre(i)}>
+            <button type="button" onClick={() => removeItemAtIndex(i, 'subgenres')}>
               <IconX size={15} />
             </button>
             <span className="text-sm">{name}</span>
@@ -185,15 +225,20 @@ const MainInfoSection = () => {
       <p className="mt-4 mb-8 text-gray-700">
         Select the platform(s) where your game can be played.
       </p>
-      <section className="w-1/2">
-        <AutoCompleteInput<IPlatform>
-          searchApiPath={API_PATHS.GET_PLATFORMS}
-          limit={6}
+      <section className="flex items-center gap-4 justify-between">
+        <SelectInput<IPlatform>
+          selected={selected.platform}
+          setSelected={(p) => setSelected({ ...selected, platform: p })}
           displayKey="name"
-          onSelect={handlePlatformSelect}
-          placeholder="Search for the platform name..."
+          options={platforms}
           textSize={TEXT_SIZE.SMALL}
+          disabled={loading.platforms}
         />
+        <PlusButton
+          onClick={handleAddPlatformBtnClick}
+          disabled={loading.platforms}
+        />
+        <div className="w-full" />
       </section>
       <section
         className={`${
@@ -205,7 +250,44 @@ const MainInfoSection = () => {
             className="flex items-center gap-1 px-2 py-1 bg-primary-brand-color rounded-lg text-white"
             key={`selected-platform-${id}`}
           >
-            <button type="button" onClick={() => removePlatform(i)}>
+            <button type="button" onClick={() => removeItemAtIndex(i, 'platforms')}>
+              <IconX size={15} />
+            </button>
+            <span className="text-sm">{name}</span>
+          </div>
+        ))}
+      </section>
+      <hr className="border-t border-t-gray-200 my-8" />
+      <h6 className="font-bold text-2xl">Modes</h6>
+      <p className="mt-4 mb-8 text-gray-700">
+        Choose the game mode(s) available for your game
+      </p>
+      <section className="flex items-center gap-4 justify-between">
+        <SelectInput<IGameMode>
+          selected={selected.mode}
+          setSelected={(m) => setSelected({ ...selected, mode: m })}
+          displayKey="name"
+          options={modes}
+          textSize={TEXT_SIZE.SMALL}
+          disabled={loading.modes}
+        />
+        <PlusButton
+          onClick={handleAddModeBtnClick}
+          disabled={loading.modes}
+        />
+        <div className="w-full" />
+      </section>
+      <section
+        className={`${
+          input.modes.length ? "mt-4" : "mt-0"
+        } flex items-center gap-4`}
+      >
+        {input.modes.map(({ name, id }, i) => (
+          <div
+            className="flex items-center gap-1 px-2 py-1 bg-primary-brand-color rounded-lg text-white"
+            key={`selected-platform-${id}`}
+          >
+            <button type="button" onClick={() => removeItemAtIndex(i, 'modes')}>
               <IconX size={15} />
             </button>
             <span className="text-sm">{name}</span>

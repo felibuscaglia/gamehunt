@@ -41,6 +41,7 @@ const GameSubmitForm: React.FC<IProps> = ({ game }) => {
     ...game,
     gallery: game.gallery || [],
     platforms: game.platforms || [],
+    modes: game.modes || []
   });
 
   return (

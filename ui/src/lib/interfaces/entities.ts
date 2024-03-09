@@ -14,6 +14,11 @@ export interface IUser {
   role: USER_ROLES;
 }
 
+export interface IGameMode {
+  id: number;
+  name: string;
+}
+
 export interface IGame {
   id: string;
   name: string;
@@ -28,6 +33,7 @@ export interface IGame {
   gallery: IImage[];
   videoUrl?: string;
   platforms: IPlatform[];
+  modes: IGameMode[];
 }
 
 export interface IGenre {

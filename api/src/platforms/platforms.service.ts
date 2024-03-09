@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Platform } from 'entities';
-import { FindManyOptions, Repository } from 'typeorm';
+import { FindManyOptions, ILike, Repository } from 'typeorm';
 import { CreatePlatformDto } from './dto';
+import { IDbQueryProps } from 'lib/interfaces';
 
 @Injectable()
 export class PlatformsService {
@@ -11,7 +12,21 @@ export class PlatformsService {
     private readonly platformsRepository: Repository<Platform>,
   ) {}
 
-  public findAll(options: FindManyOptions<Platform>) {
+  public find({ nameQuery, limit, offset }: IDbQueryProps) {
+    const options: FindManyOptions<Platform> = {};
+
+    if (nameQuery) {
+      options.where = { name: ILike(`%${nameQuery}%`) };
+    }
+
+    if (limit) {
+      options.take = limit;
+    }
+
+    if (offset) {
+      options.skip = limit * offset;
+    }
+
     return this.platformsRepository.find(options);
   }
 
