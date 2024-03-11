@@ -6,7 +6,7 @@ import { IGameLink, IGameLinkSelectOption } from "lib/interfaces";
 import { useContext } from "react";
 
 const LinksSection = () => {
-  const { input, setInput } = useContext(GameFormContext);
+  const { input, setInput, errors } = useContext(GameFormContext);
 
   const LINKS = input.links || [];
 
@@ -62,7 +62,9 @@ const LinksSection = () => {
   const addLink = () => {
     setInput((prevInput) => ({
       ...prevInput,
-      links: (prevInput.links || []).concat({ url: "" } as IGameLink),
+      links: LINKS.length
+        ? (prevInput.links || []).concat({ url: "" } as IGameLink)
+        : [{ url: "" } as IGameLink, { url: "" } as IGameLink],
     }));
   };
 
@@ -81,7 +83,14 @@ const LinksSection = () => {
 
   return (
     <div className="flex flex-col gap-8">
-      <h6 className="font-bold text-2xl">Where can users find your game?</h6>
+      <section>
+        <h6 className="font-bold text-2xl">Where can users find your game?</h6>
+        {errors.links && (
+          <span className="text-red-500 text-sm capitalize-first">
+            {errors.links[0]}
+          </span>
+        )}
+      </section>
       <section className="w-3/4 flex flex-col gap-4">
         {LINKS.length ? (
           LINKS.map(({ url, platform }, i) => (

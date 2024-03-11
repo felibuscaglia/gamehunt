@@ -40,6 +40,7 @@ interface IProps {
 const GameSubmitForm: React.FC<IProps> = ({ game }) => {
   const [selectedSection, setSelectedSection] = useState(0);
   const [saving, setSaving] = useState(false);
+  const [errors, setErrors] = useState<{ [K in keyof IGame]?: string[] }>({});
   const [savingError, setSavingError] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const [input, setInput] = useState<IGame>({
@@ -57,13 +58,17 @@ const GameSubmitForm: React.FC<IProps> = ({ game }) => {
     const timer = setTimeout(() => {
       setSaving(true);
       setSavingError(false);
+      setErrors({});
 
       const { id, creator, ...saveGameDto } = input;
 
       axiosAuth
         .patch(API_PATHS.SAVE_GAME.replace(":gameId", id), saveGameDto)
         .then(() => setLastSaved(new Date()))
-        .catch((err) => setSavingError(true))
+        .catch((err) => {
+          setSavingError(true);
+          setErrors(err?.response?.data?.errors || {});
+        })
         .finally(() => setSaving(false));
     }, 500);
 
@@ -84,7 +89,9 @@ const GameSubmitForm: React.FC<IProps> = ({ game }) => {
       lastSaved={lastSaved}
       savingError={savingError}
     >
-      <GameFormContext.Provider value={{ input, setInput, setSelectedSection }}>
+      <GameFormContext.Provider
+        value={{ input, setInput, setSelectedSection, errors }}
+      >
         <form className="w-full">{sectionComponent(selectedSection)}</form>
       </GameFormContext.Provider>
     </SidebarLayout>

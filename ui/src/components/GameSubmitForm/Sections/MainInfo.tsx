@@ -47,10 +47,11 @@ const MainInfoSection = () => {
     genre: null,
     subgenre: null,
     platform: null,
-    mode: null
+    mode: null,
   });
 
-  const { input, setInput, setSelectedSection } = useContext(GameFormContext);
+  const { input, setInput, setSelectedSection, errors } =
+    useContext(GameFormContext);
   const axiosAuth = useAxiosAuth();
 
   const genres = useAppSelector((state) => state.genres.genres);
@@ -66,7 +67,9 @@ const MainInfoSection = () => {
       .get<IPlatform[]>(API_PATHS.GET_PLATFORMS)
       .then(({ data }) => setPlatforms(data))
       .catch((err) => console.error(err))
-      .finally(() => setLoading(prevState => ({ ...prevState, platforms: false })));
+      .finally(() =>
+        setLoading((prevState) => ({ ...prevState, platforms: false }))
+      );
   }, []);
 
   useEffect(() => {
@@ -74,7 +77,9 @@ const MainInfoSection = () => {
       .get<IGameMode[]>(API_PATHS.GET_GAME_MODES)
       .then(({ data }) => setModes(data))
       .catch((err) => console.error(err))
-      .finally(() => setLoading(prevState => ({ ...prevState, modes: false })));
+      .finally(() =>
+        setLoading((prevState) => ({ ...prevState, modes: false }))
+      );
   }, []);
 
   const handleInputChange = ({
@@ -97,6 +102,7 @@ const MainInfoSection = () => {
         ...prevInput,
         subgenres: [...(prevInput.subgenres || []), selectedSubgenre],
       }));
+      setSelected({ ...selected, subgenre: null });
     }
   };
 
@@ -111,6 +117,7 @@ const MainInfoSection = () => {
         ...prevInput,
         platforms: [...(prevInput.platforms || []), SELECTED_PLATFORM],
       }));
+      setSelected({ ...selected, platform: null });
     }
   };
 
@@ -125,12 +132,13 @@ const MainInfoSection = () => {
         ...prevInput,
         modes: [...(prevInput.modes || []), SELECTED_GAME_MODE],
       }));
+      setSelected({ ...selected, mode: null });
     }
   };
 
   const removeItemAtIndex = (index: number, arrayName: keyof IGame) => {
     setInput((prevInput) => {
-      const newArray = [...(prevInput[arrayName] as any || [])];
+      const newArray = [...((prevInput[arrayName] as any) || [])];
       newArray.splice(index, 1);
       return {
         ...prevInput,
@@ -138,20 +146,20 @@ const MainInfoSection = () => {
       };
     });
   };
-  
 
   return (
     <div>
       <h6 className="font-bold text-2xl mb-8">Game information</h6>
       <section className={SECTION_CLASSNAMES}>
         <TextInput
-          label="Name of the game"
+          label="Name"
           placeholder="Just the name of the game"
           value={input.name}
           onChange={handleInputChange}
           id="name"
           textSize="small"
           limit={40}
+          error={(errors.name || [])[0]}
         />
         <TextInput
           label="Tagline"
@@ -161,6 +169,7 @@ const MainInfoSection = () => {
           id="tagline"
           textSize="small"
           limit={60}
+          error={(errors.tagline || [])[0]}
         />
         <TextArea
           label="Description"
@@ -169,6 +178,7 @@ const MainInfoSection = () => {
           placeholder="Write a quick overview of your game"
           onChange={handleInputChange}
           id="description"
+          error={(errors.description || [])[0]}
         />
         <TextArea
           label="Storyline"
@@ -177,6 +187,7 @@ const MainInfoSection = () => {
           placeholder="Briefly outline the storyline of your game (optional)"
           onChange={handleInputChange}
           id="storyline"
+          error={(errors.storyline || [])[0]}
         />
       </section>
       <hr className="border-t border-t-gray-200 my-8" />
@@ -188,7 +199,9 @@ const MainInfoSection = () => {
       <section className="flex items-center gap-4 justify-between">
         <SelectInput<IGenre>
           selected={selected.genre}
-          setSelected={(g) => setSelected({ ...selected, genre: g })}
+          setSelected={(g) =>
+            setSelected({ ...selected, genre: g, subgenre: null })
+          }
           displayKey="name"
           options={genres}
           textSize={TEXT_SIZE.SMALL}
@@ -221,13 +234,19 @@ const MainInfoSection = () => {
             className="flex items-center gap-1 px-2 py-1 bg-primary-brand-color rounded-lg text-white"
             key={`selected-subgenre-${name}`}
           >
-            <button type="button" onClick={() => removeItemAtIndex(i, 'subgenres')}>
+            <button
+              type="button"
+              onClick={() => removeItemAtIndex(i, "subgenres")}
+            >
               <IconX size={15} />
             </button>
             <span className="text-sm">{name}</span>
           </div>
         ))}
       </section>
+      {errors.subgenres && (
+        <span className="text-red-500 text-sm capitalize-first">{errors.subgenres[0]}</span>
+      )}
       <hr className="border-t border-t-gray-200 my-8" />
       <h6 className="font-bold text-2xl">Platforms</h6>
       <p className="mt-4 mb-8 text-gray-700">
@@ -258,13 +277,19 @@ const MainInfoSection = () => {
             className="flex items-center gap-1 px-2 py-1 bg-primary-brand-color rounded-lg text-white"
             key={`selected-platform-${id}`}
           >
-            <button type="button" onClick={() => removeItemAtIndex(i, 'platforms')}>
+            <button
+              type="button"
+              onClick={() => removeItemAtIndex(i, "platforms")}
+            >
               <IconX size={15} />
             </button>
             <span className="text-sm">{name}</span>
           </div>
         ))}
       </section>
+      {errors.platforms && (
+        <span className="text-red-500 text-sm capitalize-first">{errors.platforms[0]}</span>
+      )}
       <hr className="border-t border-t-gray-200 my-8" />
       <h6 className="font-bold text-2xl">Modes</h6>
       <p className="mt-4 mb-8 text-gray-700">
@@ -279,10 +304,7 @@ const MainInfoSection = () => {
           textSize={TEXT_SIZE.SMALL}
           disabled={loading.modes}
         />
-        <PlusButton
-          onClick={handleAddModeBtnClick}
-          disabled={loading.modes}
-        />
+        <PlusButton onClick={handleAddModeBtnClick} disabled={loading.modes} />
         <div className="w-full" />
       </section>
       <section
@@ -295,13 +317,16 @@ const MainInfoSection = () => {
             className="flex items-center gap-1 px-2 py-1 bg-primary-brand-color rounded-lg text-white"
             key={`selected-platform-${id}`}
           >
-            <button type="button" onClick={() => removeItemAtIndex(i, 'modes')}>
+            <button type="button" onClick={() => removeItemAtIndex(i, "modes")}>
               <IconX size={15} />
             </button>
             <span className="text-sm">{name}</span>
           </div>
         ))}
       </section>
+      {errors.modes && (
+        <span className="text-red-500 text-sm capitalize-first">{errors.modes[0]}</span>
+      )}
       <hr className="border-t border-t-gray-200 my-8" />
       <h6 className="font-bold text-2xl mb-8">Pricing</h6>
       <RadioInput
@@ -310,6 +335,7 @@ const MainInfoSection = () => {
         onChange={({ target }) =>
           setInput({ ...input, pricing: target.value as GamePricing })
         }
+        error={(errors.pricing || [])[0]}
       />
       <div className="w-2/12 my-8">
         <Button

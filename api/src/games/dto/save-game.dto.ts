@@ -47,14 +47,12 @@ export class SaveGameDto {
   @ArrayMaxSize(4)
   @ValidateNested({ each: true })
   @Type(() => Subgenre)
+  @ArrayUnique<Subgenre>(sg => sg.name)
   subgenres: Subgenre[];
 
   @IsDefined()
   @IsArray()
   @ArrayMaxSize(11)
-  @ValidateNested({ each: true })
-  @Type(() => GameLink)
-  @ArrayUnique<GameLink>(gl => gl.platform)
   links: GameLink[];
 
   @IsOptional()
@@ -84,7 +82,6 @@ export class SaveGameDto {
 
   @IsOptional()
   @IsString()
-  @IsUrl()
   videoUrl?: string;
 
   @IsOptional()

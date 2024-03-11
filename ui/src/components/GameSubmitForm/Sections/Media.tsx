@@ -9,13 +9,18 @@ import { useContext } from "react";
 const TITLE_CLASSNAMES = "font-bold text-2xl";
 
 const MediaSection = () => {
-  const { input, setInput, setSelectedSection } = useContext(GameFormContext);
+  const { input, setInput, errors } = useContext(GameFormContext);
 
   return (
     <div className="flex flex-col gap-8">
       <h6 className={TITLE_CLASSNAMES}>Thumbnail</h6>
       <div className="w-3/4">
         <ThumbnailUploader />
+        {errors.thumbnail && (
+          <span className="text-red-500 text-sm capitalize-first">
+            {errors.thumbnail[0]}
+          </span>
+        )}
       </div>
       <hr className="border-t border-t-gray-200" />
       <h6 className={TITLE_CLASSNAMES}>Gallery</h6>
@@ -40,6 +45,7 @@ const MediaSection = () => {
           }
           textSize="small"
           placeholder="Enter your Loom/YouTube video URL here..."
+          error={(errors.videoUrl || [])[0]}
         />
       </div>
     </div>
