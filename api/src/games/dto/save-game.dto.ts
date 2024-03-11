@@ -14,10 +14,10 @@ import {
   IsUrl,
   MaxLength,
   ValidateNested,
+  ArrayUnique
 } from 'class-validator';
 import { GameLink, GameMode, Image, Platform, Subgenre } from 'entities';
 import { GamePricing } from 'games/lib/enums';
-import { IsUniqueInArray } from 'games/validators/is-unique-in-array.validator';
 
 export class SaveGameDto {
   @IsBoolean()
@@ -54,9 +54,7 @@ export class SaveGameDto {
   @ArrayMaxSize(11)
   @ValidateNested({ each: true })
   @Type(() => GameLink)
-  @IsUniqueInArray('platform', {
-    message: 'Platform must not be repeated within links array',
-  })
+  @ArrayUnique<GameLink>(gl => gl.platform)
   links: GameLink[];
 
   @IsOptional()

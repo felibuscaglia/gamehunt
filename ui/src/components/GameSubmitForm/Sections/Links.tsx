@@ -118,7 +118,6 @@ const LinksSection = () => {
           <PlusButton onClick={addLink} />
         </div>
       </section>
-      <span>Main distribution platform??</span>
     </div>
   );
 };

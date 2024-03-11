@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Game, User } from 'entities';
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, Repository } from 'typeorm';
+import { SaveGameDto } from './dto';
 
 @Injectable()
 export class GamesService {
@@ -15,5 +16,22 @@ export class GamesService {
     newGame.creator = user;
 
     return this.gamesRepository.save(newGame);
+  }
+
+  public findOne(
+    whereOptions: FindOptionsWhere<Game>,
+    relations: string[] = [],
+  ) {
+    return this.gamesRepository.findOne({
+      where: whereOptions,
+      relations,
+    });
+  }
+
+  public save(id: string, dto: SaveGameDto) {
+    return this.gamesRepository.save({
+      id,
+      ...dto,
+    });
   }
 }

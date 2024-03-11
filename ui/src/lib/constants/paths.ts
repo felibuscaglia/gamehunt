@@ -37,5 +37,6 @@ export const API_PATHS = {
   GET_ADMIN_GAME_MODES: "/admin/game-modes",
   GET_GAME_MODES: "/game-modes",
   SAVE_PLATFORM: "/platforms",
-  SAVE_GAME_MODE: "/game-modes"
+  SAVE_GAME_MODE: "/game-modes",
+  SAVE_GAME: "/games/:gameId"
 };
