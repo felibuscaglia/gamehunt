@@ -170,6 +170,14 @@ const MainInfoSection = () => {
           onChange={handleInputChange}
           id="description"
         />
+        <TextArea
+          label="Storyline"
+          limit={520}
+          value={input.storyline || ""}
+          placeholder="Briefly outline the storyline of your game (optional)"
+          onChange={handleInputChange}
+          id="storyline"
+        />
       </section>
       <hr className="border-t border-t-gray-200 my-8" />
       <h6 className="font-bold text-2xl">Genres</h6>

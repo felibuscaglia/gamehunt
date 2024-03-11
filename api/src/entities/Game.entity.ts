@@ -105,6 +105,9 @@ class Game {
 
   @Column({ nullable: true })
   videoUrl?: string;
+
+  @Column({ nullable: true })
+  storyline?: string;
 }
 
 export default Game;

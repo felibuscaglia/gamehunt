@@ -34,6 +34,7 @@ export interface IGame {
   videoUrl?: string;
   platforms: IPlatform[];
   modes: IGameMode[];
+  storyline?: string;
 }
 
 export interface IGenre {
