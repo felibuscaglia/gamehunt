@@ -40,4 +40,5 @@ export const API_PATHS = {
   SAVE_GAME_MODE: "/game-modes",
   SAVE_GAME: "/games/:gameId",
   PUBLISH_GAME: "/games/:gameId/publish",
+  CREATE_GAME_LINK: "/game-links",
 };

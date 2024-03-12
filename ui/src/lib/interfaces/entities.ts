@@ -51,9 +51,9 @@ export interface ISubgenre {
 
 export interface IGameLink {
   id: string;
-  url: string;
-  platform: Platform;
-  game: IGame;
+  url?: string;
+  platform?: Platform;
+  game?: IGame;
 }
 
 export interface IImage {

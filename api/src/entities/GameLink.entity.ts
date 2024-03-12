@@ -7,11 +7,11 @@ class GameLink {
   @PrimaryGeneratedColumn('uuid', { name: 'game_link_id' })
   id: string;
 
-  @Column({ nullable: false })
-  url: string;
+  @Column({ nullable: true })
+  url?: string;
 
-  @Column({ nullable: false, type: 'enum', enum: Platform })
-  platform: Platform;
+  @Column({ nullable: true, type: 'enum', enum: Platform })
+  platform?: Platform;
 
   @ManyToOne(() => Game, (game) => game.links)
   game: Game;

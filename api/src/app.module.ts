@@ -11,6 +11,7 @@ import { SubgenresModule } from './subgenres/subgenres.module';
 import { ImagesModule } from './images/images.module';
 import { PlatformsModule } from './platforms/platforms.module';
 import { GamemodesModule } from './gamemodes/gamemodes.module';
+import { GameLinksModule } from './game-links/game-links.module';
 import entities from './entities';
 
 @Module({
@@ -39,6 +40,7 @@ import entities from './entities';
     ImagesModule,
     PlatformsModule,
     GamemodesModule,
+    GameLinksModule,
   ],
   controllers: [AppController],
   providers: [],

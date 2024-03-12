@@ -32,6 +32,10 @@ const formatSectionErrors = (
   errors: { [K in keyof IGame]?: string[] },
   sections: ISidebarSection[]
 ) => {
+  if (!errors) {
+    return sections;
+  }
+
   for (const key in errors) {
     if (!["links", "videoUrl", "gallery", "thumbnail"].includes(key)) {
       sections[0].error = true;
@@ -70,8 +74,8 @@ const GameSubmitForm: React.FC<IProps> = ({ game }) => {
     gallery: game.gallery || [],
     platforms: game.platforms || [],
     modes: game.modes || [],
-    links: game.links || [],
     subgenres: game.subgenres || [],
+    links: game.links || [],
   });
 
   const axiosAuth = useAxiosAuth();
@@ -85,6 +89,8 @@ const GameSubmitForm: React.FC<IProps> = ({ game }) => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
+      if (loading.saving) return;
+
       setLoading({ ...loading, saving: true });
       setSavingError(false);
       setErrors({});

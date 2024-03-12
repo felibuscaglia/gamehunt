@@ -19,7 +19,7 @@ export class GameOwnerGuard implements CanActivate {
     const game: Game = await this.gamesService.findOne({ id: gameId }, [
       'creator',
       'thumbnail',
-      'links'
+      'links',
     ]);
 
     if (!game) {

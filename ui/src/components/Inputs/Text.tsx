@@ -28,7 +28,7 @@ const TextInput: React.FC<IProps> = ({
   textSize = "base",
   limit,
   icon: Icon = null,
-  disabled = false
+  disabled = false,
 }) => {
   const [display, setDisplay] = useState(false);
 
@@ -59,12 +59,15 @@ const TextInput: React.FC<IProps> = ({
         <input
           className={`${
             textSize === "base" ? "text-base" : "text-sm"
-          } placeholder:text-gray-400 bg-transparent w-full`}
+          } placeholder:text-gray-400 bg-transparent w-full ${
+            disabled ? "cursor-not-allowed" : "cursor-text"
+          }`}
           placeholder={placeholder}
           value={value}
           onChange={handleInputChange}
           id={id}
           type={type === "password" && display ? "text" : type}
+          disabled={disabled}
           required={required}
         />
         {type === "password" && (

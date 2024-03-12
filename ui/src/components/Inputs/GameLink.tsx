@@ -49,7 +49,7 @@ const GameLinkInput: React.FC<IProps> = ({
           id={inputId}
           textSize="small"
           placeholder="Enter your link here..."
-          disabled={!!values.select}
+          disabled={!values.select?.value}
         />
         {onRemoveBtnClick && (
           <button

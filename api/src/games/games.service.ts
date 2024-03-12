@@ -1,17 +1,19 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Game, User } from 'entities';
+import { Game, GameLink, User } from 'entities';
 import { FindOptionsWhere, Repository } from 'typeorm';
 import { PublishGameDto, SaveGameDto } from './dto';
 import { validate } from 'class-validator';
 import { plainToInstance } from 'class-transformer';
 import { GameStatus } from './lib/enums';
 import { formatValidationErrors } from 'users/lib/helpers';
+import { GameLinksService } from 'game-links/game-links.service';
 
 @Injectable()
 export class GamesService {
   constructor(
     @InjectRepository(Game) private readonly gamesRepository: Repository<Game>,
+    private readonly gameLinksService: GameLinksService,
   ) {}
 
   public create(user: User) {
@@ -32,10 +34,11 @@ export class GamesService {
     });
   }
 
-  public save(id: string, dto: SaveGameDto) {
+  public async save(id: string, dto: SaveGameDto) {
     return this.gamesRepository.save({
       id,
       ...dto,
+      links: await this.gameLinksService.bulkSave(dto.links),
     });
   }
 
