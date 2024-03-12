@@ -18,6 +18,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { GameLink, GameMode, Image, Platform, Subgenre, User } from 'entities';
+import { PublishGameLinkDto } from 'game-links/dto';
 import { GamePricing } from 'games/lib/enums';
 
 export class PublishGameDto {
@@ -64,12 +65,12 @@ export class PublishGameDto {
   @IsArray({ message: 'At least one link needs to be added' })
   @ArrayMinSize(1)
   @ArrayMaxSize(11)
+  @Type(() => PublishGameLinkDto)
   @ValidateNested({ each: true })
-  @Type(() => GameLink)
   @ArrayUnique<GameLink>((gl) => gl.platform, {
     message: 'Some distribution channels are duplicated',
   })
-  links: GameLink[];
+  links: PublishGameLinkDto[];
 
   @IsObject()
   @IsNotEmptyObject()

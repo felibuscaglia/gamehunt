@@ -3,11 +3,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Game, GameLink, User } from 'entities';
 import { FindOptionsWhere, Repository } from 'typeorm';
 import { PublishGameDto, SaveGameDto } from './dto';
-import { validate } from 'class-validator';
+import { ValidationError, validate } from 'class-validator';
 import { plainToInstance } from 'class-transformer';
 import { GameStatus } from './lib/enums';
 import { formatValidationErrors } from 'users/lib/helpers';
 import { GameLinksService } from 'game-links/game-links.service';
+import { PublishGameLinkDto } from 'game-links/dto';
 
 @Injectable()
 export class GamesService {
@@ -45,9 +46,31 @@ export class GamesService {
   public async publish(game: Game) {
     const gameErrors = await validate(plainToInstance(PublishGameDto, game));
 
-    if (gameErrors.length) {
+    let linkErrors: ValidationError[] = [];
+
+    for (const LINK of game.links) {
+      const CURR_LINK_ERRORS = await validate(
+        plainToInstance(PublishGameLinkDto, LINK),
+      );
+      linkErrors = linkErrors.concat(CURR_LINK_ERRORS);
+
+      if(linkErrors.length) {
+        break;
+      }
+    }
+
+    if (gameErrors.length || linkErrors.length) {
+      const FORMATTED_ERRORS: any = formatValidationErrors(gameErrors);
+
+      if (linkErrors.length) {
+        FORMATTED_ERRORS.links = [
+          ...(FORMATTED_ERRORS.links || []),
+          'Some links are invalid. Please ensure that all links have a valid distribution channel selected and a correctly formatted URL.',
+        ];
+      }
+
       throw new BadRequestException({
-        errors: formatValidationErrors(gameErrors),
+        errors: FORMATTED_ERRORS,
       });
     }
 

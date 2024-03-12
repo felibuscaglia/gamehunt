@@ -7,6 +7,8 @@ import { IGameLink } from "lib/interfaces";
 import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
+const LINK_AMOUNT_LIMIT = 11;
+
 const LinksSection = () => {
   const [loading, setLoading] = useState(false);
 
@@ -14,12 +16,16 @@ const LinksSection = () => {
 
   const axiosAuth = useAxiosAuth();
 
+  const LINKS = input.links || [];
+
   useEffect(() => {
-    createLink();
+    if (!LINKS.length) {
+      createLink();
+    }
   }, []);
 
   const createLink = (platform?: string) => {
-    if (loading) {
+    if (loading || LINKS.length >= LINK_AMOUNT_LIMIT) {
       return;
     }
 
@@ -73,8 +79,6 @@ const LinksSection = () => {
       .catch((err) => console.error(err));
   };
 
-  const LINKS = input.links || [];
-
   return (
     <div className="flex flex-col gap-8">
       <h6 className="font-bold text-2xl">Where can users find your game?</h6>
@@ -110,9 +114,11 @@ const LinksSection = () => {
             inputId="game-link-0"
           />
         )}
-        <div>
-          <PlusButton disabled={loading} onClick={() => createLink()} />
-        </div>
+        {LINKS.length < LINK_AMOUNT_LIMIT && (
+          <div>
+            <PlusButton disabled={loading} onClick={() => createLink()} />
+          </div>
+        )}
       </section>
       {errors.links && (
         <span className="text-red-500 text-sm capitalize-first block">
