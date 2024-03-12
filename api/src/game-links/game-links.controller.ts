@@ -1,4 +1,11 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { JwtGuard } from 'auth/guards';
 import { CreateGameLinkDto } from './dto';
 import { GameLinksService } from './game-links.service';
@@ -11,5 +18,10 @@ export class GameLinksController {
   @Post()
   createGameLink(@Body() createGameLinkDto: CreateGameLinkDto) {
     return this.gameLinksService.create(createGameLinkDto);
+  }
+
+  @Delete('/:gameLinkId')
+  deleteGameLink(@Param('gameLinkId') gameLinkId: string) {
+    return this.gameLinksService.delete(gameLinkId);
   }
 }

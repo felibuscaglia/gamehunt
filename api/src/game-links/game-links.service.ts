@@ -18,4 +18,8 @@ export class GameLinksService {
   public bulkSave(gameLinks: GameLink[]) {
     return this.gameLinksRepository.save(gameLinks);
   }
+
+  public delete(id: string) {
+    return this.gameLinksRepository.delete({ id });
+  }
 }

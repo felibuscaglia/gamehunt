@@ -4,7 +4,7 @@ import { API_PATHS, UNEXPECTED_ERROR_MSG } from "lib/constants";
 import { GameFormContext } from "lib/contexts/GameForm.context";
 import useAxiosAuth from "lib/hooks/useAxiosAuth";
 import { IGameLink } from "lib/interfaces";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const LinksSection = () => {
@@ -13,6 +13,10 @@ const LinksSection = () => {
   const { input, setInput, errors } = useContext(GameFormContext);
 
   const axiosAuth = useAxiosAuth();
+
+  useEffect(() => {
+    createLink();
+  }, []);
 
   const createLink = (platform?: string) => {
     if (loading) {
@@ -23,16 +27,15 @@ const LinksSection = () => {
 
     axiosAuth
       .post<IGameLink>(API_PATHS.CREATE_GAME_LINK, {
-        platform: platform || null,
-        gameId: input.id,
+        platform,
       })
-      .then(({ data }) =>
+      .then(({ data }) => {
         setInput((prevInput) => ({
           ...prevInput,
           links: (prevInput.links || []).concat(data),
-        }))
-      )
-      .catch(() => toast.error(UNEXPECTED_ERROR_MSG))
+        }));
+      })
+      .catch((err) => toast.error(UNEXPECTED_ERROR_MSG + err))
       .finally(() => setLoading(false));
   };
 
@@ -53,6 +56,23 @@ const LinksSection = () => {
     });
   };
 
+  const deleteLink = (linkIndex: number, linkId: string) => {
+    setInput((prevInput) => {
+      const UPDATED_LINKS = [...(prevInput.links || [])];
+
+      UPDATED_LINKS.splice(linkIndex, 1);
+
+      return {
+        ...prevInput,
+        links: UPDATED_LINKS,
+      };
+    });
+
+    axiosAuth
+      .delete(API_PATHS.DELETE_GAME_LINK.replace(":gameLinkId", linkId))
+      .catch((err) => console.error(err));
+  };
+
   const LINKS = input.links || [];
 
   return (
@@ -60,7 +80,7 @@ const LinksSection = () => {
       <h6 className="font-bold text-2xl">Where can users find your game?</h6>
       <section className="w-3/4 flex flex-col gap-4">
         {LINKS.length ? (
-          LINKS.map(({ url, platform }, i) => (
+          LINKS.map(({ url, platform, id }, i) => (
             <GameLinkInput
               onChange={{
                 select: (selectedPlatform) =>
@@ -73,7 +93,7 @@ const LinksSection = () => {
                 input: url || null,
               }}
               inputId={`game-link-${i}`}
-              onRemoveBtnClick={i > 0 ? () => {} : undefined}
+              onRemoveBtnClick={i > 0 ? () => deleteLink(i, id) : undefined}
               key={`game-link-${i}`}
             />
           ))
@@ -91,7 +111,7 @@ const LinksSection = () => {
           />
         )}
         <div>
-          <PlusButton disabled={loading} onClick={createLink} />
+          <PlusButton disabled={loading} onClick={() => createLink()} />
         </div>
       </section>
       {errors.links && (

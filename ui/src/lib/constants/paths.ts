@@ -41,4 +41,5 @@ export const API_PATHS = {
   SAVE_GAME: "/games/:gameId",
   PUBLISH_GAME: "/games/:gameId/publish",
   CREATE_GAME_LINK: "/game-links",
+  DELETE_GAME_LINK: '/game-links/:gameLinkId'
 };
