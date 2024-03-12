@@ -35,7 +35,7 @@ const RadioInput: React.FC<IProps> = ({
         ))}
       </div>
       {error && (
-        <span className="text-sm text-red-500 capitalize-first">{error}</span>
+        <span className="text-sm text-red-500 capitalize-first block mt-2">{error}</span>
       )}
     </>
   );

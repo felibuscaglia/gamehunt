@@ -1,8 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Game, User } from 'entities';
 import { FindOptionsWhere, Repository } from 'typeorm';
-import { SaveGameDto } from './dto';
+import { PublishGameDto, SaveGameDto } from './dto';
+import { validate } from 'class-validator';
+import { plainToInstance } from 'class-transformer';
+import { GameStatus } from './lib/enums';
+import { formatValidationErrors } from 'users/lib/helpers';
 
 @Injectable()
 export class GamesService {
@@ -33,5 +37,19 @@ export class GamesService {
       id,
       ...dto,
     });
+  }
+
+  public async publish(game: Game) {
+    const gameErrors = await validate(plainToInstance(PublishGameDto, game));
+
+    if (gameErrors.length) {
+      throw new BadRequestException({
+        errors: formatValidationErrors(gameErrors),
+      });
+    }
+
+    game.status = GameStatus.PUBLISHED;
+
+    return this.gamesRepository.save(game);
   }
 }

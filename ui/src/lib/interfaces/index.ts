@@ -12,6 +12,7 @@ export interface IRadioButtonOption {
 export interface ISidebarSection {
   text: string;
   icon: Icon;
+  error?: boolean;
   path?: string;
 }
 

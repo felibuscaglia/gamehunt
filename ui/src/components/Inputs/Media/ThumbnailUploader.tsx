@@ -89,7 +89,7 @@ const ThumbnailUploader = () => {
               loading={uploadingFile}
             />
           </div>
-          {error && <span className="text-red-500 text-sm">{error}</span>}
+          {error && <span className="text-red-500 text-sm block mt-2">{error}</span>}
           <input
             type="file"
             id="file"

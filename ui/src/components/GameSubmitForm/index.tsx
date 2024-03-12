@@ -1,4 +1,4 @@
-import { IGame } from "lib/interfaces";
+import { IGame, ISidebarSection } from "lib/interfaces";
 import { useEffect, useState } from "react";
 import MainInfoSection from "./Sections/MainInfo";
 import LinksSection from "./Sections/Links";
@@ -7,7 +7,8 @@ import { GameFormContext } from "lib/contexts/GameForm.context";
 import SidebarLayout from "layouts/Sidebar";
 import { IconDeviceGamepad, IconLink, IconPhoto } from "@tabler/icons-react";
 import useAxiosAuth from "lib/hooks/useAxiosAuth";
-import { API_PATHS } from "lib/constants";
+import { API_PATHS, UI_PATHS } from "lib/constants";
+import { useNavigate } from "react-router-dom";
 
 const sectionComponent = (selectedSection: number) => {
   let component: React.ReactNode;
@@ -27,11 +28,27 @@ const sectionComponent = (selectedSection: number) => {
   return component;
 };
 
-const SIDEBAR_SECTIONS = [
-  { text: "Main info", icon: IconDeviceGamepad },
-  { text: "Links", icon: IconLink },
-  { text: "Media", icon: IconPhoto },
-];
+const formatSectionErrors = (
+  errors: { [K in keyof IGame]?: string[] },
+  sections: ISidebarSection[]
+) => {
+  for (const key in errors) {
+    if (!["links", "videoUrl", "gallery", "thumbnail"].includes(key)) {
+      sections[0].error = true;
+      break;
+    }
+  }
+
+  if ("links" in errors) {
+    sections[1].error = true;
+  }
+
+  if ("videoUrl" in errors || "gallery" in errors || "thumbnail" in errors) {
+    sections[2].error = true;
+  }
+
+  return sections;
+};
 
 interface IProps {
   game: IGame;
@@ -39,7 +56,12 @@ interface IProps {
 
 const GameSubmitForm: React.FC<IProps> = ({ game }) => {
   const [selectedSection, setSelectedSection] = useState(0);
-  const [saving, setSaving] = useState(false);
+  const [sections, setSections] = useState<ISidebarSection[]>([
+    { text: "Main info", icon: IconDeviceGamepad, error: false },
+    { text: "Links", icon: IconLink, error: false },
+    { text: "Media", icon: IconPhoto, error: false },
+  ]);
+  const [loading, setLoading] = useState({ saving: false, publishing: false });
   const [errors, setErrors] = useState<{ [K in keyof IGame]?: string[] }>({});
   const [savingError, setSavingError] = useState(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
@@ -53,12 +75,20 @@ const GameSubmitForm: React.FC<IProps> = ({ game }) => {
   });
 
   const axiosAuth = useAxiosAuth();
+  const navigate = useNavigate();
+
+  const resetSectionErrors = () => {
+    setSections((prevSections) => {
+      return prevSections.map((section) => ({ ...section, error: false }));
+    });
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setSaving(true);
+      setLoading({ ...loading, saving: true });
       setSavingError(false);
       setErrors({});
+      resetSectionErrors();
 
       const { id, creator, ...saveGameDto } = input;
 
@@ -68,8 +98,11 @@ const GameSubmitForm: React.FC<IProps> = ({ game }) => {
         .catch((err) => {
           setSavingError(true);
           setErrors(err?.response?.data?.errors || {});
+          setSections(
+            formatSectionErrors(err?.response?.data?.errors, sections)
+          );
         })
-        .finally(() => setSaving(false));
+        .finally(() => setLoading({ ...loading, saving: false }));
     }, 500);
 
     return () => {
@@ -77,17 +110,36 @@ const GameSubmitForm: React.FC<IProps> = ({ game }) => {
     };
   }, [input]);
 
+  const publishGame = () => {
+    setLoading({ ...loading, publishing: true });
+    resetSectionErrors();
+
+    axiosAuth
+      .post(API_PATHS.PUBLISH_GAME.replace(":gameId", input.id))
+      .then(() => navigate(UI_PATHS.HOME))
+      .catch((err) => {
+        console.error(err);
+        setErrors(err?.response?.data?.errors || {});
+        setLoading({ ...loading, publishing: false });
+        setSections(formatSectionErrors(err?.response?.data?.errors, sections));
+      });
+  };
+
   return (
     <SidebarLayout
       btnText="Publish"
       title={input.name}
       selectedSectionIndex={selectedSection}
-      sections={SIDEBAR_SECTIONS}
+      sections={sections}
       onSectionClick={(index: number) => setSelectedSection(index)}
-      withSavingIndicator
-      saving={saving}
-      lastSaved={lastSaved}
-      savingError={savingError}
+      onBtnClick={publishGame}
+      btnLoading={loading.publishing}
+      savingIndicator={{
+        saving: loading.saving,
+        lastSaved,
+        error: savingError,
+        display: true,
+      }}
     >
       <GameFormContext.Provider
         value={{ input, setInput, setSelectedSection, errors }}

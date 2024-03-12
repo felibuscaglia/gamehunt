@@ -18,6 +18,8 @@ export class GameOwnerGuard implements CanActivate {
 
     const game: Game = await this.gamesService.findOne({ id: gameId }, [
       'creator',
+      'thumbnail',
+      'links'
     ]);
 
     if (!game) {
@@ -27,6 +29,8 @@ export class GameOwnerGuard implements CanActivate {
     if (game.creator.id !== user.id) {
       throw new UnauthorizedException('You are not the owner of this game');
     }
+
+    request.game = game;
 
     return true;
   }

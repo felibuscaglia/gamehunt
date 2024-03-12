@@ -1,22 +1,23 @@
 import Button from "components/Button";
 import SavingIndicator from "components/SavingIndicator";
 import Sidebar from "components/Sidebar";
-import { PRIMARY_BRAND_COLOR } from "lib/constants";
 import { ISidebarSection } from "lib/interfaces";
-import { MoonLoader } from "react-spinners";
 
 interface IProps {
   children: React.ReactNode;
   title: string;
   btnText?: string;
   onBtnClick?: () => void;
+  btnLoading?: boolean;
   selectedSectionIndex: number;
   sections: ISidebarSection[];
   onSectionClick: (index: number) => void;
-  saving?: boolean;
-  lastSaved?: null | Date;
-  withSavingIndicator?: boolean;
-  savingError?: boolean;
+  savingIndicator?: {
+    display?: boolean;
+    saving?: boolean;
+    lastSaved?: null | Date;
+    error?: boolean;
+  };
 }
 
 const SidebarLayout: React.FC<IProps> = ({
@@ -27,12 +28,12 @@ const SidebarLayout: React.FC<IProps> = ({
   sections,
   onSectionClick,
   onBtnClick,
-  saving = false,
-  lastSaved = null,
-  withSavingIndicator = false,
-  savingError = false
+  savingIndicator = {},
+  btnLoading = false,
 }) => {
-  const DISPLAY_INDICATOR = withSavingIndicator && (saving || lastSaved);
+  const DISPLAY_INDICATOR =
+    savingIndicator.display &&
+    (savingIndicator.saving || savingIndicator.lastSaved);
 
   return (
     <section className="w-10/12 mx-auto">
@@ -40,12 +41,16 @@ const SidebarLayout: React.FC<IProps> = ({
         <h2 className="text-3xl font-bold col-span-3">{title}</h2>
         {DISPLAY_INDICATOR && (
           <div className="col-start-4 w-full flex items-center">
-            <SavingIndicator saving={saving} lastSaved={lastSaved} error={savingError} />
+            <SavingIndicator
+              saving={savingIndicator.saving || false}
+              lastSaved={savingIndicator.lastSaved || null}
+              error={savingIndicator.error}
+            />
           </div>
         )}
         {btnText && (
           <div className="w-full col-start-5">
-            <Button text={btnText} onClick={onBtnClick} />
+            <Button text={btnText} onClick={onBtnClick} loading={btnLoading} />
           </div>
         )}
       </div>

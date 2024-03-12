@@ -67,7 +67,7 @@ class Game {
   links: GameLink[];
 
   @OneToOne(() => Image, { nullable: true })
-  @JoinColumn({ name: 'thumbnail_id' })
+  @JoinColumn({ name: 'image_id' })
   thumbnail?: Image;
 
   @ManyToMany(() => Image, { eager: true })

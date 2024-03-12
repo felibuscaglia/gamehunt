@@ -83,14 +83,7 @@ const LinksSection = () => {
 
   return (
     <div className="flex flex-col gap-8">
-      <section>
-        <h6 className="font-bold text-2xl">Where can users find your game?</h6>
-        {errors.links && (
-          <span className="text-red-500 text-sm capitalize-first">
-            {errors.links[0]}
-          </span>
-        )}
-      </section>
+      <h6 className="font-bold text-2xl">Where can users find your game?</h6>
       <section className="w-3/4 flex flex-col gap-4">
         {LINKS.length ? (
           LINKS.map(({ url, platform }, i) => (
@@ -127,6 +120,11 @@ const LinksSection = () => {
           <PlusButton onClick={addLink} />
         </div>
       </section>
+      {errors.links && (
+        <span className="text-red-500 text-sm capitalize-first block">
+          {errors.links[0]}
+        </span>
+      )}
     </div>
   );
 };

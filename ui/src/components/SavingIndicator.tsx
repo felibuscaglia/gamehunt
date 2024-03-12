@@ -20,7 +20,7 @@ const SavingIndicator: React.FC<IProps> = ({ saving, lastSaved, error = false })
 
   const formattedLastSaved = lastSaved ? lastSaved.toLocaleString() : "";
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center justify-end w-full gap-2">
       <MoonLoader loading={saving} size={12} color={PRIMARY_BRAND_COLOR} />
       <span className="text-gray-500 text-sm whitespace-nowrap">
         {saving ? "Saving..." : `Last saved: ${formattedLastSaved}`}

@@ -163,7 +163,7 @@ const MainInfoSection = () => {
         />
         <TextInput
           label="Tagline"
-          placeholder="Sum up your game in a tagline"
+          placeholder="Sum up your game in a tagline (optional)"
           value={input.tagline || ""}
           onChange={handleInputChange}
           id="tagline"
@@ -245,7 +245,7 @@ const MainInfoSection = () => {
         ))}
       </section>
       {errors.subgenres && (
-        <span className="text-red-500 text-sm capitalize-first">{errors.subgenres[0]}</span>
+        <span className="text-red-500 text-sm block capitalize-first mt-2">{errors.subgenres[0]}</span>
       )}
       <hr className="border-t border-t-gray-200 my-8" />
       <h6 className="font-bold text-2xl">Platforms</h6>
@@ -288,7 +288,7 @@ const MainInfoSection = () => {
         ))}
       </section>
       {errors.platforms && (
-        <span className="text-red-500 text-sm capitalize-first">{errors.platforms[0]}</span>
+        <span className="text-red-500 text-sm capitalize-first block mt-2">{errors.platforms[0]}</span>
       )}
       <hr className="border-t border-t-gray-200 my-8" />
       <h6 className="font-bold text-2xl">Modes</h6>
@@ -325,7 +325,7 @@ const MainInfoSection = () => {
         ))}
       </section>
       {errors.modes && (
-        <span className="text-red-500 text-sm capitalize-first">{errors.modes[0]}</span>
+        <span className="text-red-500 text-sm capitalize-first block mt-2">{errors.modes[0]}</span>
       )}
       <hr className="border-t border-t-gray-200 my-8" />
       <h6 className="font-bold text-2xl mb-8">Pricing</h6>

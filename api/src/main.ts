@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
+import { formatValidationErrors } from 'users/lib/helpers';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -16,16 +17,8 @@ async function bootstrap() {
     new ValidationPipe({
       transform: true,
       exceptionFactory: (errors) => {
-        const formattedErrors = {};
-        errors.forEach((error) => {
-          const constraints = error.constraints;
-          if (constraints) {
-            formattedErrors[error.property] = Object.values(constraints);
-          }
-        });
-        
         throw new BadRequestException({
-          errors: formattedErrors,
+          errors: formatValidationErrors(errors),
         });
       },
     }),
