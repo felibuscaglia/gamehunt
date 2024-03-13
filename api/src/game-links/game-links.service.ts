@@ -2,7 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { GameLink } from 'entities';
 import { Repository } from 'typeorm';
-import { CreateGameLinkDto } from './dto';
+import { CreateGameLinkDto, PublishGameLinkDto } from './dto';
+import { validate } from 'class-validator';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class GameLinksService {
@@ -21,5 +23,9 @@ export class GameLinksService {
 
   public delete(id: string) {
     return this.gameLinksRepository.delete({ id });
+  }
+
+  public validate(gameLink: GameLink) {
+    return validate(plainToInstance(PublishGameLinkDto, gameLink));
   }
 }

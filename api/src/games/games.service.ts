@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Game, GameLink, User } from 'entities';
+import { Game, User } from 'entities';
 import { FindOptionsWhere, Repository } from 'typeorm';
 import { PublishGameDto, SaveGameDto } from './dto';
 import { ValidationError, validate } from 'class-validator';
@@ -8,7 +8,6 @@ import { plainToInstance } from 'class-transformer';
 import { GameStatus } from './lib/enums';
 import { formatValidationErrors } from 'users/lib/helpers';
 import { GameLinksService } from 'game-links/game-links.service';
-import { PublishGameLinkDto } from 'game-links/dto';
 
 @Injectable()
 export class GamesService {
@@ -44,23 +43,21 @@ export class GamesService {
   }
 
   public async publish(game: Game) {
-    const gameErrors = await validate(plainToInstance(PublishGameDto, game));
+    const GAME_ERRORS = await validate(plainToInstance(PublishGameDto, game));
 
     let linkErrors: ValidationError[] = [];
 
     for (const LINK of game.links) {
-      const CURR_LINK_ERRORS = await validate(
-        plainToInstance(PublishGameLinkDto, LINK),
-      );
+      const CURR_LINK_ERRORS = await this.gameLinksService.validate(LINK);
       linkErrors = linkErrors.concat(CURR_LINK_ERRORS);
 
-      if(linkErrors.length) {
+      if (linkErrors.length) {
         break;
       }
     }
 
-    if (gameErrors.length || linkErrors.length) {
-      const FORMATTED_ERRORS: any = formatValidationErrors(gameErrors);
+    if (GAME_ERRORS.length || linkErrors.length) {
+      const FORMATTED_ERRORS: any = formatValidationErrors(GAME_ERRORS);
 
       if (linkErrors.length) {
         FORMATTED_ERRORS.links = [

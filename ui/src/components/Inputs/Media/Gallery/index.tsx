@@ -87,7 +87,7 @@ const GalleryInput = () => {
       {input.gallery.length ? (
         <>
           <div
-            className="w-full h-80 bg-center bg-contain bg-no-repeat"
+            className="w-full h-80 bg-center bg-cover bg-no-repeat"
             style={{ backgroundImage: `url('${SELECTED_IMAGE.url}')` }}
           />
           <ThumbnailPreview

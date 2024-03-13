@@ -68,7 +68,8 @@ export class PublishGameDto {
   @Type(() => PublishGameLinkDto)
   @ValidateNested({ each: true })
   @ArrayUnique<GameLink>((gl) => gl.platform, {
-    message: 'Some distribution channels are duplicated',
+    message:
+      'Duplicate distribution channels detected. Please ensure each distribution channel is unique.',
   })
   links: PublishGameLinkDto[];
 
@@ -90,7 +91,7 @@ export class PublishGameDto {
   @ValidateNested({ each: true })
   @Type(() => Platform)
   @ArrayUnique<Platform>((p) => p.id, {
-    message: 'Platforms are duplicated',
+    message: 'Duplicated platform entries found. Ensure each platform is listed only once.',
   })
   platforms: Platform[];
 
@@ -100,13 +101,13 @@ export class PublishGameDto {
   @ValidateNested({ each: true })
   @Type(() => GameMode)
   @ArrayUnique<GameMode>((gm) => gm.id, {
-    message: 'Game modes are duplicated',
+    message: 'Duplicate game modes detected. Please ensure each game mode is listed only once.',
   })
   modes: GameMode[];
 
   @IsOptional()
   @IsString()
-  @IsUrl({}, { message: 'Not a valid URL' })
+  @IsUrl({}, { message: 'The provided URL is not valid. Please ensure it follows the correct format.' })
   videoUrl?: string;
 
   @IsNotEmpty()
