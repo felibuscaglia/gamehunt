@@ -2,12 +2,18 @@ import { IconSearch } from "@tabler/icons-react";
 import InfiniteScrollList from "components/InfiniteScrollList";
 import TextInput from "components/Inputs/Text";
 import useAxiosAuth from "lib/hooks/useAxiosAuth";
-import { IAdminFormProps, IGenre, ISubgenre } from "lib/interfaces";
+import {
+  IAdminFormProps,
+  IGameMode,
+  IGenre,
+  IPlatform,
+  ISubgenre,
+} from "lib/interfaces";
 import { useState } from "react";
 
 interface IProps {
-  content: Array<IGenre | ISubgenre>;
-  setContent: (updatedContent: IGenre[]) => void;
+  content: Array<IGenre | ISubgenre | IPlatform | IGameMode>;
+  setContent: (updatedContent: IGenre[] | IPlatform[] | IGameMode[]) => void;
   editMode: boolean;
   setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
   fetchContentApiPath: string;
@@ -37,7 +43,7 @@ const AdminPanel: React.FC<IProps> = ({
 
   const fetchData = () => {
     axiosAuth
-      .get<Array<IGenre | ISubgenre>>(
+      .get<Array<IGenre | ISubgenre | IGameMode | IPlatform>>(
         `${fetchContentApiPath}?limit=${CONTENT_REQUEST_LIMIT}&offset=${offset}`
       )
       .then(({ data: newContent }) => {
@@ -53,7 +59,7 @@ const AdminPanel: React.FC<IProps> = ({
       {editMode ? (
         <Form
           exitEditMode={() => setEditMode(false)}
-          appendNew={(newElement: IGenre | ISubgenre) =>
+          appendNew={(newElement: IGenre | ISubgenre | IGameMode | IPlatform) =>
             setContent(content.concat(newElement))
           }
           entityName={entityName}

@@ -7,7 +7,7 @@ import AdminPanelSubgenreForm from "components/AdminPanel/Forms/Subgenre";
 import AuthGuard from "guards/Auth";
 import SidebarLayout from "layouts/Sidebar";
 import { API_PATHS, UI_PATHS } from "lib/constants";
-import { IGenre, ISidebarSection, ISubgenre } from "lib/interfaces";
+import { IGameMode, IGenre, IPlatform, ISidebarSection, ISubgenre } from "lib/interfaces";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -91,7 +91,7 @@ const AdminPortalScreen = () => {
   };
 
   return (
-    <AuthGuard<Array<IGenre | ISubgenre>> apiPath={currentLocationInfo.apiPath}>
+    <AuthGuard<Array<IGenre | ISubgenre | IPlatform | IGameMode>> apiPath={currentLocationInfo.apiPath}>
       {(content, setContent) => (
         <SidebarLayout
           title={currentLocationInfo.title}

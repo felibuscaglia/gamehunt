@@ -5,15 +5,7 @@ import Logo from "../Logo";
 import AuthButtons from "../AuthButtons";
 import UserPanel from "./UserPanel";
 import { useAppSelector } from "store";
-
-const UL_ELEMENTS = [
-  "Home",
-  "Genres",
-  "Platforms",
-  "Newsletter",
-  "Advertise",
-  "About",
-];
+import Popover from "./Popover";
 
 const SECTION_CLASSNAMES = "flex items-center gap-6";
 const BTN_CLASSNAMES =
@@ -30,14 +22,12 @@ const PageHead = () => {
           <Logo />
         </Link>
         <ul className="flex items-center gap-4">
-          {UL_ELEMENTS.map((el) => (
-            <li
-              className={`${BTN_CLASSNAMES} rounded`}
-              key={`page-head-ul-element-${el}`}
-            >
-              {el}
-            </li>
-          ))}
+          <li className={`${BTN_CLASSNAMES} rounded`}>Home</li>
+          <Popover />
+          <li className={`${BTN_CLASSNAMES} rounded`}>Platforms</li>
+          <li className={`${BTN_CLASSNAMES} rounded`}>Newsletter</li>
+          <li className={`${BTN_CLASSNAMES} rounded`}>Advertise</li>
+          <li className={`${BTN_CLASSNAMES} rounded`}>About</li>
         </ul>
       </section>
       <section className={SECTION_CLASSNAMES + " justify-end w-5/12"}>

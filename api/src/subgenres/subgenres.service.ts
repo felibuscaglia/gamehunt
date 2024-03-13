@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Genre, Subgenre } from 'entities';
 import { FindManyOptions, QueryFailedError, Repository } from 'typeorm';
 import { CreateSubgenreDto } from './dto';
+import { formatUrlSlug } from 'users/lib/helpers';
 
 @Injectable()
 export class SubgenresService {
@@ -29,6 +30,7 @@ export class SubgenresService {
       const newSubgenre = new Subgenre();
 
       newSubgenre.name = dto.name;
+      newSubgenre.urlSlug = formatUrlSlug(dto.name);
 
       const genre = new Genre();
       genre.id = dto.genreId;

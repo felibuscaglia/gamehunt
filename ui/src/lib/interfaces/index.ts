@@ -1,5 +1,5 @@
 import { Icon } from "@tabler/icons-react";
-import { IGenre, ISubgenre } from "./entities";
+import { IGameMode, IGenre, IPlatform, ISubgenre } from "./entities";
 
 export * from "./entities";
 
@@ -22,7 +22,7 @@ export interface IInfiniteScrollListElement {
 
 export interface IAdminFormProps {
   exitEditMode: () => void;
-  appendNew: (newElement: IGenre | ISubgenre) => void;
+  appendNew: (newElement: IGenre | ISubgenre | IPlatform | IGameMode) => void;
   entityName: string;
 }
 

@@ -2,7 +2,7 @@ import TextInput from "components/Inputs/Text";
 import AdminFormLayout from "layouts/AdminForm";
 import { API_PATHS } from "lib/constants";
 import useAxiosAuth from "lib/hooks/useAxiosAuth";
-import { IAdminFormProps, IPlatform } from "lib/interfaces";
+import { IAdminFormProps, IGameMode } from "lib/interfaces";
 import { useState } from "react";
 
 interface IInput {
@@ -36,7 +36,7 @@ const AdminPanelGameModeForm: React.FC<IAdminFormProps> = ({
     setErrors({});
 
     axiosAuth
-      .post<IPlatform>(API_PATHS.SAVE_GAME_MODE, input)
+      .post<IGameMode>(API_PATHS.SAVE_GAME_MODE, input)
       .then(({ data }) => {
         appendNew(data);
         exitEditMode();
