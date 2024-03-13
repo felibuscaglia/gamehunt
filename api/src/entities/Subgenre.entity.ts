@@ -1,5 +1,13 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import Genre from './Genre.entity';
+import Game from './Game.entity';
 
 @Entity('subgenre')
 class Subgenre {
@@ -14,6 +22,17 @@ class Subgenre {
 
   @ManyToOne(() => Genre, (genre) => genre.subgenres)
   genre: Genre;
+
+  @ManyToMany(() => Game, (game) => game.subgenres)
+  @JoinTable({
+    name: 'game_subgenre',
+    joinColumn: { name: 'subgenre_id', referencedColumnName: 'id' },
+    inverseJoinColumn: {
+      name: 'game_id',
+      referencedColumnName: 'id',
+    },
+  })
+  games: Game[];
 }
 
 export default Subgenre;

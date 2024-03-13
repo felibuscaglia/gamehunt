@@ -25,6 +25,17 @@ export class SubgenresService {
     return this.subgenresRepository.find(options);
   }
 
+  public get trending() {
+    return this.subgenresRepository
+      .createQueryBuilder('subgenre')
+      .leftJoinAndSelect('subgenre.games', 'game')
+      .select(['subgenre.id', 'subgenre.name', 'COUNT(game.id) AS gameCount'])
+      .groupBy('subgenre.id, subgenre.name')
+      .orderBy('gameCount', 'DESC')
+      .limit(8)
+      .getMany();
+  }
+
   public async create(dto: CreateSubgenreDto) {
     try {
       const newSubgenre = new Subgenre();

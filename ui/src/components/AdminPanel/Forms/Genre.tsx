@@ -1,5 +1,6 @@
 import TextInput from "components/Inputs/Text";
 import AdminFormLayout from "layouts/AdminForm";
+import { API_PATHS } from "lib/constants";
 import useAxiosAuth from "lib/hooks/useAxiosAuth";
 import { IAdminFormProps, IGenre, ISubgenre } from "lib/interfaces";
 import { useState } from "react";
@@ -35,13 +36,13 @@ const AdminPanelGenreForm: React.FC<IAdminFormProps> = ({
     setErrors({});
 
     axiosAuth
-      .post<IGenre | ISubgenre>("", input)
+      .post<IGenre | ISubgenre>(API_PATHS.CREATE_GENRE, input)
       .then(({ data }) => {
         appendNew(data);
         exitEditMode();
       })
       .catch((err) => {
-        setErrors(err?.response?.data?.errors);
+        setErrors(err?.response?.data?.errors || {});
         setLoading(false);
       });
   };

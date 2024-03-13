@@ -26,7 +26,11 @@ class Game {
   @ManyToOne(() => User, (user) => user.games)
   creator: User;
 
-  @Column({ nullable: false, default: true })
+  @Column({
+    nullable: false,
+    default: true,
+    name: 'creator_involved_in_development',
+  })
   creatorInvolvedInDevelopment: boolean;
 
   @Column({ nullable: false, default: 'Draft game' })
@@ -103,11 +107,18 @@ class Game {
   })
   modes: GameMode[];
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, name: 'video_url' })
   videoUrl?: string;
 
   @Column({ nullable: true })
   storyline?: string;
+
+  @Column({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+    name: 'created_at',
+  })
+  createdAt: Date;
 }
 
 export default Game;

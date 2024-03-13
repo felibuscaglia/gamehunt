@@ -12,7 +12,7 @@ export const UI_PATHS = {
   EDIT_PLATFORMS: "/admin/platforms",
   EDIT_GAME_MODES: "/admin/game-modes",
   GENRE_DETAIL: "/categories/:genreUrlSlug",
-  SUBGENRE_DETAIL: "/categories/:subgenreUrlSlug"
+  SUBGENRE_DETAIL: "/categories/:subgenreUrlSlug",
 };
 
 export const API_PATHS = {
@@ -44,4 +44,5 @@ export const API_PATHS = {
   PUBLISH_GAME: "/games/:gameId/publish",
   CREATE_GAME_LINK: "/game-links",
   DELETE_GAME_LINK: "/game-links/:gameLinkId",
+  GET_TRENDING_SUBGENRES: "/subgenres/trending",
 };

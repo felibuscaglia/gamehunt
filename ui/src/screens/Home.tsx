@@ -1,12 +1,12 @@
 import PageHead from "components/PageHead";
-import TrendingTopics from "components/TrendingTopics";
+import TrendingSection from "components/TrendingSection";
 
 const HomeScreen = () => {
   return (
     <main>
       <PageHead />
       <section className="w-10/12 mx-auto">
-        <TrendingTopics />
+        <TrendingSection />
       </section>
     </main>
   );

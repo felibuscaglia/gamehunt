@@ -13,6 +13,7 @@ import { PlatformsModule } from './platforms/platforms.module';
 import { GamemodesModule } from './gamemodes/gamemodes.module';
 import { GameLinksModule } from './game-links/game-links.module';
 import entities from './entities';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import entities from './entities';
     PlatformsModule,
     GamemodesModule,
     GameLinksModule,
+    CacheModule.register({ isGlobal: true }),
   ],
   controllers: [AppController],
   providers: [],
