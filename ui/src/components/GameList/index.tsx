@@ -5,18 +5,19 @@ import { IGame, IGamesByDay } from "lib/interfaces";
 import Skeleton from "react-loading-skeleton";
 import { apiClient } from "lib/axios/apiClient";
 import { API_PATHS } from "lib/constants";
+import { convertDateToUtc } from "lib/helpers";
 
 interface IProps {
   games: IGamesByDay;
   setGames: React.Dispatch<React.SetStateAction<IGamesByDay>>;
 }
 
-const ProductList: React.FC<IProps> = ({ games, setGames }) => {
+const GameList: React.FC<IProps> = ({ games, setGames }) => {
   const [hasMore, setHasMore] = useState(true);
   const [index, setIndex] = useState(1);
 
   const fetchProductsByDay = () => {
-    const DATE = new Date();
+    const DATE = convertDateToUtc();
     DATE.setDate(DATE.getDate() - index);
     const FORMATTED_DATE = DATE.toISOString();
 
@@ -61,4 +62,4 @@ const ProductList: React.FC<IProps> = ({ games, setGames }) => {
   );
 };
 
-export default ProductList;
+export default GameList;

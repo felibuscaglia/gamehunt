@@ -1,5 +1,6 @@
 import { IGame } from "lib/interfaces";
-import Product from "./Product";
+import Game from "./Game";
+import { convertDateToUtc } from "lib/helpers";
 
 interface IProps {
   games: IGame[];
@@ -7,9 +8,9 @@ interface IProps {
 }
 
 const getFormattedDate = (inputDate: string): string => {
-  const today = new Date();
-  const targetDate = new Date(inputDate);
-  const yesterday = new Date();
+  const today = convertDateToUtc();
+  const targetDate = convertDateToUtc(new Date(inputDate));
+  const yesterday = convertDateToUtc();
   yesterday.setDate(today.getDate() - 1);
 
   if (targetDate.toDateString() === today.toDateString()) {
@@ -21,7 +22,7 @@ const getFormattedDate = (inputDate: string): string => {
   }
 };
 
-const ProductDayList: React.FC<IProps> = ({ games, date }) => {
+const GameDayList: React.FC<IProps> = ({ games, date }) => {
   return (
     <div>
       <p className="text-3xl flex items-center gap-2">
@@ -30,11 +31,11 @@ const ProductDayList: React.FC<IProps> = ({ games, date }) => {
       </p>
       <section className="mt-8 flex flex-col divide-y divide-y-primary-brand-color-extra-light">
         {games.map((game, i) => (
-          <Product game={game} index={i} key={`game-${i}-${date}`} />
+          <Game game={game} index={i} key={`game-${i}-${date}`} />
         ))}
       </section>
     </div>
   );
 };
 
-export default ProductDayList;
+export default GameDayList;

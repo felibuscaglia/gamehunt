@@ -9,10 +9,10 @@ const TrendingSubgenre: React.FC<ISubgenre> = ({ name }) => {
     <Link
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="flex items-center gap-2 justify-between px-2 py-4 hover:bg-primary-brand-color-extra-light border-b border-b-gray-100"
+      className="flex items-center gap-2 justify-between p-2 hover:bg-primary-brand-color-extra-light border-b border-b-gray-100 text-gray-500 hover:text-inherit"
       to="/"
     >
-        <span>{name}</span>
+      <span className="text-sm">{name}</span>
       {hovered && <IconChevronRight stroke={1} size={20} />}
     </Link>
   );

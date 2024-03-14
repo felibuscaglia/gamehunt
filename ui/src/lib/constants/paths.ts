@@ -13,6 +13,7 @@ export const UI_PATHS = {
   EDIT_GAME_MODES: "/admin/game-modes",
   GENRE_DETAIL: "/categories/:genreUrlSlug",
   SUBGENRE_DETAIL: "/categories/:subgenreUrlSlug",
+  GAME_DETAIL: "/game/:gameUrlSlug",
 };
 
 export const API_PATHS = {

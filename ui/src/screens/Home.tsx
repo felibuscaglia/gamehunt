@@ -1,8 +1,9 @@
 import PageHead from "components/PageHead";
-import ProductList from "components/ProductList";
+import GameList from "components/GameList";
 import TrendingSection from "components/TrendingSection";
 import { apiClient } from "lib/axios/apiClient";
 import { API_PATHS } from "lib/constants";
+import { convertDateToUtc } from "lib/helpers";
 import { IGame, IGamesByDay } from "lib/interfaces";
 import { useEffect, useState } from "react";
 
@@ -10,7 +11,7 @@ const HomeScreen = () => {
   const [gamesByDay, setGamesByDay] = useState<IGamesByDay>({});
 
   useEffect(() => {
-    const today = new Date().toISOString();
+    const today = convertDateToUtc().toISOString();
 
     apiClient
       .get<IGame[]>(API_PATHS.GET_GAMES_BY_DAY.replace(":date", today))
@@ -31,7 +32,7 @@ const HomeScreen = () => {
       <section className="w-10/12 mx-auto min-h-screen flex-grow">
         <TrendingSection />
         <div id="productList" className="h-full">
-          <ProductList
+          <GameList
             games={gamesByDay}
             setGames={setGamesByDay}
           />

@@ -114,8 +114,11 @@ class Game {
   @Column({ nullable: true })
   storyline?: string;
 
+  @Column({ nullable: true })
+  urlSlug?: string;
+
   @CreateDateColumn({
-    type: 'timestamp with time zone',
+    type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
     name: 'created_at',
   })

@@ -6,7 +6,7 @@ import { PublishGameDto, SaveGameDto } from './dto';
 import { ValidationError, validate } from 'class-validator';
 import { plainToInstance } from 'class-transformer';
 import { GameStatus } from './lib/enums';
-import { formatValidationErrors } from 'users/lib/helpers';
+import { formatUrlSlug, formatValidationErrors } from 'users/lib/helpers';
 import { GameLinksService } from 'game-links/game-links.service';
 
 @Injectable()
@@ -37,7 +37,12 @@ export class GamesService {
   public findByDate(date: string) {
     return this.gamesRepository
       .createQueryBuilder('game')
-      .where('DATE(game.created_at) = Date(:date)', { date })
+      .leftJoinAndSelect('game.thumbnail', 'thumbnail')
+      .leftJoinAndSelect('game.subgenres', 'subgenre')
+      .where('DATE(game.created_at) = Date(:date) AND status = :status', {
+        date,
+        status: GameStatus.PUBLISHED,
+      })
       .getMany();
   }
 
@@ -81,6 +86,7 @@ export class GamesService {
     }
 
     game.status = GameStatus.PUBLISHED;
+    game.urlSlug = formatUrlSlug(game.name);
 
     return this.gamesRepository.save(game);
   }

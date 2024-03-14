@@ -20,7 +20,7 @@ const TrendingSection = () => {
   }, []);
 
   return (
-    <div className="w-full py-8">
+    <div className="w-full pt-4 pb-8">
       <span className="text-sm font-medium text-gray-500">
         TRENDING
       </span>

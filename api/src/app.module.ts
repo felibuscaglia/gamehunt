@@ -29,6 +29,7 @@ import { CacheModule } from '@nestjs/cache-manager';
         database: configService.get('DB_NAME'),
         entities,
         synchronize: configService.get('NODE_ENV') !== 'production',
+        timezone: 'UTC',
       }),
       inject: [ConfigService],
     }),

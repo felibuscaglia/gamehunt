@@ -35,6 +35,7 @@ export interface IGame {
   platforms: IPlatform[];
   modes: IGameMode[];
   storyline?: string;
+  urlSlug?: string;
 }
 
 export interface IGenre {
