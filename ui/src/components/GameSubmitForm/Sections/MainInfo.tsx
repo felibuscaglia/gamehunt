@@ -158,7 +158,7 @@ const MainInfoSection = () => {
           onChange={handleInputChange}
           id="name"
           textSize="small"
-          limit={40}
+          limit={80}
           error={(errors.name || [])[0]}
         />
         <TextInput

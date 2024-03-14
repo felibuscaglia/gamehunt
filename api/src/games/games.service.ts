@@ -34,6 +34,13 @@ export class GamesService {
     });
   }
 
+  public findByDate(date: string) {
+    return this.gamesRepository
+      .createQueryBuilder('game')
+      .where('DATE(game.created_at) = Date(:date)', { date })
+      .getMany();
+  }
+
   public async save(id: string, dto: SaveGameDto) {
     return this.gamesRepository.save({
       id,
@@ -43,6 +50,8 @@ export class GamesService {
   }
 
   public async publish(game: Game) {
+    game.videoUrl = game.videoUrl || null;
+
     const GAME_ERRORS = await validate(plainToInstance(PublishGameDto, game));
 
     let linkErrors: ValidationError[] = [];

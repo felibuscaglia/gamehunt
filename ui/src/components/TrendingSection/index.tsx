@@ -21,7 +21,7 @@ const TrendingSection = () => {
 
   return (
     <div className="w-full py-8">
-      <span className="text-sm font-medium tracking-wide text-gray-500">
+      <span className="text-sm font-medium text-gray-500">
         TRENDING
       </span>
       <section className={`grid grid-cols-4 ${loading ? 'gap-4' : 'gap-x-8'} mt-2`}>

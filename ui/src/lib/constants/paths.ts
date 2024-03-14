@@ -45,4 +45,5 @@ export const API_PATHS = {
   CREATE_GAME_LINK: "/game-links",
   DELETE_GAME_LINK: "/game-links/:gameLinkId",
   GET_TRENDING_SUBGENRES: "/subgenres/trending",
+  GET_GAMES_BY_DAY: "/games?date=:date",
 };

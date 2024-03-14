@@ -1,9 +1,11 @@
 import {
   Body,
   Controller,
+  Get,
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { CurrentUser } from 'auth/decorators';
@@ -17,6 +19,11 @@ import { CurrentGame } from './decorators';
 @Controller('games')
 export class GamesController {
   constructor(private readonly gamesService: GamesService) {}
+
+  @Get()
+  getGames(@Query('date') date?: string) {
+    return date ? this.gamesService.findByDate(date) : [];
+  }
 
   @UseGuards(JwtGuard)
   @Post()

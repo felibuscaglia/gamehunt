@@ -32,24 +32,32 @@ const formatSectionErrors = (
   errors: { [K in keyof IGame]?: string[] },
   sections: ISidebarSection[]
 ) => {
+  let sectionOneHasError = false;
+  let sectionTwoHasError = false;
+  let sectionThreeHasError = false;
+
   if (!errors) {
     return sections;
   }
 
   for (const key in errors) {
     if (!["links", "videoUrl", "gallery", "thumbnail"].includes(key)) {
-      sections[0].error = true;
+      sectionOneHasError = true;
       break;
     }
   }
 
   if ("links" in errors) {
-    sections[1].error = true;
+    sectionTwoHasError = true;
   }
 
   if ("videoUrl" in errors || "gallery" in errors || "thumbnail" in errors) {
-    sections[2].error = true;
+    sectionThreeHasError = true;
   }
+
+  sections[0].error = sectionOneHasError;
+  sections[1].error = sectionTwoHasError;
+  sections[2].error = sectionThreeHasError;
 
   return sections;
 };

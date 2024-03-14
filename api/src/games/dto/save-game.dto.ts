@@ -23,7 +23,7 @@ export class SaveGameDto {
 
   @IsNotEmpty()
   @IsString()
-  @MaxLength(40)
+  @MaxLength(80)
   name: string;
 
   @IsOptional()

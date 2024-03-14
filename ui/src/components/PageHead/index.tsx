@@ -26,7 +26,6 @@ const PageHead = () => {
           <Popover />
           <li className={`${BTN_CLASSNAMES} rounded`}>Platforms</li>
           <li className={`${BTN_CLASSNAMES} rounded`}>Newsletter</li>
-          <li className={`${BTN_CLASSNAMES} rounded`}>Advertise</li>
           <li className={`${BTN_CLASSNAMES} rounded`}>About</li>
         </ul>
       </section>

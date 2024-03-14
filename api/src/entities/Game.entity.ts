@@ -1,5 +1,6 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   JoinTable,
@@ -113,8 +114,8 @@ class Game {
   @Column({ nullable: true })
   storyline?: string;
 
-  @Column({
-    type: 'timestamp',
+  @CreateDateColumn({
+    type: 'timestamp with time zone',
     default: () => 'CURRENT_TIMESTAMP',
     name: 'created_at',
   })

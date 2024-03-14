@@ -1,5 +1,5 @@
 import { Icon } from "@tabler/icons-react";
-import { IGameMode, IGenre, IPlatform, ISubgenre } from "./entities";
+import { IGame, IGameMode, IGenre, IPlatform, ISubgenre } from "./entities";
 
 export * from "./entities";
 
@@ -29,4 +29,8 @@ export interface IAdminFormProps {
 export interface IGameLinkSelectOption {
   id: string;
   value: string;
+}
+
+export interface IGamesByDay {
+  [k: string]: IGame[];
 }

@@ -49,7 +49,7 @@ const SidebarLayout: React.FC<IProps> = ({
           </div>
         )}
         {btnText && (
-          <div className="w-full col-start-5">
+          <div className="w-full col-start-5 my-auto">
             <Button text={btnText} onClick={onBtnClick} loading={btnLoading} />
           </div>
         )}
