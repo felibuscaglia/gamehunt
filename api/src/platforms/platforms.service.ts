@@ -4,6 +4,7 @@ import { Platform } from 'entities';
 import { FindManyOptions, ILike, Repository } from 'typeorm';
 import { CreatePlatformDto } from './dto';
 import { IDbQueryProps } from 'lib/interfaces';
+import { formatUrlSlug } from 'users/lib/helpers';
 
 @Injectable()
 export class PlatformsService {
@@ -34,6 +35,7 @@ export class PlatformsService {
     const newPlatform = new Platform();
 
     newPlatform.name = dto.name;
+    newPlatform.urlSlug = formatUrlSlug(dto.name);
 
     return this.platformsRepository.save(newPlatform);
   }

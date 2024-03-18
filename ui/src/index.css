@@ -9,8 +9,9 @@
   --primary-brand-color-extra-light: rgba(126, 87, 194, 0.2);
   --primary-brand-color-light: rgba(126, 87, 194, 0.3);
   --primary-brand-color-medium: rgba(126, 87, 194, 0.7);
+  --primary-brand-color-reduced: rgba(126, 87, 194, 0.9);
 
-  --text-color: #040404;
+  --text-color: #2a2a2a;
 }
 
 body {
@@ -20,8 +21,13 @@ body {
 }
 
 li,
-button {
+button,
+a {
   transition: 0.2s ease all;
+}
+
+a {
+  cursor: pointer;
 }
 
 input,

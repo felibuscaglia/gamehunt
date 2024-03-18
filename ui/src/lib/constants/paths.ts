@@ -14,6 +14,7 @@ export const UI_PATHS = {
   GENRE_DETAIL: "/categories/:genreUrlSlug",
   SUBGENRE_DETAIL: "/categories/:subgenreUrlSlug",
   GAME_DETAIL: "/game/:gameUrlSlug",
+  NOT_FOUND: "/not-found",
 };
 
 export const API_PATHS = {
@@ -47,4 +48,5 @@ export const API_PATHS = {
   DELETE_GAME_LINK: "/game-links/:gameLinkId",
   GET_TRENDING_SUBGENRES: "/subgenres/trending",
   GET_GAMES_BY_DAY: "/games?date=:date",
+  GET_GAME_BY_URL_SLUG: "/games/:gameUrlSlug",
 };

@@ -5,7 +5,7 @@ import { API_PATHS, UI_PATHS } from "lib/constants/paths";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const useAxiosAuth = () => {
+const useAxiosAuth = (redirectToHome = true) => {
   const navigate = useNavigate();
 
   const refreshTokens = async () => {
@@ -36,7 +36,7 @@ const useAxiosAuth = () => {
 
         if (err.response?.status === HttpStatusCode.Unauthorized) {
           localStorage.removeItem(IS_LOGGED_IN_KEY);
-          navigate(UI_PATHS.HOME);
+          redirectToHome && navigate(UI_PATHS.HOME);
         } else {
           return Promise.reject(err);
         }

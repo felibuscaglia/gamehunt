@@ -68,4 +68,5 @@ export interface IImage {
 export interface IPlatform {
   id: number;
   name: string;
+  urlSlug: string;
 }

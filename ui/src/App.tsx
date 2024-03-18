@@ -20,13 +20,14 @@ import {
 import { saveGenres } from "store/features/genresSlice";
 import useAxiosAuth from "lib/hooks/useAxiosAuth";
 import { saveSubgenres } from "store/features/subgenresSlice";
+import GameDetailScreen from "screens/GameDetail";
 
 const App = () => {
   const loadingUser = useAppSelector((state) => state.loading.user);
   const user = useAppSelector((state) => state.user.user);
   const dispatch = useAppDispatch();
 
-  const axiosAuth = useAxiosAuth();
+  const axiosAuth = useAxiosAuth(false);
 
   const dispatchUser = (user: IAuthUser | null) => {
     dispatch(addUser(user));
@@ -74,6 +75,7 @@ const App = () => {
           element={<AdminPortalScreen />}
           path={UI_PATHS.EDIT_GAME_MODES}
         />
+        <Route element={<GameDetailScreen />} path={UI_PATHS.GAME_DETAIL} />
       </Routes>
       <Toaster position="bottom-center" />
     </>

@@ -15,6 +15,7 @@ import { GamesService } from './games.service';
 import { SaveGameDto } from './dto';
 import { GameOwnerGuard } from './guards';
 import { CurrentGame } from './decorators';
+import { GameStatus } from './lib/enums';
 
 @Controller('games')
 export class GamesController {
@@ -23,6 +24,14 @@ export class GamesController {
   @Get()
   getGames(@Query('date') date?: string) {
     return date ? this.gamesService.findByDate(date) : [];
+  }
+
+  @Get('/:gameUrlSlug')
+  getGameByUrlSlug(@Param('gameUrlSlug') gameUrlSlug: string) {
+    return this.gamesService.findOne({
+      urlSlug: gameUrlSlug,
+      status: GameStatus.PUBLISHED,
+    }, ['thumbnail', 'links']);
   }
 
   @UseGuards(JwtGuard)
