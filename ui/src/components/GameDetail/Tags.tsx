@@ -15,7 +15,7 @@ const GameDetailTags = <T,>({
 }: IProps<T>) => {
   return (
     <section className="flex items-center gap-4">
-      <span className="font-semibold">{title}: </span>
+      <span className="font-semibold w-2/12">{title}: </span>
       {elements.map((el) => (
         <Link
           to={`/${baseUrl}/${el["urlSlug" as keyof T]}`}

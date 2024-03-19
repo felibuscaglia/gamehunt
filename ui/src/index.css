@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "~react-image-gallery/styles/css/image-gallery.css";
+
 :root {
   --font-family: "Inter", sans-serif;
 
@@ -57,4 +59,34 @@ textarea {
 
 .day-list-game:hover {
   background-color: var(--primary-brand-color-light);
+}
+
+.image-gallery-svg {
+  height: 40px !important;
+  width: 40px !important;
+}
+
+.image-gallery-svg:hover {
+  color: var(--primary-brand-color) !important;
+}
+
+.image-gallery-icon:hover {
+  color: var(--primary-brand-color) !important;
+}
+
+.image-gallery-fullscreen-button > svg {
+  height: 30px !important;
+}
+
+.image-gallery-thumbnail.active, .image-gallery-thumbnail:focus {
+  border: 2px solid var(--primary-brand-color);
+}
+
+.image-gallery-thumbnail {
+  border: 3px solid transparent;
+}
+
+
+.image-gallery-thumbnail:hover {
+  border: 3px solid var(--primary-brand-color);
 }

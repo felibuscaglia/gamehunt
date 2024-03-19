@@ -31,7 +31,7 @@ export class GamesController {
     return this.gamesService.findOne({
       urlSlug: gameUrlSlug,
       status: GameStatus.PUBLISHED,
-    }, ['thumbnail', 'links']);
+    }, ['thumbnail', 'links', 'creator']);
   }
 
   @UseGuards(JwtGuard)

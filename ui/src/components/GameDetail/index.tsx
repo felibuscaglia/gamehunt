@@ -1,8 +1,18 @@
-import { IconChevronUp, IconMessage, IconShare2 } from "@tabler/icons-react";
+import {
+  IconChevronUp,
+  IconCircleCheck,
+  IconMessage,
+  IconShare2,
+} from "@tabler/icons-react";
 import Thumbnail from "components/Thumbnail";
-import { IGame, IPlatform, ISubgenre } from "lib/interfaces";
+import { IGame, IGameMode, IPlatform, ISubgenre } from "lib/interfaces";
 import Tags from "./Tags";
 import Links from "./Links";
+import ImageGallery from "react-image-gallery";
+import { PRIMARY_BRAND_COLOR } from "lib/constants";
+import { Tooltip } from "react-tooltip";
+
+import "react-tooltip/dist/react-tooltip.css";
 
 interface IProps {
   game: IGame;
@@ -23,7 +33,7 @@ const GameDetail: React.FC<IProps> = ({ game }) => {
         </div>
       </section>
       <section className="flex items-center justify-between mt-2">
-        <div className="flex items-center gap-4 w-1/4">
+        <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <div
               className="rounded-full bg-center bg-contain bg-no-repeat h-10 w-10"
@@ -32,7 +42,19 @@ const GameDetail: React.FC<IProps> = ({ game }) => {
                   "url('https://ph-avatars.imgix.net/3270302/3c99cac9-9bd4-46c1-bfdd-f7d4189bc21c.jpeg?auto=compress&codec=mozjpeg&cs=strip&auto=format&w=120&h=120&fit=crop&dpr=2')",
               }}
             />
-            <span className="font-semibold">Felipe Buscaglia</span>
+            <span className="font-semibold whitespace-nowrap">
+              {game.creator?.fullName}
+            </span>
+            {game.creatorInvolvedInDevelopment && (
+              <IconCircleCheck
+                data-tooltip-id="user-involved-in-development"
+                data-tooltip-content="This user was involved in the development of this game."
+                size={15}
+                color={PRIMARY_BRAND_COLOR}
+                className="cursor-pointer"
+              />
+            )}
+            <Tooltip id="user-involved-in-development" />
           </div>
         </div>
         <div className="flex items-center gap-4 w-1/2">
@@ -50,7 +72,7 @@ const GameDetail: React.FC<IProps> = ({ game }) => {
           </button>
         </div>
       </section>
-      <section className="flex items-start mt-8">
+      <section className="flex items-start my-8">
         <div className="flex flex-col gap-4 w-3/4">
           <p className="mb-4">{game.description}</p>
           <Tags<ISubgenre>
@@ -65,6 +87,12 @@ const GameDetail: React.FC<IProps> = ({ game }) => {
             displayKey="name"
             baseUrl="platforms"
           />
+          <Tags<IGameMode>
+            elements={game.modes}
+            title="Modes"
+            displayKey="name"
+            baseUrl="modes"
+          />
           <section className="mt-4">
             <h6 className="font-semibold mb-2 underline">Storyline</h6>
             <p>{game.storyline}</p>
@@ -72,6 +100,14 @@ const GameDetail: React.FC<IProps> = ({ game }) => {
         </div>
         <Links links={game.links || []} />
       </section>
+      <ImageGallery
+        lazyLoad
+        showPlayButton={false}
+        items={(game.gallery || []).map(({ url }) => ({
+          original: url,
+          thumbnail: url,
+        }))}
+      />
     </div>
   );
 };

@@ -22,7 +22,7 @@ export interface IGameMode {
 export interface IGame {
   id: string;
   name: string;
-  creator: IGame;
+  creator: IUser;
   creatorInvolvedInDevelopment: boolean;
   tagline?: string;
   description?: string;
