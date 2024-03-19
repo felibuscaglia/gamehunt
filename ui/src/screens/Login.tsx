@@ -10,7 +10,7 @@ import {
 } from "lib/constants";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAppDispatch } from "store";
 import { loadUser } from "store/features/loadingSlice";
 
@@ -19,6 +19,7 @@ const LogInScreen = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
+  const [searchParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -42,7 +43,7 @@ const LogInScreen = () => {
       .then(() => {
         localStorage.setItem(IS_LOGGED_IN_KEY, "1");
         dispatch(loadUser(true));
-        navigate(UI_PATHS.HOME);
+        navigate(searchParams.get("redirectUrl") || UI_PATHS.HOME);
       })
       .catch((err) => {
         if (err?.response?.status === HttpStatusCode.Unauthorized) {

@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -28,10 +29,13 @@ export class GamesController {
 
   @Get('/:gameUrlSlug')
   getGameByUrlSlug(@Param('gameUrlSlug') gameUrlSlug: string) {
-    return this.gamesService.findOne({
-      urlSlug: gameUrlSlug,
-      status: GameStatus.PUBLISHED,
-    }, ['thumbnail', 'links', 'creator']);
+    return this.gamesService.findOne(
+      {
+        urlSlug: gameUrlSlug,
+        status: GameStatus.PUBLISHED,
+      },
+      ['thumbnail', 'links', 'creator', 'upvotes'],
+    );
   }
 
   @UseGuards(JwtGuard)
@@ -50,5 +54,20 @@ export class GamesController {
   @Post('/:gameId/publish')
   publishGame(@CurrentGame() game: Game) {
     return this.gamesService.publish(game);
+  }
+
+  @UseGuards(JwtGuard)
+  @Post('/:gameId/upvote')
+  async upvoteGame(@Param('gameId') gameId: string, @CurrentUser() user: User) {
+    return await this.gamesService.upvote(gameId, user);
+  }
+
+  @UseGuards(JwtGuard)
+  @Delete('/:gameId/downvote')
+  async downvoteGame(
+    @Param('gameId') gameId: string,
+    @CurrentUser() user: User,
+  ) {
+    return await this.gamesService.downvote(gameId, user);
   }
 }

@@ -104,7 +104,7 @@ const GameSubmitForm: React.FC<IProps> = ({ game }) => {
       setErrors({});
       resetSectionErrors();
 
-      const { id, creator, ...saveGameDto } = input;
+      const { id, creator, upvotes, ...saveGameDto } = input;
 
       axiosAuth
         .patch(API_PATHS.SAVE_GAME.replace(":gameId", id), saveGameDto)

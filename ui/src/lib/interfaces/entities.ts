@@ -36,6 +36,7 @@ export interface IGame {
   modes: IGameMode[];
   storyline?: string;
   urlSlug?: string;
+  upvotes?: IUser[];
 }
 
 export interface IGenre {

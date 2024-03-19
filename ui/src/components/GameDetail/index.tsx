@@ -2,7 +2,6 @@ import {
   IconChevronUp,
   IconCircleCheck,
   IconMessage,
-  IconShare2,
 } from "@tabler/icons-react";
 import Thumbnail from "components/Thumbnail";
 import { IGame, IGameMode, IPlatform, ISubgenre } from "lib/interfaces";
@@ -12,16 +11,23 @@ import ImageGallery from "react-image-gallery";
 import { PRIMARY_BRAND_COLOR } from "lib/constants";
 import { Tooltip } from "react-tooltip";
 import CommentsSection from "./CommentsSection";
-
 import "react-tooltip/dist/react-tooltip.css";
 import { createRef } from "react";
 import ShareGameDialog from "components/Dialog/ShareGameDialog";
 
 interface IProps {
   game: IGame;
+  onUpvoteBtnClick: () => void;
+  userUpvoted: boolean;
+  upvoteCount: number;
 }
 
-const GameDetail: React.FC<IProps> = ({ game }) => {
+const GameDetail: React.FC<IProps> = ({
+  game,
+  onUpvoteBtnClick,
+  userUpvoted,
+  upvoteCount,
+}) => {
   const commentSectionRef = createRef<HTMLElement>();
 
   const navigateToCommentsSection = () => {
@@ -87,9 +93,18 @@ const GameDetail: React.FC<IProps> = ({ game }) => {
             gameName={game.name}
             gameTagline={game.tagline}
           />
-          <button className="text-sm flex items-center gap-2 justify-center border border-primary-brand-color bg-primary-brand-color text-white w-full hover:bg-primary-brand-color-reduced rounded font-medium py-4">
+          <button
+            onClick={onUpvoteBtnClick}
+            className={`text-sm flex items-center gap-2 justify-center border border-primary-brand-color w-full ${
+              userUpvoted
+                ? "text-primary-brand-color"
+                : "bg-primary-brand-color text-white hover:bg-primary-brand-color-reduced"
+            } rounded font-medium py-4`}
+          >
             <IconChevronUp />
-            <span>UPVOTE (109)</span>
+            <span>
+              UPVOTE{userUpvoted ? "D" : ""} ({upvoteCount})
+            </span>
           </button>
         </div>
       </section>

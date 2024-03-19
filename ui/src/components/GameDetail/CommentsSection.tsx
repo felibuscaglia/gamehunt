@@ -1,10 +1,11 @@
 import Button from "components/Button";
+import { IAuthUser } from "lib/interfaces";
 import { forwardRef } from "react";
 import { useAppSelector } from "store";
 
 const GameDetailCommentsSection = forwardRef<HTMLElement>((_, ref) => {
   const user = useAppSelector((state) => state.user.user);
-
+  
   return (
     <section className="py-8 lg:py-16 antialiased" ref={ref}>
       <div>

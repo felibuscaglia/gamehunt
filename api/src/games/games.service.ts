@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Game, User } from 'entities';
 import { FindOptionsWhere, Repository } from 'typeorm';
@@ -44,6 +48,34 @@ export class GamesService {
         status: GameStatus.PUBLISHED,
       })
       .getMany();
+  }
+
+  public async upvote(gameId: string, user: User) {
+    const GAME = await this.findOne({ id: gameId }, ['upvotes']);
+
+    if (!GAME) {
+      throw new NotFoundException('Game not found');
+    }
+
+    if (GAME.upvotes.some((upvote) => upvote.id === user.id)) {
+      throw new BadRequestException("Users can't upvote the same game twice");
+    }
+
+    GAME.upvotes.push(user);
+
+    return this.gamesRepository.save(GAME);
+  }
+
+  public async downvote(gameId: string, user: User) {
+    const GAME = await this.findOne({ id: gameId }, ['upvotes']);
+
+    if (!GAME) {
+      throw new NotFoundException('Game not found');
+    }
+
+    GAME.upvotes = GAME.upvotes.filter((upvote) => upvote.id !== user.id);
+
+    return this.gamesRepository.save(GAME);
   }
 
   public async save(id: string, dto: SaveGameDto) {

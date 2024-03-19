@@ -49,4 +49,6 @@ export const API_PATHS = {
   GET_TRENDING_SUBGENRES: "/subgenres/trending",
   GET_GAMES_BY_DAY: "/games?date=:date",
   GET_GAME_BY_URL_SLUG: "/games/:gameUrlSlug",
+  UPVOTE_GAME: "/games/:gameId/upvote",
+  DOWNVOTE_GAME: "/games/:gameId/downvote",
 };

@@ -123,6 +123,17 @@ class Game {
     name: 'created_at',
   })
   createdAt: Date;
+
+  @ManyToMany(() => User, { eager: true })
+  @JoinTable({
+    name: 'upvotes',
+    joinColumn: { name: 'game_id', referencedColumnName: 'id' },
+    inverseJoinColumn: {
+      name: 'user_id',
+      referencedColumnName: 'id',
+    },
+  })
+  upvotes: User[];
 }
 
 export default Game;
