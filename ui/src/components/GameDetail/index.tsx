@@ -15,6 +15,7 @@ import CommentsSection from "./CommentsSection";
 
 import "react-tooltip/dist/react-tooltip.css";
 import { createRef } from "react";
+import ShareGameDialog from "components/Dialog/ShareGameDialog";
 
 interface IProps {
   game: IGame;
@@ -41,9 +42,9 @@ const GameDetail: React.FC<IProps> = ({ game }) => {
         <Thumbnail url={game.thumbnail?.url || ""} />
         <div>
           <h1 className="text-2xl font-bold">{game.name}</h1>
-          {true && (
+          {game.tagline && (
             <span className="font-light text-gray-400 text-lg italic">
-              Modernizing the 'modern' data stack with Zero-ETL
+              {game.tagline}
             </span>
           )}
         </div>
@@ -81,10 +82,11 @@ const GameDetail: React.FC<IProps> = ({ game }) => {
             <IconMessage size={15} />
             <span>Comment</span>
           </button>
-          <button className="flex items-center gap-1 hover:text-primary-brand-color">
-            <IconShare2 size={15} />
-            <span>Share</span>
-          </button>
+          <ShareGameDialog
+            gameThumbnailUrl={game.thumbnail?.url || ""}
+            gameName={game.name}
+            gameTagline={game.tagline}
+          />
           <button className="text-sm flex items-center gap-2 justify-center border border-primary-brand-color bg-primary-brand-color text-white w-full hover:bg-primary-brand-color-reduced rounded font-medium py-4">
             <IconChevronUp />
             <span>UPVOTE (109)</span>
