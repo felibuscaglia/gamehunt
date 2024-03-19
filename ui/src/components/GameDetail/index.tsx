@@ -11,14 +11,30 @@ import Links from "./Links";
 import ImageGallery from "react-image-gallery";
 import { PRIMARY_BRAND_COLOR } from "lib/constants";
 import { Tooltip } from "react-tooltip";
+import CommentsSection from "./CommentsSection";
 
 import "react-tooltip/dist/react-tooltip.css";
+import { createRef } from "react";
 
 interface IProps {
   game: IGame;
 }
 
 const GameDetail: React.FC<IProps> = ({ game }) => {
+  const commentSectionRef = createRef<HTMLElement>();
+
+  const navigateToCommentsSection = () => {
+    const ELEMENT = commentSectionRef.current;
+
+    if (ELEMENT) {
+      window.scrollTo({
+        behavior: "smooth",
+        left: 0,
+        top: ELEMENT.offsetTop - 20,
+      });
+    }
+  };
+
   return (
     <div className="w-1/2 mx-auto">
       <section className="py-5 flex items-center gap-8">
@@ -58,7 +74,10 @@ const GameDetail: React.FC<IProps> = ({ game }) => {
           </div>
         </div>
         <div className="flex items-center gap-4 w-1/2">
-          <button className="flex items-center gap-1 hover:text-primary-brand-color">
+          <button
+            className="flex items-center gap-1 hover:text-primary-brand-color"
+            onClick={navigateToCommentsSection}
+          >
             <IconMessage size={15} />
             <span>Comment</span>
           </button>
@@ -108,6 +127,7 @@ const GameDetail: React.FC<IProps> = ({ game }) => {
           thumbnail: url,
         }))}
       />
+      <CommentsSection ref={commentSectionRef} />
     </div>
   );
 };
