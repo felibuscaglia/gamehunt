@@ -18,7 +18,7 @@ const AdminPanelPlatformForm: React.FC<IAdminFormProps> = ({
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<{ [K in keyof IInput]?: string[] }>({});
 
-  const axiosAuth = useAxiosAuth();
+  const authApiClient = useAxiosAuth();
 
   const handleInputChange = ({
     target,
@@ -35,7 +35,7 @@ const AdminPanelPlatformForm: React.FC<IAdminFormProps> = ({
     setLoading(true);
     setErrors({});
 
-    axiosAuth
+    authApiClient
       .post<IPlatform>(API_PATHS.SAVE_PLATFORM, input)
       .then(({ data }) => {
         appendNew(data);

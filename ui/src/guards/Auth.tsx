@@ -26,7 +26,7 @@ const AuthGuard = <T,>({
   const authApiClient = useAxiosAuth();
 
   useEffect(() => {
-    authApiClient({
+    authApiClient<T>({
       method,
       url: apiPath,
     })

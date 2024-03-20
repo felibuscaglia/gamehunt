@@ -11,7 +11,7 @@ const GalleryInput = () => {
   const [uploading, setUploading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(0);
 
-  const axiosAuth = useAxiosAuth();
+  const authApiClient = useAxiosAuth();
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -26,7 +26,7 @@ const GalleryInput = () => {
       formData.append("files", file);
     });
 
-    axiosAuth
+    authApiClient
       .post<IImage[]>(API_PATHS.BULK_UPLOAD_IMAGES, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -59,7 +59,7 @@ const GalleryInput = () => {
   const removeImage = (index: number) => {
     const prevGallery = [...input.gallery];
 
-    axiosAuth
+    authApiClient
       .delete(
         API_PATHS.DELETE_IMAGE.replace(
           ":imageExternalId",

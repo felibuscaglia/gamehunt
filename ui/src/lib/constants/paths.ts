@@ -51,4 +51,5 @@ export const API_PATHS = {
   GET_GAME_BY_URL_SLUG: "/games/:gameUrlSlug",
   UPVOTE_GAME: "/games/:gameId/upvote",
   DOWNVOTE_GAME: "/games/:gameId/downvote",
+  SAVE_COMMENT: "/comments",
 };

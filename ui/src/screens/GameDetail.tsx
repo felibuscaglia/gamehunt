@@ -23,7 +23,7 @@ const GameDetailScreen = () => {
 
   const { gameUrlSlug = "" } = useParams();
   const navigate = useNavigate();
-  const axiosAuth = useAxiosAuth();
+  const authApiClient = useAxiosAuth();
 
   const user = useAppSelector((state) => state.user.user);
 
@@ -57,14 +57,14 @@ const GameDetailScreen = () => {
   const upvote = () => {
     if (!user) {
       return navigate(
-        `${UI_PATHS.LOGIN}?redirectUrl=${window.location.pathname}`
+        `${UI_PATHS.LOGIN}?redirectUri=${window.location.pathname}`
       );
     }
 
     setUpvoteCount(upvoteCount + 1);
     setUserUpvoted(true);
 
-    axiosAuth
+    authApiClient
       .post<IGame>(API_PATHS.UPVOTE_GAME.replace(":gameId", game?.id || ""))
       .catch((err) =>
         toast.error(err.response?.data?.message || UNEXPECTED_ERROR_MSG)
@@ -75,7 +75,7 @@ const GameDetailScreen = () => {
     setUpvoteCount(upvoteCount - 1);
     setUserUpvoted(false);
 
-    axiosAuth
+    authApiClient
       .delete(API_PATHS.DOWNVOTE_GAME.replace(":gameId", game?.id || ""))
       .catch((err) =>
         toast.error(err.response?.data?.message || UNEXPECTED_ERROR_MSG)

@@ -144,7 +144,11 @@ const GameDetail: React.FC<IProps> = ({
           thumbnail: url,
         }))}
       />
-      <CommentsSection ref={commentSectionRef} />
+      <CommentsSection
+        gameId={game.id}
+        comments={game.comments || []}
+        ref={commentSectionRef}
+      />
     </div>
   );
 };

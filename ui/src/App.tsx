@@ -27,7 +27,7 @@ const App = () => {
   const user = useAppSelector((state) => state.user.user);
   const dispatch = useAppDispatch();
 
-  const axiosAuth = useAxiosAuth(false);
+  const authApiClient = useAxiosAuth();
 
   const dispatchUser = (user: IAuthUser | null) => {
     dispatch(addUser(user));
@@ -54,7 +54,7 @@ const App = () => {
 
   useEffect(() => {
     if (!user && loadingUser) {
-      axiosAuth
+      authApiClient
         .get<IAuthUser>(API_PATHS.GET_ME)
         .then(({ data }) => dispatchUser(data))
         .catch(() => dispatchUser(null));

@@ -52,7 +52,7 @@ const MainInfoSection = () => {
 
   const { input, setInput, setSelectedSection, errors } =
     useContext(GameFormContext);
-  const axiosAuth = useAxiosAuth();
+  const authApiClient = useAxiosAuth();
 
   const genres = useAppSelector((state) => state.genres.genres);
 
@@ -63,7 +63,7 @@ const MainInfoSection = () => {
   );
 
   useEffect(() => {
-    axiosAuth
+    authApiClient
       .get<IPlatform[]>(API_PATHS.GET_PLATFORMS)
       .then(({ data }) => setPlatforms(data))
       .catch((err) => console.error(err))
@@ -73,7 +73,7 @@ const MainInfoSection = () => {
   }, []);
 
   useEffect(() => {
-    axiosAuth
+    authApiClient
       .get<IGameMode[]>(API_PATHS.GET_GAME_MODES)
       .then(({ data }) => setModes(data))
       .catch((err) => console.error(err))

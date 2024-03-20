@@ -12,6 +12,7 @@ export interface IUser {
   email: string;
   games: IGame[];
   role: USER_ROLES;
+  comments: IComment[];
 }
 
 export interface IGameMode {
@@ -37,6 +38,7 @@ export interface IGame {
   storyline?: string;
   urlSlug?: string;
   upvotes?: IUser[];
+  comments?: IComment[];
 }
 
 export interface IGenre {
@@ -70,4 +72,14 @@ export interface IPlatform {
   id: number;
   name: string;
   urlSlug: string;
+}
+
+export interface IComment {
+  id: number;
+  content: string;
+  author: IUser;
+  replies: IComment[];
+  parent?: IComment;
+  game: IGame[];
+  createdAt: string;
 }

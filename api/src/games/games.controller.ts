@@ -34,7 +34,14 @@ export class GamesController {
         urlSlug: gameUrlSlug,
         status: GameStatus.PUBLISHED,
       },
-      ['thumbnail', 'links', 'creator', 'upvotes'],
+      [
+        'thumbnail',
+        'links',
+        'creator',
+        'upvotes',
+        'comments',
+        'comments.author',
+      ],
     );
   }
 

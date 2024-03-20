@@ -1,4 +1,4 @@
-import { IconBrandFacebook, IconBrandX, IconShare2 } from "@tabler/icons-react";
+import { IconShare2 } from "@tabler/icons-react";
 import Thumbnail from "components/Thumbnail";
 import Dialog from "layouts/Dialog";
 import { useState } from "react";
@@ -8,9 +8,6 @@ interface IProps {
   gameName: string;
   gameTagline?: string;
 }
-
-const SOCIAL_BTN_CLASSNAMES =
-  "h-16 w-16 rounded-full flex items-center justify-center";
 
 const ShareGameDialog: React.FC<IProps> = ({
   gameThumbnailUrl,
@@ -47,19 +44,7 @@ const ShareGameDialog: React.FC<IProps> = ({
             {gameTagline}
           </span>
         )}
-        <div className="my-4 flex items-center gap-4">
-          <button
-            className={SOCIAL_BTN_CLASSNAMES + " bg-black/15 hover:bg-black/10"}
-          >
-            <IconBrandX />
-          </button>
-          <button
-            className={SOCIAL_BTN_CLASSNAMES + " bg-blue-200 hover:bg-blue-100"}
-          >
-            <IconBrandFacebook />
-          </button>
-        </div>
-        <div className="text-sm p-2 rounded border border-gray-200 bg-slate-200">
+        <div className="text-sm p-2 rounded border border-gray-200 bg-slate-200 mt-4">
           <span className="text-gray-600">{window.location.href}</span>
           <button
             onClick={handleCopyLink}

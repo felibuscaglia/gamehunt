@@ -5,6 +5,7 @@ interface IProps {
   type?: "submit" | "reset" | "button";
   loading?: boolean;
   textSize?: "base" | "small";
+  disabled?: boolean;
   onClick?: () => void;
 }
 
@@ -12,6 +13,7 @@ const Button: React.FC<IProps> = ({
   text,
   type = "button",
   loading = false,
+  disabled = false,
   textSize = "base",
   onClick,
 }) => {
@@ -21,9 +23,11 @@ const Button: React.FC<IProps> = ({
       className={`${
         textSize === "small" ? "text-sm" : "text-base"
       } bg-primary-brand-color text-white font-medium py-2 rounded border border-primary-brand-color ${
-        !loading ? "hover:bg-transparent hover:text-primary-brand-color" : ""
+        !loading && !disabled
+          ? "hover:bg-transparent hover:text-primary-brand-color"
+          : ""
       } disabled:cursor-not-allowed disabled:opacity-50 flex items-center justify-center w-full`}
-      disabled={loading}
+      disabled={loading || disabled}
       onClick={onClick}
     >
       {loading ? <PacmanLoader color="white" size={10} /> : <span>{text}</span>}

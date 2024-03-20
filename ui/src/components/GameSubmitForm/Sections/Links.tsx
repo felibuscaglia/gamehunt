@@ -14,7 +14,7 @@ const LinksSection = () => {
 
   const { input, setInput, errors } = useContext(GameFormContext);
 
-  const axiosAuth = useAxiosAuth();
+  const authApiClient = useAxiosAuth();
 
   const LINKS = input.links || [];
 
@@ -31,7 +31,7 @@ const LinksSection = () => {
 
     setLoading(true);
 
-    axiosAuth
+    authApiClient
       .post<IGameLink>(API_PATHS.CREATE_GAME_LINK, {
         platform,
       })
@@ -74,7 +74,7 @@ const LinksSection = () => {
       };
     });
 
-    axiosAuth
+    authApiClient
       .delete(API_PATHS.DELETE_GAME_LINK.replace(":gameLinkId", linkId))
       .catch((err) => console.error(err));
   };

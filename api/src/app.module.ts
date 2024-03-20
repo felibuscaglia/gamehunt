@@ -14,6 +14,7 @@ import { GamemodesModule } from './gamemodes/gamemodes.module';
 import { GameLinksModule } from './game-links/game-links.module';
 import entities from './entities';
 import { CacheModule } from '@nestjs/cache-manager';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { CacheModule } from '@nestjs/cache-manager';
     GamemodesModule,
     GameLinksModule,
     CacheModule.register({ isGlobal: true }),
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [],

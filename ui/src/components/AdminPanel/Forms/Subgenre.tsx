@@ -28,7 +28,7 @@ const AdminPanelSubgenreForm: React.FC<IAdminFormProps> = ({
 
   const genres = useAppSelector((state) => state.genres.genres);
 
-  const axiosAuth = useAxiosAuth();
+  const authApiClient = useAxiosAuth();
 
   const handleInputChange = ({
     target,
@@ -47,7 +47,7 @@ const AdminPanelSubgenreForm: React.FC<IAdminFormProps> = ({
 
     const { genre: selectedGenre, ...dto } = input;
 
-    axiosAuth
+    authApiClient
       .post<ISubgenre>(API_PATHS.CREATE_SUBGENRE, {
         ...dto,
         genreId: selectedGenre?.id,

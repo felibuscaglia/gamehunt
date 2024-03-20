@@ -39,10 +39,10 @@ const AdminPanel: React.FC<IProps> = ({
     content.length === CONTENT_REQUEST_LIMIT
   );
 
-  const axiosAuth = useAxiosAuth();
+  const authApiClient = useAxiosAuth();
 
   const fetchData = () => {
-    axiosAuth
+    authApiClient
       .get<Array<IGenre | ISubgenre | IGameMode | IPlatform>>(
         `${fetchContentApiPath}?limit=${CONTENT_REQUEST_LIMIT}&offset=${offset}`
       )

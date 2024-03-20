@@ -1,11 +1,10 @@
 import { HttpStatusCode } from "axios";
 import { authClient, apiClient } from "lib/axios/apiClient";
-import { IS_LOGGED_IN_KEY } from "lib/constants";
 import { API_PATHS, UI_PATHS } from "lib/constants/paths";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const useAxiosAuth = (redirectToHome = true) => {
+const useAxiosAuth = () => {
   const navigate = useNavigate();
 
   const refreshTokens = async () => {
@@ -34,9 +33,11 @@ const useAxiosAuth = (redirectToHome = true) => {
           return authClient(prevRequest);
         }
 
-        if (err.response?.status === HttpStatusCode.Unauthorized) {
-          localStorage.removeItem(IS_LOGGED_IN_KEY);
-          redirectToHome && navigate(UI_PATHS.HOME);
+        if (
+          err.response?.status === HttpStatusCode.Unauthorized &&
+          prevRequest.url !== API_PATHS.GET_ME
+        ) {
+          navigate(UI_PATHS.HOME);
         } else {
           return Promise.reject(err);
         }
@@ -46,7 +47,7 @@ const useAxiosAuth = (redirectToHome = true) => {
     return () => {
       authClient.interceptors.response.eject(responseInterceptor);
     };
-  }, []);
+  }, [navigate]);
 
   return authClient;
 };

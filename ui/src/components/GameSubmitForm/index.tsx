@@ -86,7 +86,7 @@ const GameSubmitForm: React.FC<IProps> = ({ game }) => {
     links: game.links || [],
   });
 
-  const axiosAuth = useAxiosAuth();
+  const authApiClient = useAxiosAuth();
   const navigate = useNavigate();
 
   const resetSectionErrors = () => {
@@ -106,7 +106,7 @@ const GameSubmitForm: React.FC<IProps> = ({ game }) => {
 
       const { id, creator, upvotes, ...saveGameDto } = input;
 
-      axiosAuth
+      authApiClient
         .patch(API_PATHS.SAVE_GAME.replace(":gameId", id), saveGameDto)
         .then(() => setLastSaved(new Date()))
         .catch((err) => {
@@ -128,7 +128,7 @@ const GameSubmitForm: React.FC<IProps> = ({ game }) => {
     setLoading({ ...loading, publishing: true });
     resetSectionErrors();
 
-    axiosAuth
+    authApiClient
       .post(API_PATHS.PUBLISH_GAME.replace(":gameId", input.id))
       .then(() => navigate(UI_PATHS.HOME))
       .catch((err) => {

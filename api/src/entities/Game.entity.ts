@@ -18,6 +18,7 @@ import Image from './Image.entity';
 import User from './User.entity';
 import Platform from './Platform.entity';
 import GameMode from './GameMode.entity';
+import Comment from './Comment.entity';
 
 @Entity('game')
 class Game {
@@ -134,6 +135,9 @@ class Game {
     },
   })
   upvotes: User[];
+
+  @OneToMany(() => Comment, (comment) => comment.game) 
+  comments: Comment[];
 }
 
 export default Game;

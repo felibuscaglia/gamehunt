@@ -18,7 +18,7 @@ const AdminPanelGenreForm: React.FC<IAdminFormProps> = ({
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<{ [K in keyof IInput]?: string[] }>({});
 
-  const axiosAuth = useAxiosAuth();
+  const authApiClient = useAxiosAuth();
 
   const handleInputChange = ({
     target,
@@ -35,7 +35,7 @@ const AdminPanelGenreForm: React.FC<IAdminFormProps> = ({
     setLoading(false);
     setErrors({});
 
-    axiosAuth
+    authApiClient
       .post<IGenre | ISubgenre>(API_PATHS.CREATE_GENRE, input)
       .then(({ data }) => {
         appendNew(data);

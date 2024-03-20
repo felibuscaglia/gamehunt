@@ -2,7 +2,6 @@ import { Menu, Transition } from "@headlessui/react";
 import { IconLogout, IconUser, IconUserPentagon } from "@tabler/icons-react";
 import {
   API_PATHS,
-  IS_LOGGED_IN_KEY,
   PRIMARY_BRAND_COLOR,
   UI_PATHS,
 } from "lib/constants";
@@ -17,11 +16,10 @@ interface IProps {
 const ICON_SIZE = 15;
 
 const UserPanelDropdown: React.FC<IProps> = ({ isAdmin }) => {
-  const axiosAuth = useAxiosAuth();
+  const authApiClient = useAxiosAuth();
 
   const logout = () => {
-    axiosAuth.post(API_PATHS.SIGN_OUT);
-    localStorage.removeItem(IS_LOGGED_IN_KEY);
+    authApiClient.post(API_PATHS.SIGN_OUT);
     window.location.reload();
   };
 

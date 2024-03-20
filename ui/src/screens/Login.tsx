@@ -4,7 +4,6 @@ import AuthFormLayout from "layouts/AuthForm";
 import { apiClient } from "lib/axios/apiClient";
 import {
   API_PATHS,
-  IS_LOGGED_IN_KEY,
   UI_PATHS,
   UNEXPECTED_ERROR_MSG,
 } from "lib/constants";
@@ -41,9 +40,8 @@ const LogInScreen = () => {
     apiClient
       .post(API_PATHS.LOGIN, input)
       .then(() => {
-        localStorage.setItem(IS_LOGGED_IN_KEY, "1");
         dispatch(loadUser(true));
-        navigate(searchParams.get("redirectUrl") || UI_PATHS.HOME);
+        navigate(searchParams.get("redirectUri") || UI_PATHS.HOME);
       })
       .catch((err) => {
         if (err?.response?.status === HttpStatusCode.Unauthorized) {

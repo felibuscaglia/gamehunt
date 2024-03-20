@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { USER_ROLES } from 'users/lib/enums';
 import Game from './Game.entity';
+import Comment from './Comment.entity';
 
 @Entity('user')
 class User {
@@ -25,6 +26,9 @@ class User {
     default: USER_ROLES.USER,
   })
   role: USER_ROLES;
+
+  @OneToMany(() => Comment, (comment) => comment.author)
+  comments: Comment[];
 }
 
 export default User;

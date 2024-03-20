@@ -18,7 +18,7 @@ const AdminPanelGameModeForm: React.FC<IAdminFormProps> = ({
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<{ [K in keyof IInput]?: string[] }>({});
 
-  const axiosAuth = useAxiosAuth();
+  const authApiClient = useAxiosAuth();
 
   const handleInputChange = ({
     target,
@@ -35,7 +35,7 @@ const AdminPanelGameModeForm: React.FC<IAdminFormProps> = ({
     setLoading(true);
     setErrors({});
 
-    axiosAuth
+    authApiClient
       .post<IGameMode>(API_PATHS.SAVE_GAME_MODE, input)
       .then(({ data }) => {
         appendNew(data);

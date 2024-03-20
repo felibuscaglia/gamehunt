@@ -1,4 +1,4 @@
-import { IS_LOGGED_IN_KEY, UI_PATHS } from "lib/constants";
+import { UI_PATHS } from "lib/constants";
 import { Link } from "react-router-dom";
 import AutoCompleteInput from "../Inputs/AutoComplete";
 import Logo from "../Logo";
@@ -38,7 +38,7 @@ const PageHead = () => {
           displayKey=""
           onSelect={() => {}}
         />
-        {localStorage.getItem(IS_LOGGED_IN_KEY) === "1" && user !== null ? (
+        {user !== null ? (
           <UserPanel loading={loadingUser} user={user} />
         ) : (
           <AuthButtons />

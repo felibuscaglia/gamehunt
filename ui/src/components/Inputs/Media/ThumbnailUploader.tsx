@@ -16,7 +16,7 @@ const ThumbnailUploader = () => {
   const [uploadingFile, setUploadingFile] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
-  const axiosAuth = useAxiosAuth();
+  const authApiClient = useAxiosAuth();
 
   const { setInput, input } = useContext(GameFormContext);
 
@@ -29,7 +29,7 @@ const ThumbnailUploader = () => {
     const formData = new FormData();
     formData.append("file", file);
 
-    axiosAuth
+    authApiClient
       .post<IImage>(API_PATHS.UPLOAD_IMAGE, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
