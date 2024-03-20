@@ -1,4 +1,4 @@
-import { IconMessage, IconThumbUp } from "@tabler/icons-react";
+import { IconMessage } from "@tabler/icons-react";
 import { IComment } from "lib/interfaces";
 import Form from "./Form";
 import { useState } from "react";
@@ -6,9 +6,14 @@ import { useState } from "react";
 interface IProps {
   isReply?: boolean;
   comment: IComment;
+  onReplySubmit?: (reply: string, comment?: IComment) => void;
 }
 
-const Comment: React.FC<IProps> = ({ isReply = false, comment }) => {
+const Comment: React.FC<IProps> = ({
+  isReply = false,
+  comment,
+  onReplySubmit = () => {},
+}) => {
   const [displayForm, setDisplayForm] = useState(false);
 
   const formattedDate = new Date(comment.createdAt).toLocaleDateString(
@@ -20,17 +25,13 @@ const Comment: React.FC<IProps> = ({ isReply = false, comment }) => {
     }
   );
 
-  const handleFormSubmit = (reply: string) => {
-
-  }
-
   return (
     <article
-      className={`py-6 text-base bg-white rounded-lg ${
-        isReply ? "ml-6 lg:ml-12" : ""
+      className={`text-base ${
+        isReply ? "ml-6 lg:ml-12 pt-3" : "pt-6"
       }`}
     >
-      <footer className="flex justify-between items-center mb-2">
+      <footer className="flex justify-between items-center">
         <div className="flex items-center">
           <p className="inline-flex items-center mr-3 text-sm text-gray-900 font-semibold">
             <img
@@ -60,14 +61,30 @@ const Comment: React.FC<IProps> = ({ isReply = false, comment }) => {
             Reply
           </button>
         )}
-        <button
+        {/* <button
           type="button"
           className="flex items-center gap-px text-sm text-gray-500 hover:text-primary-brand-color font-medium"
         >
           <IconThumbUp size={15} />3
-        </button>
+        </button> */}
       </div>
-      {displayForm && <Form isReply onCancelClick={() => setDisplayForm(false)} onSubmit={handleFormSubmit} loading={false} />}
+      {displayForm && (
+        <Form
+          isReply
+          onCancelClick={() => setDisplayForm(false)}
+          onSubmit={(reply) => onReplySubmit(reply, comment)}
+          loading={false}
+        />
+      )}
+      {
+        (comment.replies || []).map((reply) => (
+          <Comment
+            key={`reply-${comment.id}-${reply.id}`}
+            comment={reply}
+            isReply
+            onReplySubmit={onReplySubmit}
+          />
+        ))}
     </article>
   );
 };

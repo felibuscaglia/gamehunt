@@ -6,38 +6,63 @@ import useAxiosAuth from "lib/hooks/useAxiosAuth";
 import toast from "react-hot-toast";
 import Form from "./Form";
 
+interface ISaveCommentDto {
+  gameId: string;
+  content: string;
+  parentCommentId?: number;
+}
+
 interface IProps {
   comments: IComment[];
   gameId: string;
 }
 
 const GameDetailCommentsSection = forwardRef<HTMLElement, IProps>(
-  ({ comments, gameId }, ref) => {
+  ({ comments: _comments, gameId }, ref) => {
     const [posting, setPosting] = useState(false);
+    const [comments, setComments] = useState(_comments);
 
     const authApiClient = useAxiosAuth();
 
-    const handleFormSubmit = (content: string) => {
+    const handleFormSubmit = (content: string, comment?: IComment) => {
       if (posting) {
         return;
       }
 
       setPosting(true);
 
+      const DTO: ISaveCommentDto = { gameId, content };
+
+      if (comment) {
+        DTO.parentCommentId = comment.id;
+      }
+
       authApiClient
-        .post(API_PATHS.SAVE_COMMENT, { gameId, content })
-        .then(() => {})
-        .catch(() =>
-          toast.error(
-            content.trim().length
-              ? UNEXPECTED_ERROR_MSG
-              : "The comment must not be empty"
-          )
+        .post<IComment>(API_PATHS.SAVE_COMMENT, DTO)
+        .then(({ data }) => {
+          if (comment) {
+            setComments((prevComments) => {
+              const UPDATED_COMMENTS = [...prevComments];
+              const COMMENT_INDEX = prevComments.findIndex(
+                (c) => c.id === comment.id
+              );
+
+              UPDATED_COMMENTS[COMMENT_INDEX] = {
+                ...comment,
+                replies: [data, ...comment.replies],
+              };
+
+              return UPDATED_COMMENTS;
+            });
+          } else {
+            setComments((prevComments) => [data, ...prevComments]);
+          }
+        })
+        .catch((err) =>
+          toast.error(err.response?.data?.message || UNEXPECTED_ERROR_MSG)
         )
         .finally(() => setPosting(false));
     };
-
-    console.log({ comments });
 
     return (
       <section className="py-8 lg:py-16 antialiased" ref={ref}>
@@ -48,9 +73,19 @@ const GameDetailCommentsSection = forwardRef<HTMLElement, IProps>(
             </h2>
           </div>
           <Form onSubmit={handleFormSubmit} loading={posting} />
-          {comments.map((comment) => (
-            <Comment comment={comment} key={`comment-${comment.id}`} />
-          ))}
+          <div className="divide-y divide-y-gray-500">
+            {comments.map((comment) => {
+              if (!comment.parent) {
+                return (
+                  <Comment
+                    onReplySubmit={handleFormSubmit}
+                    comment={comment}
+                    key={`comment-${comment.id}`}
+                  />
+                );
+              }
+            })}
+          </div>
         </div>
       </section>
     );

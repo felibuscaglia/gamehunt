@@ -10,10 +10,10 @@ import { CommentsService } from './comments.service';
 export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
   @Post()
-  saveComment(
+  async saveComment(
     @Body() saveCommentDto: SaveCommentDto,
     @CurrentUser() user: User,
   ) {
-    return this.commentsService.save(saveCommentDto, user);
+    return await this.commentsService.save(saveCommentDto, user);
   }
 }

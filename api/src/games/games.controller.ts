@@ -41,6 +41,8 @@ export class GamesController {
         'upvotes',
         'comments',
         'comments.author',
+        'comments.replies',
+        'comments.parent'
       ],
     );
   }

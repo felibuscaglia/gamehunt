@@ -25,6 +25,8 @@ const CommentsSectionForm: React.FC<IProps> = ({
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(input);
+    setInput("");
+    onCancelClick();
   };
 
   const id = isReply ? "reply" : "comment";
