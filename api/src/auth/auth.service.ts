@@ -21,6 +21,7 @@ export class AuthService {
       id: true,
       email: true,
       role: true,
+      username: true,
     });
 
     if (user && (await compare(password, user.password))) {
@@ -38,6 +39,7 @@ export class AuthService {
       fullName: user.fullName,
       id: user.id,
       role: user.role,
+      username: user.username,
     };
 
     return {
@@ -75,6 +77,7 @@ export class AuthService {
       fullName: user.fullName,
       id: user.id,
       role: user.role,
+      username: user.username,
     };
 
     return {

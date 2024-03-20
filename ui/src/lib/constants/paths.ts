@@ -15,6 +15,7 @@ export const UI_PATHS = {
   SUBGENRE_DETAIL: "/categories/:subgenreUrlSlug",
   GAME_DETAIL: "/game/:gameUrlSlug",
   NOT_FOUND: "/not-found",
+  USER_SETTINGS: "/settings",
 };
 
 export const API_PATHS = {
@@ -23,6 +24,8 @@ export const API_PATHS = {
   SIGN_UP: "/auth/sign-up",
   REFRESH_TOKENS: "/auth/refresh",
   GET_ME: "/users/me",
+  PATCH_ME: "/users/me",
+  GET_ME_WITH_DETAILS: "/users/me?includeDetails=1",
   GET_USERS: "/users",
   SUBMIT_GAME: "/games",
   GET_DRAFT_USER_GAMES: "/games/user?onlyDrafts=1",

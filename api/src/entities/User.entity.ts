@@ -1,7 +1,15 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { USER_ROLES } from 'users/lib/enums';
 import Game from './Game.entity';
 import Comment from './Comment.entity';
+import Image from './Image.entity';
 
 @Entity('user')
 class User {
@@ -16,6 +24,19 @@ class User {
 
   @Column({ nullable: false, unique: true })
   email: string;
+
+  @Column({ nullable: false, unique: true })
+  username: string;
+
+  @Column({ nullable: true, length: 50 })
+  tagline?: string;
+
+  @Column({ nullable: true, length: 300 })
+  about?: string;
+
+  @OneToOne(() => Image, { nullable: true })
+  @JoinColumn({ name: 'image_id' })
+  profilePicture?: Image;
 
   @OneToMany(() => Game, (game) => game.creator)
   games: Game[];

@@ -1,17 +1,37 @@
-import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  ParseBoolPipe,
+  Patch,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { CurrentUser } from 'auth/decorators';
 import { JwtGuard } from 'auth/guards';
 import { User } from 'entities';
 import { UsersService } from './users.service';
 import { ILike } from 'typeorm';
+import { PatchMeDto } from './dto/patch-me.dto';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
   @UseGuards(JwtGuard)
   @Get('/me')
-  getMe(@CurrentUser() user: User) {
-    return user;
+  getMe(
+    @CurrentUser() user: User,
+    @Query('includeDetails') includeDetails?: string,
+  ) {
+    return includeDetails
+      ? this.usersService.findOne({ id: user.id }, ['profilePicture'])
+      : user;
+  }
+
+  @UseGuards(JwtGuard)
+  @Patch('/me')
+  async patchMe(@CurrentUser('id') userId: string, @Body() patchMeDto: PatchMeDto) {
+    return await this.usersService.update(userId, patchMeDto);
   }
 
   @Get()

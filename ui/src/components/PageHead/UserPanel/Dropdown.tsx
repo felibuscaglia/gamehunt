@@ -1,10 +1,11 @@
 import { Menu, Transition } from "@headlessui/react";
-import { IconLogout, IconUser, IconUserPentagon } from "@tabler/icons-react";
 import {
-  API_PATHS,
-  PRIMARY_BRAND_COLOR,
-  UI_PATHS,
-} from "lib/constants";
+  IconLogout,
+  IconSettings,
+  IconUser,
+  IconUserPentagon,
+} from "@tabler/icons-react";
+import { API_PATHS, PRIMARY_BRAND_COLOR, UI_PATHS } from "lib/constants";
 import useAxiosAuth from "lib/hooks/useAxiosAuth";
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
@@ -14,6 +15,8 @@ interface IProps {
 }
 
 const ICON_SIZE = 15;
+const LINK_CLASSNAMES =
+  "px-2 flex items-center gap-2 py-2 hover:underline hover:text-primary-brand-color";
 
 const UserPanelDropdown: React.FC<IProps> = ({ isAdmin }) => {
   const authApiClient = useAxiosAuth();
@@ -43,15 +46,18 @@ const UserPanelDropdown: React.FC<IProps> = ({ isAdmin }) => {
           <div className="px-1 py-1">
             {isAdmin && (
               <Menu.Item>
-                <Link
-                  to={UI_PATHS.EDIT_GENRES}
-                  className="px-2 flex items-center gap-2 py-2 hover:underline hover:text-primary-brand-color"
-                >
+                <Link to={UI_PATHS.EDIT_GENRES} className={LINK_CLASSNAMES}>
                   <IconUserPentagon size={ICON_SIZE} />
                   <span>Admin panel</span>
                 </Link>
               </Menu.Item>
             )}
+            <Menu.Item>
+              <Link to={UI_PATHS.USER_SETTINGS} className={LINK_CLASSNAMES}>
+                <IconSettings size={ICON_SIZE} />
+                <span>Settings</span>
+              </Link>
+            </Menu.Item>
           </div>
           <div className="px-1 py-1">
             <Menu.Item>

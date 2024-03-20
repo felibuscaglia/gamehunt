@@ -21,10 +21,11 @@ import { saveGenres } from "store/features/genresSlice";
 import useAxiosAuth from "lib/hooks/useAxiosAuth";
 import { saveSubgenres } from "store/features/subgenresSlice";
 import GameDetailScreen from "screens/GameDetail";
+import UserSettingsScreen from "screens/UserSettings";
 
 const App = () => {
   const loadingUser = useAppSelector((state) => state.loading.user);
-  const user = useAppSelector((state) => state.user.user);
+  const user = useAppSelector((state) => state.user?.user);
   const dispatch = useAppDispatch();
 
   const authApiClient = useAxiosAuth();
@@ -76,6 +77,7 @@ const App = () => {
           path={UI_PATHS.EDIT_GAME_MODES}
         />
         <Route element={<GameDetailScreen />} path={UI_PATHS.GAME_DETAIL} />
+        <Route element={<UserSettingsScreen />} path={UI_PATHS.USER_SETTINGS} />
       </Routes>
       <Toaster position="bottom-center" />
     </>

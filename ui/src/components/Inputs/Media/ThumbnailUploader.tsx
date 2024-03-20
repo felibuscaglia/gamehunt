@@ -5,20 +5,22 @@ import {
   MAX_FILE_SIZE_EXCEEDED_ERROR_MSG,
   UNEXPECTED_ERROR_MSG,
 } from "lib/constants";
-import { GameFormContext } from "lib/contexts/GameForm.context";
 import useAxiosAuth from "lib/hooks/useAxiosAuth";
 import { IImage } from "lib/interfaces";
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 const MAX_FILE_SIZE = 2097152;
 
-const ThumbnailUploader = () => {
+interface IProps {
+  onFileUpload: (file: IImage) => void;
+  thumbnail?: IImage;
+}
+
+const ThumbnailUploader: React.FC<IProps> = ({ onFileUpload, thumbnail }) => {
   const [uploadingFile, setUploadingFile] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
   const authApiClient = useAxiosAuth();
-
-  const { setInput, input } = useContext(GameFormContext);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -36,10 +38,7 @@ const ThumbnailUploader = () => {
         },
       })
       .then(({ data }) => {
-        setInput({
-          ...input,
-          thumbnail: data,
-        });
+        onFileUpload(data);
         setUploadingFile(false);
       })
       .catch((err) => {
@@ -69,14 +68,14 @@ const ThumbnailUploader = () => {
 
   return (
     <div className="flex items-center gap-8 w-full">
-      {!input.thumbnail ? (
+      {!thumbnail ? (
         <div className="flex items-center justify-center border-2 border-dashed rounded h-20 w-20 border-gray-300 p-5">
           <IconPhotoScan className="text-gray-400" size={40} />
         </div>
       ) : (
         <div
           className="bg-center bg-cover bg-no-repeat rounded h-20 w-20"
-          style={{ backgroundImage: `url('${input.thumbnail.url}')` }}
+          style={{ backgroundImage: `url('${thumbnail.url}')` }}
         />
       )}
       <div className="h-20 grow justify-center gap-2 flex flex-col">

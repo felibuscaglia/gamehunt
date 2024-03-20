@@ -4,6 +4,7 @@ export interface IAuthUser {
   email: string;
   fullName: string;
   role: USER_ROLES;
+  username: string;
 }
 
 export interface IUser {
@@ -13,6 +14,10 @@ export interface IUser {
   games: IGame[];
   role: USER_ROLES;
   comments: IComment[];
+  username: string;
+  tagline?: string;
+  profilePicture: IImage;
+  about?: string;
 }
 
 export interface IGameMode {
