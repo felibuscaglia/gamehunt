@@ -1,4 +1,5 @@
 import {
+  IsBoolean,
   IsLowercase,
   IsNotEmptyObject,
   IsObject,
@@ -32,4 +33,8 @@ export class PatchMeDto {
   @IsObject()
   @IsNotEmptyObject()
   profilePicture?: Image;
+
+  @IsOptional()
+  @IsBoolean()
+  isSubscribedToNewsletter: boolean;
 }

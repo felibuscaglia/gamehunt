@@ -1,14 +1,17 @@
 import {
   Body,
   Controller,
+  Get,
   HttpStatus,
+  Patch,
   Post,
+  Query,
   Res,
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ConfigService } from '@nestjs/config';
-import { LocalAuthGuard, RefreshJwtGuard } from './guards';
+import { JwtGuard, LocalAuthGuard, RefreshJwtGuard } from './guards';
 import { CurrentUser } from './decorators';
 import { User } from 'entities';
 import {
@@ -16,13 +19,15 @@ import {
   REFRESH_TOKEN_COOKIE_NAME,
 } from './lib/constants';
 import { Response } from 'express';
-import { SignUpDto } from './dto';
+import { PatchMeDto, SignUpDto } from './dto';
+import { UsersService } from 'users/users.service';
 
 @Controller('auth')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly configService: ConfigService,
+    private readonly usersService: UsersService,
   ) {}
 
   @UseGuards(LocalAuthGuard)
@@ -31,7 +36,8 @@ export class AuthController {
     @Res({ passthrough: true }) response: Response,
     @CurrentUser() user: User,
   ) {
-    const { accessToken, refreshToken } = await this.authService.login(user);
+    const { accessToken, refreshToken } =
+      await this.authService.generateTokens(user);
 
     response.cookie(ACCESS_TOKEN_COOKIE_NAME, accessToken, {
       httpOnly: true,
@@ -60,6 +66,39 @@ export class AuthController {
     });
 
     return HttpStatus.OK;
+  }
+
+  @UseGuards(JwtGuard)
+  @Patch('/me')
+  async patchMe(
+    @CurrentUser('id') userId: string,
+    @Body() patchMeDto: PatchMeDto,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const UPDATED_USER = await this.usersService.update(userId, patchMeDto);
+
+    const { accessToken, refreshToken } =
+      await this.authService.generateTokens(UPDATED_USER);
+
+    response.cookie(ACCESS_TOKEN_COOKIE_NAME, accessToken, {
+      httpOnly: true,
+      domain: this.configService.get('UI_DOMAIN'),
+    });
+    response.cookie(REFRESH_TOKEN_COOKIE_NAME, refreshToken, {
+      httpOnly: true,
+      domain: this.configService.get('UI_DOMAIN'),
+    });
+  }
+
+  @UseGuards(JwtGuard)
+  @Get('/me')
+  getMe(
+    @CurrentUser() user: User,
+    @Query('includeDetails') includeDetails?: string,
+  ) {
+    return includeDetails
+      ? this.usersService.findOne({ id: user.id }, ['profilePicture'])
+      : user;
   }
 
   @Post('sign-up')

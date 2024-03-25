@@ -5,6 +5,7 @@ export interface IAuthUser {
   fullName: string;
   role: USER_ROLES;
   username: string;
+  isSubscribedToNewsletter: boolean;
 }
 
 export interface IUser {

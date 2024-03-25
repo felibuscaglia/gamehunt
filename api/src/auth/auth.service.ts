@@ -22,6 +22,7 @@ export class AuthService {
       email: true,
       role: true,
       username: true,
+      isSubscribedToNewsletter: true,
     });
 
     if (user && (await compare(password, user.password))) {
@@ -33,13 +34,14 @@ export class AuthService {
     return result;
   }
 
-  public async login(user: User) {
+  public async generateTokens(user: User) {
     const payload = {
       email: user.email,
       fullName: user.fullName,
       id: user.id,
       role: user.role,
       username: user.username,
+      isSubscribedToNewsletter: user.isSubscribedToNewsletter,
     };
 
     return {
@@ -78,6 +80,7 @@ export class AuthService {
       id: user.id,
       role: user.role,
       username: user.username,
+      isSubscribedToNewsletter: user.isSubscribedToNewsletter,
     };
 
     return {

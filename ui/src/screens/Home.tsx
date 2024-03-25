@@ -35,7 +35,9 @@ const HomeScreen = () => {
       <PageHead />
       <section className="w-10/12 mx-auto min-h-screen flex-grow">
         <TrendingSection />
-        {USER && <NewsletterSignup />}
+        {USER && !USER.isSubscribedToNewsletter && (
+          <NewsletterSignup user={USER} />
+        )}
         <div id="productList" className="h-full">
           <GameList games={gamesByDay} setGames={setGamesByDay} />
         </div>
