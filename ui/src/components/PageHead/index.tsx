@@ -22,10 +22,10 @@ const PageHead = () => {
           <Logo />
         </Link>
         <ul className="flex items-center gap-4">
-          <li className={`${BTN_CLASSNAMES} rounded`}>Home</li>
+          <Link to={UI_PATHS.HOME} className={`${BTN_CLASSNAMES} rounded`}>
+            Home
+          </Link>
           <Popover />
-          <li className={`${BTN_CLASSNAMES} rounded`}>Platforms</li>
-          <li className={`${BTN_CLASSNAMES} rounded`}>Newsletter</li>
           <li className={`${BTN_CLASSNAMES} rounded`}>About</li>
         </ul>
       </section>

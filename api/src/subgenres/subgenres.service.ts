@@ -41,8 +41,15 @@ export class SubgenresService {
     return this.subgenresRepository
       .createQueryBuilder('subgenre')
       .leftJoinAndSelect('subgenre.games', 'game')
-      .select(['subgenre.id', 'subgenre.name', 'COUNT(game.id) AS gameCount'])
-      .groupBy('subgenre.id, subgenre.name')
+      .leftJoinAndSelect('subgenre.genre', 'genre')
+      .select([
+        'subgenre.id',
+        'subgenre.name',
+        'COUNT(game.id) AS gameCount',
+        'subgenre.urlSlug',
+        'genre',
+      ])
+      .groupBy('subgenre.id, subgenre.name, genre.id')
       .orderBy('gameCount', 'DESC')
       .limit(8)
       .getMany();

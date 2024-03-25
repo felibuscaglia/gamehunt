@@ -51,7 +51,7 @@ const SubgenreDetailScreen = () => {
                 <Game index={i} game={game} key={`subgenre-game-${game.id}`} />
               ))}
             </div>
-            <div className="w-3/12">
+            <div className="w-3/12 py-3">
               <label className="uppercase text-xs font-semibold text-gray-500 mb-8">
                 {subgenre.genre?.name}
               </label>

@@ -1,5 +1,6 @@
 import { Menu, Transition } from "@headlessui/react";
 import {
+  IconDeviceGamepad2,
   IconLogout,
   IconSettings,
   IconUser,
@@ -56,6 +57,12 @@ const UserPanelDropdown: React.FC<IProps> = ({ isAdmin, username }) => {
                 </Link>
               </Menu.Item>
             )}
+            <Menu.Item>
+              <Link to={UI_PATHS.USER_SETTINGS} className={LINK_CLASSNAMES}>
+                <IconDeviceGamepad2 size={ICON_SIZE} />
+                <span>My games</span>
+              </Link>
+            </Menu.Item>
             {isAdmin && (
               <Menu.Item>
                 <Link to={UI_PATHS.EDIT_GENRES} className={LINK_CLASSNAMES}>

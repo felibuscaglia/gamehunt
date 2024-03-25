@@ -24,6 +24,13 @@ export class SubgenresController {
     return this.subgenresService.findAll();
   }
 
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(86400)
+  @Get('/trending')
+  getTrendingSubgenres() {
+    return this.subgenresService.trending;
+  }
+
   @Get('/:urlSlug')
   getSubgenreByUrlSlug(
     @Param('urlSlug') subgenreUrlSlug: string,
@@ -36,13 +43,6 @@ export class SubgenresController {
       },
       ['games', 'games.thumbnail', 'genre', 'genre.subgenres'],
     );
-  }
-
-  @UseInterceptors(CacheInterceptor)
-  @CacheTTL(86400)
-  @Get('/trending')
-  getTrendingSubgenres() {
-    return this.subgenresService.trending;
   }
 
   @Post()

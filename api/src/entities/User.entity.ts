@@ -34,6 +34,9 @@ class User {
   @Column({ nullable: true, length: 300 })
   about?: string;
 
+  @Column({ nullable: false, default: false, type: 'boolean' })
+  isSubscribedToNewsletter: boolean;
+
   @OneToOne(() => Image, { nullable: true })
   @JoinColumn({ name: 'image_id' })
   profilePicture?: Image;
