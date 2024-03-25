@@ -8,8 +8,8 @@ import {
   UNEXPECTED_ERROR_MSG,
 } from "lib/constants";
 import useAxiosAuth from "lib/hooks/useAxiosAuth";
-import { IGame, IUser } from "lib/interfaces";
-import { useEffect, useMemo, useState } from "react";
+import { IGame } from "lib/interfaces";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { PacmanLoader } from "react-spinners";
@@ -87,7 +87,7 @@ const GameDetailScreen = () => {
       <PageHead />
       {loading || !game ? (
         <PacmanLoader
-          className="fixed inset-1/2"
+          className="absolute inset-1/2"
           style={{ transform: "translate(-50%, -50%)" }}
           color={PRIMARY_BRAND_COLOR}
         />

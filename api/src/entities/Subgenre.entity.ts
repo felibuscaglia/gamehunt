@@ -20,6 +20,9 @@ class Subgenre {
   @Column({ nullable: false })
   urlSlug: string;
 
+  @Column({ nullable: false })
+  description: string;
+
   @ManyToOne(() => Genre, (genre) => genre.subgenres)
   genre: Genre;
 

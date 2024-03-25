@@ -7,6 +7,7 @@ import {
   Body,
   DefaultValuePipe,
   ParseBoolPipe,
+  Param,
 } from '@nestjs/common';
 import { GenresService } from './genres.service';
 import { Roles } from 'users/decorators';
@@ -33,6 +34,15 @@ export class GenresController {
     }
 
     return this.genresService.findAll(limit, offset, relations);
+  }
+
+  @Get('/:urlSlug')
+  getGenreByUrlSlug(@Param('urlSlug') genreUrlSlug: string) {
+    return this.genresService.findOne({ urlSlug: genreUrlSlug }, [
+      'subgenres',
+      'subgenres.games',
+      'subgenres.games.thumbnail',
+    ]);
   }
 
   @Post()

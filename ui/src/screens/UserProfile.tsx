@@ -1,5 +1,5 @@
 import { IconUser } from "@tabler/icons-react";
-import DayListGame from "components/GameList/DayList/Game";
+import Game from "components/GameList/DayList/Game";
 import PageHead from "components/PageHead";
 import { apiClient } from "lib/axios/apiClient";
 import { API_PATHS, PRIMARY_BRAND_COLOR, UI_PATHS } from "lib/constants";
@@ -41,7 +41,7 @@ const UserProfileScreen = () => {
       <PageHead />
       {loading || !user || loadingLoggedUser ? (
         <PacmanLoader
-          className="fixed inset-1/2"
+          className="absolute inset-1/2"
           style={{ transform: "translate(-50%, -50%)" }}
           color={PRIMARY_BRAND_COLOR}
         />
@@ -97,7 +97,7 @@ const UserProfileScreen = () => {
             {user.games?.length ? (
               <section>
                 {user.games.map((game) => (
-                  <DayListGame game={game} withUpvoteBtn={false} />
+                  <Game game={game} withUpvoteCount={false} />
                 ))}
               </section>
             ) : (

@@ -6,13 +6,13 @@ import { Link } from "react-router-dom";
 interface IProps {
   game: IGame;
   index?: number;
-  withUpvoteBtn?: boolean;
+  withUpvoteCount?: boolean;
 }
 
 const DayListGame: React.FC<IProps> = ({
   index,
   game,
-  withUpvoteBtn = true,
+  withUpvoteCount = true,
 }) => {
   const GAME_SUBGENRES = game.subgenres || [];
 
@@ -55,11 +55,13 @@ const DayListGame: React.FC<IProps> = ({
           </div>
         </div>
       </section>
-      {withUpvoteBtn && (
-        <button className="text-gray-700 hover:text-primary-brand-color-medium h-12 w-12 flex-col flex items-center justify-center rounded border border-gray-100 hover:border-primary-brand-color-light">
+      {withUpvoteCount && (
+        <div className="text-gray-700 h-12 w-12 flex-col flex items-center justify-center rounded border border-gray-100">
           <IconChevronUp stroke={1.5} />
-          <span className="text-xs font-semibold !text-gray-700">692</span>
-        </button>
+          <span className="text-xs font-semibold">
+            {game.upvotes?.length || 0}
+          </span>
+        </div>
       )}
     </Link>
   );

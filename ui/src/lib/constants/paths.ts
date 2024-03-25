@@ -12,7 +12,7 @@ export const UI_PATHS = {
   EDIT_PLATFORMS: "/admin/platforms",
   EDIT_GAME_MODES: "/admin/game-modes",
   GENRE_DETAIL: "/genres/:genreUrlSlug",
-  SUBGENRE_DETAIL: "/genres/:subgenreUrlSlug",
+  SUBGENRE_DETAIL: "/genres/:genreUrlSlug/:subgenreUrlSlug",
   GAME_DETAIL: "/game/:gameUrlSlug",
   NOT_FOUND: "/not-found",
   USER_SETTINGS: "/settings",
@@ -57,4 +57,5 @@ export const API_PATHS = {
   DOWNVOTE_GAME: "/games/:gameId/downvote",
   SAVE_COMMENT: "/comments",
   GET_USER_PROFILE_BY_USERNAME: "/users/:username/profile",
+  GET_GENRE_BY_URL_SLUG: "/genres/:genreUrlSlug",
 };

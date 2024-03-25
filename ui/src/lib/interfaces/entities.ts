@@ -58,6 +58,8 @@ export interface ISubgenre {
   name: string;
   urlSlug: string;
   genre: IGenre;
+  description: string;
+  games?: IGame[];
 }
 
 export interface IGameLink {

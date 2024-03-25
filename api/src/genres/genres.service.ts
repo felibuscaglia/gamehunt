@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Genre } from 'entities';
-import { FindManyOptions, Repository } from 'typeorm';
+import { FindManyOptions, FindOptionsWhere, Repository } from 'typeorm';
 import { CreateGenreDto } from './dto';
 import { formatUrlSlug } from 'users/lib/helpers';
 
@@ -28,6 +28,10 @@ export class GenresService {
     }
 
     return this.genresRepository.find(options);
+  }
+
+  public findOne(where: FindOptionsWhere<Genre>, relations: string[] = []) {
+    return this.genresRepository.findOne({ where, relations });
   }
 
   public create(dto: CreateGenreDto) {
