@@ -2,7 +2,9 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
+  Query,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -20,6 +22,20 @@ export class SubgenresController {
   @Get()
   getAllSubgenres() {
     return this.subgenresService.findAll();
+  }
+
+  @Get('/:urlSlug')
+  getSubgenreByUrlSlug(
+    @Param('urlSlug') subgenreUrlSlug: string,
+    @Query('genreUrlSlug') genreUrlSlug: string,
+  ) {
+    return this.subgenresService.findOne(
+      {
+        urlSlug: subgenreUrlSlug,
+        genre: { urlSlug: genreUrlSlug },
+      },
+      ['games', 'games.thumbnail', 'genre', 'genre.subgenres'],
+    );
   }
 
   @UseInterceptors(CacheInterceptor)

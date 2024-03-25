@@ -19,7 +19,7 @@ const SubgenreDetail: React.FC<IProps> = ({ subgenre, genreUrlSlug }) => {
       ).replace(":subgenreUrlSlug", subgenre.urlSlug)}
       className="flex flex-col gap-3"
     >
-      <h3 className="text-2xl font-semibold">{subgenre.name}</h3>
+      <h3 className="text-2xl font-semibold">{subgenre.name} games</h3>
       <p className="text-gray-500 text-sm">
         {subgenre.description.slice(0, DESCRIPTION_CHARACTER_COUNT_LIMIT)}
         {subgenre.description.length > DESCRIPTION_CHARACTER_COUNT_LIMIT && (

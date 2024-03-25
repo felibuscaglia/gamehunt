@@ -10,7 +10,7 @@ const PageHeadPopover = () => {
   const [mouseEnteredList] = useState(false);
   const [selectedGenreIndex, setSelectedGenreIndex] = useState(0);
 
-  const genres = useAppSelector((state) => state.genres.genres);
+  const genres = useAppSelector((state) => state.genres?.genres);
   const loadingGenres = useAppSelector((state) => state.loading.genres);
 
   let timeoutId: NodeJS.Timeout;

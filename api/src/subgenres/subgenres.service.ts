@@ -1,7 +1,12 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Genre, Subgenre } from 'entities';
-import { FindManyOptions, QueryFailedError, Repository } from 'typeorm';
+import {
+  FindManyOptions,
+  FindOptionsWhere,
+  QueryFailedError,
+  Repository,
+} from 'typeorm';
 import { CreateSubgenreDto } from './dto';
 import { formatUrlSlug } from 'users/lib/helpers';
 
@@ -23,6 +28,13 @@ export class SubgenresService {
     }
 
     return this.subgenresRepository.find(options);
+  }
+
+  public findOne(where: FindOptionsWhere<Subgenre>, relations: string[] = []) {
+    return this.subgenresRepository.findOne({
+      where,
+      relations,
+    });
   }
 
   public get trending() {

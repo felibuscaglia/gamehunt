@@ -24,6 +24,7 @@ import GameDetailScreen from "screens/GameDetail";
 import UserSettingsScreen from "screens/UserSettings";
 import UserProfileScreen from "screens/UserProfile";
 import GenreDetailScreen from "screens/GenreDetail";
+import SubgenreDetailScreen from "screens/SubgenreDetail";
 
 const App = () => {
   const loadingUser = useAppSelector((state) => state.loading.user);
@@ -74,14 +75,18 @@ const App = () => {
         <Route element={<AdminPortalScreen />} path={UI_PATHS.EDIT_GENRES} />
         <Route element={<AdminPortalScreen />} path={UI_PATHS.EDIT_SUBGENRES} />
         <Route element={<AdminPortalScreen />} path={UI_PATHS.EDIT_PLATFORMS} />
-        <Route
-          element={<AdminPortalScreen />}
-          path={UI_PATHS.EDIT_GAME_MODES}
-        />
         <Route element={<GameDetailScreen />} path={UI_PATHS.GAME_DETAIL} />
         <Route element={<UserSettingsScreen />} path={UI_PATHS.USER_SETTINGS} />
         <Route element={<UserProfileScreen />} path={UI_PATHS.USER_PROFILE} />
         <Route element={<GenreDetailScreen />} path={UI_PATHS.GENRE_DETAIL} />
+        <Route
+          element={<SubgenreDetailScreen />}
+          path={UI_PATHS.SUBGENRE_DETAIL}
+        />
+        <Route
+          element={<AdminPortalScreen />}
+          path={UI_PATHS.EDIT_GAME_MODES}
+        />
       </Routes>
       <Toaster position="bottom-center" />
     </>
