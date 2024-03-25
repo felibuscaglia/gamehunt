@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   ParseBoolPipe,
   Patch,
   Query,
@@ -30,7 +31,10 @@ export class UsersController {
 
   @UseGuards(JwtGuard)
   @Patch('/me')
-  async patchMe(@CurrentUser('id') userId: string, @Body() patchMeDto: PatchMeDto) {
+  async patchMe(
+    @CurrentUser('id') userId: string,
+    @Body() patchMeDto: PatchMeDto,
+  ) {
     return await this.usersService.update(userId, patchMeDto);
   }
 
@@ -42,5 +46,10 @@ export class UsersController {
       },
       limit,
     );
+  }
+
+  @Get('/:username/profile')
+  getUserByUsername(@Param('username') username: string) {
+    return this.usersService.findOne({ username }, ['profilePicture', 'games', 'games.thumbnail']);
   }
 }

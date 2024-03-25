@@ -26,7 +26,10 @@ const UserPanel: React.FC<IProps> = ({ loading, user }) => {
       {loading ? (
         <Skeleton circle height={40} width={40} />
       ) : (
-        <Dropdown isAdmin={user?.role === USER_ROLES.ADMIN} />
+        <Dropdown
+          username={user?.username}
+          isAdmin={user?.role === USER_ROLES.ADMIN}
+        />
       )}
     </div>
   );

@@ -11,11 +11,12 @@ export const UI_PATHS = {
   EDIT_SUBGENRES: "/admin/subgenres",
   EDIT_PLATFORMS: "/admin/platforms",
   EDIT_GAME_MODES: "/admin/game-modes",
-  GENRE_DETAIL: "/categories/:genreUrlSlug",
-  SUBGENRE_DETAIL: "/categories/:subgenreUrlSlug",
+  GENRE_DETAIL: "/genres/:genreUrlSlug",
+  SUBGENRE_DETAIL: "/genres/:subgenreUrlSlug",
   GAME_DETAIL: "/game/:gameUrlSlug",
   NOT_FOUND: "/not-found",
   USER_SETTINGS: "/settings",
+  USER_PROFILE: "/profile/:username",
 };
 
 export const API_PATHS = {
@@ -55,4 +56,5 @@ export const API_PATHS = {
   UPVOTE_GAME: "/games/:gameId/upvote",
   DOWNVOTE_GAME: "/games/:gameId/downvote",
   SAVE_COMMENT: "/comments",
+  GET_USER_PROFILE_BY_USERNAME: "/users/:username/profile",
 };

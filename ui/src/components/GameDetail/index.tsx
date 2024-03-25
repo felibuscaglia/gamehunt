@@ -2,18 +2,20 @@ import {
   IconChevronUp,
   IconCircleCheck,
   IconMessage,
+  IconUser,
 } from "@tabler/icons-react";
 import Thumbnail from "components/Thumbnail";
 import { IGame, IGameMode, IPlatform, ISubgenre } from "lib/interfaces";
 import Tags from "./Tags";
 import Links from "./Links";
 import ImageGallery from "react-image-gallery";
-import { PRIMARY_BRAND_COLOR } from "lib/constants";
+import { PRIMARY_BRAND_COLOR, UI_PATHS } from "lib/constants";
 import { Tooltip } from "react-tooltip";
 import CommentsSection from "./CommentsSection";
 import "react-tooltip/dist/react-tooltip.css";
 import { createRef } from "react";
 import ShareGameDialog from "components/Dialog/ShareGameDialog";
+import { Link } from "react-router-dom";
 
 interface IProps {
   game: IGame;
@@ -57,14 +59,25 @@ const GameDetail: React.FC<IProps> = ({
       </section>
       <section className="flex items-center justify-between mt-2">
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
-            <div
-              className="rounded-full bg-center bg-contain bg-no-repeat h-10 w-10"
-              style={{
-                backgroundImage:
-                  "url('https://ph-avatars.imgix.net/3270302/3c99cac9-9bd4-46c1-bfdd-f7d4189bc21c.jpeg?auto=compress&codec=mozjpeg&cs=strip&auto=format&w=120&h=120&fit=crop&dpr=2')",
-              }}
-            />
+          <Link
+            to={UI_PATHS.USER_PROFILE.replace(
+              ":username",
+              game.creator.username
+            )}
+            className="flex items-center gap-2"
+          >
+            {game.creator?.profilePicture?.url ? (
+              <div
+                className="rounded-full bg-center bg-contain bg-no-repeat h-10 w-10"
+                style={{
+                  backgroundImage: `url('${game.creator.profilePicture.url}')`,
+                }}
+              />
+            ) : (
+              <div className="h-10 w-10 flex items-center justify-center rounded-full bg-primary-brand-color-light">
+                <IconUser color={PRIMARY_BRAND_COLOR} />
+              </div>
+            )}
             <span className="font-semibold whitespace-nowrap">
               {game.creator?.fullName}
             </span>
@@ -78,7 +91,7 @@ const GameDetail: React.FC<IProps> = ({
               />
             )}
             <Tooltip id="user-involved-in-development" />
-          </div>
+          </Link>
         </div>
         <div className="flex items-center gap-4 w-1/2">
           <button

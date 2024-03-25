@@ -1,7 +1,9 @@
-import { IconMessage } from "@tabler/icons-react";
+import { IconMessage, IconUser } from "@tabler/icons-react";
 import { IComment } from "lib/interfaces";
 import Form from "./Form";
 import { useState } from "react";
+import { PRIMARY_BRAND_COLOR, UI_PATHS } from "lib/constants";
+import { Link } from "react-router-dom";
 
 interface IProps {
   isReply?: boolean;
@@ -26,24 +28,33 @@ const Comment: React.FC<IProps> = ({
   );
 
   return (
-    <article
-      className={`text-base ${
-        isReply ? "ml-6 lg:ml-12 pt-3" : "pt-6"
-      }`}
-    >
+    <article className={`text-base ${isReply ? "ml-6 lg:ml-12 pt-3" : "pt-6"}`}>
       <footer className="flex justify-between items-center">
         <div className="flex items-center">
-          <p className="inline-flex items-center mr-3 text-sm text-gray-900 font-semibold">
-            <img
-              className="mr-2 w-6 h-6 rounded-full"
-              src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
-              alt={comment.author?.fullName}
-            />
+          <Link
+            to={UI_PATHS.USER_PROFILE.replace(
+              ":username",
+              comment.author?.username
+            )}
+            className="inline-flex items-center mr-3 text-sm text-gray-900 font-semibold"
+          >
+            {comment.author?.profilePicture?.url ? (
+              <div
+                className="mr-2 w-6 h-6 rounded-full"
+                style={{
+                  backgroundImage: `url('${comment.author?.profilePicture?.url}')`,
+                }}
+              />
+            ) : (
+              <div className="mr-2 h-6 w-6 flex items-center justify-center rounded-full bg-primary-brand-color-light">
+                <IconUser size={15} color={PRIMARY_BRAND_COLOR} />
+              </div>
+            )}
             {comment.author?.fullName}
             <span className="text-gray-400 ml-1 font-normal">
-              @felibuscaglia
+              @{comment.author?.username}
             </span>
-          </p>
+          </Link>
           <p className="text-sm text-gray-600">
             <time dateTime={formattedDate}>{formattedDate}</time>
           </p>
@@ -76,15 +87,14 @@ const Comment: React.FC<IProps> = ({
           loading={false}
         />
       )}
-      {
-        (comment.replies || []).map((reply) => (
-          <Comment
-            key={`reply-${comment.id}-${reply.id}`}
-            comment={reply}
-            isReply
-            onReplySubmit={onReplySubmit}
-          />
-        ))}
+      {(comment.replies || []).map((reply) => (
+        <Comment
+          key={`reply-${comment.id}-${reply.id}`}
+          comment={reply}
+          isReply
+          onReplySubmit={onReplySubmit}
+        />
+      ))}
     </article>
   );
 };

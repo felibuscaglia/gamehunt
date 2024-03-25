@@ -22,6 +22,7 @@ import useAxiosAuth from "lib/hooks/useAxiosAuth";
 import { saveSubgenres } from "store/features/subgenresSlice";
 import GameDetailScreen from "screens/GameDetail";
 import UserSettingsScreen from "screens/UserSettings";
+import UserProfileScreen from "screens/UserProfile";
 
 const App = () => {
   const loadingUser = useAppSelector((state) => state.loading.user);
@@ -78,6 +79,7 @@ const App = () => {
         />
         <Route element={<GameDetailScreen />} path={UI_PATHS.GAME_DETAIL} />
         <Route element={<UserSettingsScreen />} path={UI_PATHS.USER_SETTINGS} />
+        <Route element={<UserProfileScreen />} path={UI_PATHS.USER_PROFILE} />
       </Routes>
       <Toaster position="bottom-center" />
     </>

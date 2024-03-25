@@ -38,11 +38,13 @@ export class GamesController {
         'thumbnail',
         'links',
         'creator',
+        'creator.profilePicture',
         'upvotes',
         'comments',
         'comments.author',
         'comments.replies',
-        'comments.parent'
+        'comments.replies.author',
+        'comments.parent',
       ],
     );
   }

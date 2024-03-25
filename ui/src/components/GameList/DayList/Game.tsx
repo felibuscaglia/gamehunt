@@ -5,10 +5,15 @@ import { Link } from "react-router-dom";
 
 interface IProps {
   game: IGame;
-  index: number;
+  index?: number;
+  withUpvoteBtn?: boolean;
 }
 
-const DayListGame: React.FC<IProps> = ({ index, game }) => {
+const DayListGame: React.FC<IProps> = ({
+  index,
+  game,
+  withUpvoteBtn = true,
+}) => {
   const GAME_SUBGENRES = game.subgenres || [];
 
   return (
@@ -17,9 +22,11 @@ const DayListGame: React.FC<IProps> = ({ index, game }) => {
       className="px-2 py-4 w-full flex items-center justify-between day-list-game rounded"
     >
       <section className="flex items-center gap-2">
-        <strong className="text-3xl text-primary-brand-color-light">
-          #{index + 1}
-        </strong>
+        {index !== undefined && (
+          <strong className="text-3xl text-primary-brand-color-light">
+            #{index + 1}
+          </strong>
+        )}
         <div
           className="bg-center bg-cover bg-no-repeat h-12 w-12 rounded"
           style={{
@@ -48,10 +55,12 @@ const DayListGame: React.FC<IProps> = ({ index, game }) => {
           </div>
         </div>
       </section>
-      <button className="text-gray-700 hover:text-primary-brand-color-medium h-12 w-12 flex-col flex items-center justify-center rounded border border-gray-100 hover:border-primary-brand-color-light">
-        <IconChevronUp stroke={1.5} />
-        <span className="text-xs font-semibold !text-gray-700">692</span>
-      </button>
+      {withUpvoteBtn && (
+        <button className="text-gray-700 hover:text-primary-brand-color-medium h-12 w-12 flex-col flex items-center justify-center rounded border border-gray-100 hover:border-primary-brand-color-light">
+          <IconChevronUp stroke={1.5} />
+          <span className="text-xs font-semibold !text-gray-700">692</span>
+        </button>
+      )}
     </Link>
   );
 };
