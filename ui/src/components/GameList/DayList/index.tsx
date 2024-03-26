@@ -1,6 +1,6 @@
 import { IGame } from "lib/interfaces";
 import Game from "./Game";
-import { convertDateToUtc, formatDateAsString } from "lib/helpers";
+import { formatDateAsString } from "lib/helpers";
 import { Link } from "react-router-dom";
 import { UI_PATHS } from "lib/constants";
 

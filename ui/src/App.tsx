@@ -26,6 +26,7 @@ import UserProfileScreen from "screens/UserProfile";
 import GenreDetailScreen from "screens/GenreDetail";
 import SubgenreDetailScreen from "screens/SubgenreDetail";
 import LeaderboardScreen from "screens/Leaderboard";
+import UserGamesScreen from "screens/UserGames";
 
 const App = () => {
   const loadingUser = useAppSelector((state) => state.loading.user);
@@ -81,6 +82,7 @@ const App = () => {
         <Route element={<UserProfileScreen />} path={UI_PATHS.USER_PROFILE} />
         <Route element={<GenreDetailScreen />} path={UI_PATHS.GENRE_DETAIL} />
         <Route element={<LeaderboardScreen />} path={UI_PATHS.LEADERBOARD} />
+        <Route element={<UserGamesScreen />} path={UI_PATHS.USER_GAMES} />
         <Route
           element={<SubgenreDetailScreen />}
           path={UI_PATHS.SUBGENRE_DETAIL}

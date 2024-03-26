@@ -30,3 +30,8 @@ export enum Platform {
   APPLE_STORE = "Apple Store",
   AMAZON_APPSTORE = "Amazon Appstore",
 }
+
+export enum GameStatus {
+  DRAFT = "DRAFT",
+  PUBLISHED = "PUBLISHED",
+}

@@ -17,7 +17,8 @@ export const UI_PATHS = {
   NOT_FOUND: "/not-found",
   USER_SETTINGS: "/settings",
   USER_PROFILE: "/profile/:username",
-  LEADERBOARD: "/leaderboard"
+  LEADERBOARD: "/leaderboard",
+  USER_GAMES: "/my/games",
 };
 
 export const API_PATHS = {
@@ -59,5 +60,7 @@ export const API_PATHS = {
   SAVE_COMMENT: "/comments",
   GET_USER_PROFILE_BY_USERNAME: "/users/:username/profile",
   GET_GENRE_BY_URL_SLUG: "/genres/:genreUrlSlug",
-  GET_SUBGENRE_BY_URL_SLUG: "/subgenres/:subgenreUrlSlug?genreUrlSlug=:genreUrlSlug",
+  GET_SUBGENRE_BY_URL_SLUG:
+    "/subgenres/:subgenreUrlSlug?genreUrlSlug=:genreUrlSlug",
+  GET_MY_GAMES: "/games/me",
 };

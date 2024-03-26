@@ -28,6 +28,13 @@ export class GamesService {
     return this.gamesRepository.save(newGame);
   }
 
+  public find(whereOptions: FindOptionsWhere<Game>, relations: string[] = []) {
+    return this.gamesRepository.find({
+      where: whereOptions,
+      relations,
+    });
+  }
+
   public findOne(
     whereOptions: FindOptionsWhere<Game>,
     relations: string[] = [],

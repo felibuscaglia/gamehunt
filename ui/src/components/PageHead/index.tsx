@@ -19,14 +19,13 @@ const PageHead = () => {
     <nav className="z-40 sticky top-0 bg-white border-b border-gray-100 p-4 mb-4 flex items-center justify-between h-20">
       <section className={SECTION_CLASSNAMES + " w-1/3"}>
         <Link to={UI_PATHS.HOME}>
-          <Logo />
+          <Logo withName />
         </Link>
         <ul className="flex items-center gap-4">
           <Link to={UI_PATHS.HOME} className={`${BTN_CLASSNAMES} rounded`}>
             Home
           </Link>
           <Popover />
-          <li className={`${BTN_CLASSNAMES} rounded`}>About</li>
         </ul>
       </section>
       <section className={SECTION_CLASSNAMES + " justify-end w-5/12"}>

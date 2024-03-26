@@ -31,6 +31,12 @@ export class GamesController {
     return date ? this.gamesService.findByDate(date, limit, offset) : [];
   }
 
+  @UseGuards(JwtGuard)
+  @Get('/me')
+  getMyGames(@CurrentUser('id') userId: string) {
+    return this.gamesService.find({ creator: { id: userId } }, ['thumbnail']);
+  }
+
   @Get('/:gameUrlSlug')
   getGameByUrlSlug(@Param('gameUrlSlug') gameUrlSlug: string) {
     return this.gamesService.findOne(

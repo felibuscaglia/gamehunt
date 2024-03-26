@@ -1,4 +1,4 @@
-import { GamePricing, Platform, USER_ROLES } from "lib/enums";
+import { GamePricing, GameStatus, Platform, USER_ROLES } from "lib/enums";
 
 export interface IAuthUser {
   email: string;
@@ -45,6 +45,8 @@ export interface IGame {
   urlSlug?: string;
   upvotes?: IUser[];
   comments?: IComment[];
+  status: GameStatus;
+  createdAt: string;
 }
 
 export interface IGenre {

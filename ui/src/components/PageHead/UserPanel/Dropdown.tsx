@@ -58,7 +58,7 @@ const UserPanelDropdown: React.FC<IProps> = ({ isAdmin, username }) => {
               </Menu.Item>
             )}
             <Menu.Item>
-              <Link to={UI_PATHS.USER_SETTINGS} className={LINK_CLASSNAMES}>
+              <Link to={UI_PATHS.USER_GAMES} className={LINK_CLASSNAMES}>
                 <IconDeviceGamepad2 size={ICON_SIZE} />
                 <span>My games</span>
               </Link>
