@@ -17,6 +17,7 @@ export const UI_PATHS = {
   NOT_FOUND: "/not-found",
   USER_SETTINGS: "/settings",
   USER_PROFILE: "/profile/:username",
+  LEADERBOARD: "/leaderboard"
 };
 
 export const API_PATHS = {
@@ -51,7 +52,7 @@ export const API_PATHS = {
   CREATE_GAME_LINK: "/game-links",
   DELETE_GAME_LINK: "/game-links/:gameLinkId",
   GET_TRENDING_SUBGENRES: "/subgenres/trending",
-  GET_GAMES_BY_DAY: "/games?date=:date",
+  GET_GAMES_BY_DAY: "/games?date=:date&limit=:limit",
   GET_GAME_BY_URL_SLUG: "/games/:gameUrlSlug",
   UPVOTE_GAME: "/games/:gameId/upvote",
   DOWNVOTE_GAME: "/games/:gameId/downvote",

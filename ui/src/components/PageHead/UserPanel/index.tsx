@@ -12,7 +12,6 @@ interface IProps {
 }
 
 const UserPanel: React.FC<IProps> = ({ loading, user }) => {
-  console.log({ user });
   return (
     <div className="flex items-center gap-4">
       <Link

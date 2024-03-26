@@ -22,7 +22,12 @@ const GameList: React.FC<IProps> = ({ games, setGames }) => {
     const FORMATTED_DATE = DATE.toISOString();
 
     apiClient
-      .get<IGame[]>(API_PATHS.GET_GAMES_BY_DAY.replace(":date", FORMATTED_DATE))
+      .get<IGame[]>(
+        API_PATHS.GET_GAMES_BY_DAY.replace(":date", FORMATTED_DATE).replace(
+          ":limit",
+          "20"
+        )
+      )
       .then(({ data }) => {
         setHasMore(!!data.length);
         setIndex((prevIndex) => prevIndex + 1);

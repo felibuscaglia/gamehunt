@@ -18,7 +18,12 @@ const HomeScreen = () => {
     const today = convertDateToUtc().toISOString();
 
     apiClient
-      .get<IGame[]>(API_PATHS.GET_GAMES_BY_DAY.replace(":date", today))
+      .get<IGame[]>(
+        API_PATHS.GET_GAMES_BY_DAY.replace(":date", today).replace(
+          ":limit",
+          "20"
+        )
+      )
       .then(({ data }) => {
         if (data.length) {
           setGamesByDay((prevGames) => ({

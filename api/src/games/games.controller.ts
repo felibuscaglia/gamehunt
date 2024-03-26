@@ -23,8 +23,12 @@ export class GamesController {
   constructor(private readonly gamesService: GamesService) {}
 
   @Get()
-  getGames(@Query('date') date?: string) {
-    return date ? this.gamesService.findByDate(date) : [];
+  getGames(
+    @Query('date') date?: string,
+    @Query('limit') limit?: number,
+    @Query('offset') offset?: number,
+  ) {
+    return date ? this.gamesService.findByDate(date, limit, offset) : [];
   }
 
   @Get('/:gameUrlSlug')

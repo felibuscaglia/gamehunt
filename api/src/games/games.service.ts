@@ -38,16 +38,25 @@ export class GamesService {
     });
   }
 
-  public findByDate(date: string) {
-    return this.gamesRepository
+  public findByDate(date: string, limit?: number, offset?: number) {
+    let queryBuilder = this.gamesRepository
       .createQueryBuilder('game')
       .leftJoinAndSelect('game.thumbnail', 'thumbnail')
       .leftJoinAndSelect('game.subgenres', 'subgenre')
       .where('DATE(game.created_at) = Date(:date) AND status = :status', {
         date,
         status: GameStatus.PUBLISHED,
-      })
-      .getMany();
+      });
+
+    if (!isNaN(limit)) {
+      queryBuilder = queryBuilder.limit(limit);
+    }
+
+    if (!isNaN(offset)) {
+      queryBuilder = queryBuilder.skip(offset * (limit || 0));
+    }
+
+    return queryBuilder.getMany();
   }
 
   public async upvote(gameId: string, user: User) {
