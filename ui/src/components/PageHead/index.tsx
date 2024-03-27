@@ -1,11 +1,12 @@
-import { UI_PATHS } from "lib/constants";
-import { Link } from "react-router-dom";
+import { API_PATHS, UI_PATHS } from "lib/constants";
+import { Link, useNavigate } from "react-router-dom";
 import AutoCompleteInput from "../Inputs/AutoComplete";
 import Logo from "../Logo";
 import AuthButtons from "../AuthButtons";
 import UserPanel from "./UserPanel";
 import { useAppSelector } from "store";
 import Popover from "./Popover";
+import { IGame } from "lib/interfaces";
 
 const SECTION_CLASSNAMES = "flex items-center gap-6";
 const BTN_CLASSNAMES =
@@ -14,6 +15,8 @@ const BTN_CLASSNAMES =
 const PageHead = () => {
   const user = useAppSelector((state) => state.user.user);
   const loadingUser = useAppSelector((state) => state.loading.user);
+
+  const navigate = useNavigate();
 
   return (
     <nav className="z-40 sticky top-0 bg-white border-b border-gray-100 p-4 mb-4 flex items-center justify-between h-20">
@@ -28,14 +31,21 @@ const PageHead = () => {
           <Popover />
         </ul>
       </section>
-      <section className={SECTION_CLASSNAMES + " justify-end w-5/12"}>
-        <AutoCompleteInput
-          searchApiPath="as"
+      <section className={SECTION_CLASSNAMES + " justify-end w-1/2"}>
+        <AutoCompleteInput<IGame>
+          searchApiPath={API_PATHS.SEARCH_GAMES_BY_NAME}
           withIcon
           placeholder="Search games..."
-          limit={2}
-          displayKey=""
-          onSelect={() => {}}
+          limit={6}
+          displayKey="name"
+          onSelect={(selectedGame) =>
+            navigate(
+              UI_PATHS.GAME_DETAIL.replace(
+                ":gameUrlSlug",
+                selectedGame.urlSlug || ""
+              )
+            )
+          }
         />
         {user !== null ? (
           <UserPanel loading={loadingUser} user={user} />

@@ -9,7 +9,7 @@ export class UsersController {
   getUsers(@Query('q') nameQuery?: string, @Query('limit') limit?: number) {
     return this.usersService.findMany(
       {
-        fullName: ILike(`%${nameQuery}%`),
+        fullName: ILike(`${nameQuery}%`),
       },
       limit,
     );

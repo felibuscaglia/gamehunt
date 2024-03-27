@@ -28,6 +28,10 @@ const GameDetailScreen = () => {
   const user = useAppSelector((state) => state.user.user);
 
   useEffect(() => {
+    if(!loading) {
+      setLoading(true);
+    }
+    
     apiClient
       .get<IGame>(
         API_PATHS.GET_GAME_BY_URL_SLUG.replace(":gameUrlSlug", gameUrlSlug)
@@ -42,7 +46,7 @@ const GameDetailScreen = () => {
       })
       .catch(() => navigate(UI_PATHS.NOT_FOUND))
       .finally(() => setLoading(false));
-  }, []);
+  }, [gameUrlSlug]);
 
   useEffect(() => {
     if (user && game) {

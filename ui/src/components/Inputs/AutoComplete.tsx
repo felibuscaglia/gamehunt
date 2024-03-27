@@ -62,53 +62,57 @@ const AutoCompleteInput = <T,>({
   };
 
   return (
-    <Combobox
-      onChange={(selectedOption: T) => handleComboboxChange(selectedOption)}
-    >
-      <div className="flex w-full items-center gap-2 bg-gray-100 rounded px-3 py-2 placeholder:text-gray-400">
-        {withIcon && <IconSearch size={20} className="text-gray-400" />}
-        <Combobox.Input
-          className={`${textSize} bg-transparent w-full`}
-          placeholder={placeholder}
-          displayValue={(el: T) => (el ? (el[displayKey] as string) : "")}
-          onChange={({ target }) => setInput(target.value)}
-          value={input}
-        />
-      </div>
-      <Transition
-        as={Fragment}
-        leave="transition ease-in duration-100"
-        leaveFrom="opacity-100"
-        leaveTo="opacity-0"
-        afterLeave={() => setInput("")}
+    <div className="relative w-full">
+      <Combobox
+        onChange={(selectedOption: T) => handleComboboxChange(selectedOption)}
       >
-        <Combobox.Options
-          className={`mt-1 w-full overflow-auto ${textSize} rounded-md bg-white shadow-lg`}
+        <div className="flex w-full items-center gap-2 bg-gray-100 rounded px-3 py-2 placeholder:text-gray-400">
+          {withIcon && <IconSearch size={20} className="text-gray-400" />}
+          <Combobox.Input
+            className={`${textSize} bg-transparent w-full`}
+            placeholder={placeholder}
+            displayValue={(el: T) => (el ? (el[displayKey] as string) : "")}
+            onChange={({ target }) => setInput(target.value)}
+            value={input}
+          />
+        </div>
+        <Transition
+          as={Fragment}
+          leave="transition ease-in duration-100"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+          afterLeave={() => setInput("")}
         >
-          {nothingFound ? (
-            <div className="w-full px-3 py-2 text-gray-400 italic">
-              Nothing found.
-            </div>
-          ) : (
-            results.map((result, i) => (
-              <Combobox.Option
-                key={`result-${i}`}
-                className={({ active }) =>
-                  `relative cursor-pointer px-3 py-2 ${
-                    active ? "bg-primary-brand-color text-white" : "text-black"
-                  }`
-                }
-                value={result}
-              >
-                <span className={`block truncate`}>
-                  {result[displayKey] as string}
-                </span>
-              </Combobox.Option>
-            ))
-          )}
-        </Combobox.Options>
-      </Transition>
-    </Combobox>
+          <Combobox.Options
+            className={`mt-1 w-full overflow-auto ${textSize} rounded-md bg-white shadow-lg absolute`}
+          >
+            {nothingFound ? (
+              <div className="w-full px-3 py-2 text-gray-400 italic">
+                Nothing found.
+              </div>
+            ) : (
+              results.map((result, i) => (
+                <Combobox.Option
+                  key={`result-${i}`}
+                  className={({ active }) =>
+                    `relative cursor-pointer px-3 py-2 ${
+                      active
+                        ? "bg-primary-brand-color text-white"
+                        : "text-black"
+                    }`
+                  }
+                  value={result}
+                >
+                  <span className={`block truncate`}>
+                    {result[displayKey] as string}
+                  </span>
+                </Combobox.Option>
+              ))
+            )}
+          </Combobox.Options>
+        </Transition>
+      </Combobox>
+    </div>
   );
 };
 

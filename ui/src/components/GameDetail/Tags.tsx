@@ -22,7 +22,7 @@ const GameDetailTags = <T,>({
           key={`tag-${title}-${el[displayKey]}`}
           className="bg-primary-brand-color-light py-1 px-3 rounded-full flex items-center justify-center"
         >
-          <span className="text-sm">{el[displayKey] as any}</span>
+          <span className="text-sm whitespace-nowrap">{el[displayKey] as any}</span>
         </Link>
       ))}
     </section>

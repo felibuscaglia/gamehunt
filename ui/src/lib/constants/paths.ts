@@ -63,4 +63,5 @@ export const API_PATHS = {
   GET_SUBGENRE_BY_URL_SLUG:
     "/subgenres/:subgenreUrlSlug?genreUrlSlug=:genreUrlSlug",
   GET_MY_GAMES: "/games/me",
+  SEARCH_GAMES_BY_NAME: "/games"
 };

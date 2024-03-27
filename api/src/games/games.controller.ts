@@ -17,6 +17,7 @@ import { SaveGameDto } from './dto';
 import { GameOwnerGuard } from './guards';
 import { CurrentGame } from './decorators';
 import { GameStatus } from './lib/enums';
+import { ILike } from 'typeorm';
 
 @Controller('games')
 export class GamesController {
@@ -24,11 +25,14 @@ export class GamesController {
 
   @Get()
   getGames(
+    @Query('q') query?: string,
     @Query('date') date?: string,
     @Query('limit') limit?: number,
     @Query('offset') offset?: number,
   ) {
-    return date ? this.gamesService.findByDate(date, limit, offset) : [];
+    return date
+      ? this.gamesService.findByDate(date, limit, offset)
+      : this.gamesService.find({ name: ILike(`${query}%`) });
   }
 
   @UseGuards(JwtGuard)
