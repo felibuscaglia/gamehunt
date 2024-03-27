@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameHunt Daily Newsletter</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #7e57c2;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .footer {
+            background-color: #7e57c2;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .content {
+            padding: 20px;
+        }
+        .game {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Welcome to GameHunt Daily Newsletter!</h1>
+    </div>
+
+    <div class="content">
+        <h2>Today's Top Games:</h2>
+        <% games.forEach(function(game) { %>
+            <div class="game">
+                <h3><%= game.title %></h3>
+                <p><%= game.description %></p>
+                <p>Upvotes: <%= game.upvotes.length %></p>
+            </div>
+        <% }); %>
+    </div>
+
+    <div class="footer">
+        <p>GameHunt - All rights reserved.</p>
+    </div>
+</body>
+</html>

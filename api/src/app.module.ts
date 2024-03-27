@@ -17,6 +17,7 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { CommentsModule } from './comments/comments.module';
 import { EmailModule } from './email/email.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -50,6 +51,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     CommentsModule,
     EmailModule,
     EventEmitterModule.forRoot(),
+    ScheduleModule.forRoot()
   ],
   controllers: [AppController],
   providers: [],
