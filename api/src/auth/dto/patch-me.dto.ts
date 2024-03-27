@@ -7,7 +7,7 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
-import { Image } from 'entities';
+import { Image } from '../../entities';
 
 export class PatchMeDto {
   @IsOptional()

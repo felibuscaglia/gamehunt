@@ -6,7 +6,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SaveCommentDto } from './dto';
-import { Comment, Game, User } from 'entities';
+import { Comment, Game, User } from '../entities';
 
 @Injectable()
 export class CommentsService {

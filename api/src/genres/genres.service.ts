@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Genre } from 'entities';
+import { Genre } from '../entities';
 import { FindManyOptions, FindOptionsWhere, Repository } from 'typeorm';
 import { CreateGenreDto } from './dto';
 import { formatUrlSlug } from 'users/lib/helpers';

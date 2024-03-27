@@ -17,7 +17,14 @@ import {
   MaxLength,
   ValidateNested,
 } from 'class-validator';
-import { GameLink, GameMode, Image, Platform, Subgenre, User } from 'entities';
+import {
+  GameLink,
+  GameMode,
+  Image,
+  Platform,
+  Subgenre,
+  User,
+} from '../../entities';
 import { PublishGameLinkDto } from 'game-links/dto';
 import { GamePricing } from 'games/lib/enums';
 
@@ -91,7 +98,8 @@ export class PublishGameDto {
   @ValidateNested({ each: true })
   @Type(() => Platform)
   @ArrayUnique<Platform>((p) => p.id, {
-    message: 'Duplicated platform entries found. Ensure each platform is listed only once.',
+    message:
+      'Duplicated platform entries found. Ensure each platform is listed only once.',
   })
   platforms: Platform[];
 
@@ -101,13 +109,20 @@ export class PublishGameDto {
   @ValidateNested({ each: true })
   @Type(() => GameMode)
   @ArrayUnique<GameMode>((gm) => gm.id, {
-    message: 'Duplicate game modes detected. Please ensure each game mode is listed only once.',
+    message:
+      'Duplicate game modes detected. Please ensure each game mode is listed only once.',
   })
   modes: GameMode[];
 
   @IsOptional()
   @IsString()
-  @IsUrl({}, { message: 'The provided URL is not valid. Please ensure it follows the correct format.' })
+  @IsUrl(
+    {},
+    {
+      message:
+        'The provided URL is not valid. Please ensure it follows the correct format.',
+    },
+  )
   videoUrl?: string;
 
   @IsNotEmpty()

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { GameLinksService } from './game-links.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { GameLink } from 'entities';
+import { GameLink } from '../entities';
 import { GameLinksController } from './game-links.controller';
 
 @Module({

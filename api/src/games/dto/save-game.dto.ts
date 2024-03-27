@@ -14,7 +14,7 @@ import {
   ValidateNested,
   ArrayUnique
 } from 'class-validator';
-import { GameLink, GameMode, Image, Platform, Subgenre } from 'entities';
+import { GameLink, GameMode, Image, Platform, Subgenre } from '../../entities';
 import { GamePricing } from 'games/lib/enums';
 
 export class SaveGameDto {

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Platform } from 'entities';
+import { Platform } from '../entities';
 import { FindManyOptions, ILike, Repository } from 'typeorm';
 import { CreatePlatformDto } from './dto';
 import { IDbQueryProps } from 'lib/interfaces';

@@ -15,6 +15,8 @@ import { GameLinksModule } from './game-links/game-links.module';
 import entities from './entities';
 import { CacheModule } from '@nestjs/cache-manager';
 import { CommentsModule } from './comments/comments.module';
+import { EmailModule } from './email/email.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
   imports: [
@@ -46,6 +48,8 @@ import { CommentsModule } from './comments/comments.module';
     GameLinksModule,
     CacheModule.register({ isGlobal: true }),
     CommentsModule,
+    EmailModule,
+    EventEmitterModule.forRoot(),
   ],
   controllers: [AppController],
   providers: [],

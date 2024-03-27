@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Game, User } from 'entities';
+import { Game, User } from '../entities';
 import { FindOptionsWhere, Repository } from 'typeorm';
 import { PublishGameDto, SaveGameDto } from './dto';
 import { ValidationError, validate } from 'class-validator';

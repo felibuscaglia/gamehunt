@@ -4,8 +4,7 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
-import { Game } from 'entities';
-import { User } from 'entities';
+import { Game, User } from '../../entities';
 import { GamesService } from 'games/games.service';
 
 @Injectable()

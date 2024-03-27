@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Genre, Subgenre } from 'entities';
+import { Genre, Subgenre } from '../entities';
 import {
   FindManyOptions,
   FindOptionsWhere,

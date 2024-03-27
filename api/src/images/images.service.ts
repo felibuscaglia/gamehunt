@@ -6,7 +6,7 @@ import {
   deleteFile,
 } from '@uploadcare/rest-client';
 import { uploadFile } from '@uploadcare/upload-client';
-import { Image } from 'entities';
+import { Image } from '../entities';
 import { Repository } from 'typeorm';
 
 @Injectable()

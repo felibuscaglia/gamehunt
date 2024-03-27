@@ -2,7 +2,7 @@ import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { JwtGuard } from 'auth/guards';
 import { SaveCommentDto } from './dto';
 import { CurrentUser } from 'auth/decorators';
-import { User } from 'entities';
+import { User } from '../entities';
 import { CommentsService } from './comments.service';
 
 @Controller('comments')

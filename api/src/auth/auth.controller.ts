@@ -13,7 +13,7 @@ import { AuthService } from './auth.service';
 import { ConfigService } from '@nestjs/config';
 import { JwtGuard, LocalAuthGuard, RefreshJwtGuard } from './guards';
 import { CurrentUser } from './decorators';
-import { User } from 'entities';
+import { User } from '../entities';
 import {
   ACCESS_TOKEN_COOKIE_NAME,
   REFRESH_TOKEN_COOKIE_NAME,

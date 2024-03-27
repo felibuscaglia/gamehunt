@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { GameLink } from 'entities';
+import { GameLink } from '../entities';
 import { Repository } from 'typeorm';
 import { CreateGameLinkDto, PublishGameLinkDto } from './dto';
 import { validate } from 'class-validator';

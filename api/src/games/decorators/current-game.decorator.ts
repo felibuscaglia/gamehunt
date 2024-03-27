@@ -1,6 +1,6 @@
 import { ExecutionContext, createParamDecorator } from '@nestjs/common';
 import { Request } from 'express';
-import { Game } from 'entities';
+import { Game } from '../../entities';
 
 export const CurrentGame = createParamDecorator(
   (data: string | undefined, ctx: ExecutionContext) => {

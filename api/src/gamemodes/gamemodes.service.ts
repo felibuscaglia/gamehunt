@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { GameMode } from 'entities';
+import { GameMode } from '../entities';
 import { IDbQueryProps } from 'lib/interfaces';
 import { FindManyOptions, Repository } from 'typeorm';
 import { SaveGameModeDto } from './dto';

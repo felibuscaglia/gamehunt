@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { CurrentUser } from 'auth/decorators';
 import { JwtGuard } from 'auth/guards';
-import { Game, User } from 'entities';
+import { Game, User } from '../entities';
 import { GamesService } from './games.service';
 import { SaveGameDto } from './dto';
 import { GameOwnerGuard } from './guards';
