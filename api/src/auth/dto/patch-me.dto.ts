@@ -36,5 +36,5 @@ export class PatchMeDto {
 
   @IsOptional()
   @IsBoolean()
-  isSubscribedToNewsletter: boolean;
+  isSubscribedToNewsletter?: boolean;
 }

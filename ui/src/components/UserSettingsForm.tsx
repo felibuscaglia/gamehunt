@@ -7,6 +7,9 @@ import Button from "./Button";
 import useAxiosAuth from "lib/hooks/useAxiosAuth";
 import { API_PATHS } from "lib/constants";
 import toast from "react-hot-toast";
+import SwitchInput from "./Inputs/Switch";
+import { useAppDispatch } from "store";
+import { addUser } from "store/features/userSlice";
 
 interface IProps {
   user: IUser;
@@ -18,6 +21,7 @@ interface IInput {
   tagline?: string;
   about?: string;
   profilePicture?: IImage;
+  isSubscribedToNewsletter: boolean;
 }
 
 const UserSettingsForm: React.FC<IProps> = ({ user }) => {
@@ -27,11 +31,13 @@ const UserSettingsForm: React.FC<IProps> = ({ user }) => {
     tagline: user.tagline,
     about: user.about,
     profilePicture: user.profilePicture,
+    isSubscribedToNewsletter: user.isSubscribedToNewsletter,
   });
   const [errors, setErrors] = useState<{ [K in keyof IInput]?: string[] }>({});
   const [saving, setSaving] = useState(false);
 
   const authApiClient = useAxiosAuth();
+  const dispatch = useAppDispatch();
 
   const handleInputChange = ({
     target,
@@ -53,8 +59,11 @@ const UserSettingsForm: React.FC<IProps> = ({ user }) => {
     setSaving(true);
 
     authApiClient
-      .patch(API_PATHS.PATCH_ME, input)
-      .then(() => toast.success("User settings saved successfully"))
+      .patch<IUser>(API_PATHS.PATCH_ME, input)
+      .then(() => {
+        dispatch(addUser({ ...user, ...input }));
+        toast.success("User settings saved successfully");
+      })
       .catch((err) => {
         if (err?.response?.status === 409) {
           setErrors({ username: ["Already taken"] });
@@ -70,6 +79,23 @@ const UserSettingsForm: React.FC<IProps> = ({ user }) => {
       className="my-8 w-3/4 flex flex-col gap-4"
       onSubmit={handleFormSubmit}
     >
+      <div>
+        <label className="text-sm text-gray-500 font-medium mb-1 block">
+          Profile picture
+        </label>
+        <ThumbnailUploader
+          thumbnail={input.profilePicture}
+          onFileUpload={(profilePicture) =>
+            setInput({
+              ...input,
+              profilePicture,
+            })
+          }
+        />
+        <span className="text-sm text-red-500 capitalize-first">
+          {(errors.profilePicture || [])[0]}
+        </span>
+      </div>
       <TextInput
         value={input.fullName}
         id="fullName"
@@ -107,23 +133,17 @@ const UserSettingsForm: React.FC<IProps> = ({ user }) => {
         placeholder="Share with the community a bit about who you are, what you aim for, and your aspirations."
         error={(errors.about || [])[0]}
       />
-      <div>
-        <label className="text-sm text-gray-500 font-medium mb-1 block">
-          Profile picture
-        </label>
-        <ThumbnailUploader
-          thumbnail={input.profilePicture}
-          onFileUpload={(profilePicture) =>
-            setInput({
-              ...input,
-              profilePicture,
-            })
-          }
-        />
-        <span className="text-sm text-red-500 capitalize-first">
-          {(errors.profilePicture || [])[0]}
-        </span>
-      </div>
+
+      <SwitchInput
+        checked={input.isSubscribedToNewsletter}
+        onChange={(checked: boolean) =>
+          setInput((prevInput) => ({
+            ...prevInput,
+            isSubscribedToNewsletter: checked,
+          }))
+        }
+        label="Subscribe to Daily Newsletter (Monday to Friday)"
+      />
       <Button text="Save" type="submit" loading={saving} />
     </form>
   );

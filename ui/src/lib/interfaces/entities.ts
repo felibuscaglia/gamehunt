@@ -19,6 +19,7 @@ export interface IUser {
   tagline?: string;
   profilePicture: IImage;
   about?: string;
+  isSubscribedToNewsletter: boolean;
 }
 
 export interface IGameMode {
