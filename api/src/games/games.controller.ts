@@ -41,6 +41,12 @@ export class GamesController {
     return this.gamesService.find({ creator: { id: userId } }, ['thumbnail']);
   }
 
+  @UseGuards(JwtGuard, GameOwnerGuard)
+  @Get('/me/:gameId')
+  getDraftGame(@CurrentGame() draftGame: Game) {
+    return draftGame;
+  }
+
   @Get('/:gameUrlSlug')
   getGameByUrlSlug(@Param('gameUrlSlug') gameUrlSlug: string) {
     return this.gamesService.findOne(

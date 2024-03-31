@@ -26,7 +26,7 @@ const UserGame: React.FC<IProps> = ({ game }) => {
             style={{ backgroundImage: `url('${game.thumbnail.url}')` }}
           />
         ) : (
-          <div className="h-20 w-20 rounded bg-primary-brand-color-extra-light p-4">
+          <div className="h-16 w-16 rounded bg-primary-brand-color-extra-light p-4">
             <IconDeviceGamepad3
               height={"100%"}
               width={"100%"}
@@ -46,7 +46,7 @@ const UserGame: React.FC<IProps> = ({ game }) => {
         <Link
           to={
             IS_DRAFT
-              ? ""
+              ? UI_PATHS.EDIT_USER_GAME.replace(":gameId", game.id)
               : UI_PATHS.GAME_DETAIL.replace(":gameUrlSlug", game.urlSlug || "")
           }
           className={BTN_CLASSNAMES}

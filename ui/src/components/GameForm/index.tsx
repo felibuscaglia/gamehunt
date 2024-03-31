@@ -66,7 +66,7 @@ interface IProps {
   game: IGame;
 }
 
-const GameSubmitForm: React.FC<IProps> = ({ game }) => {
+const GameForm: React.FC<IProps> = ({ game }) => {
   const [selectedSection, setSelectedSection] = useState(0);
   const [sections, setSections] = useState<ISidebarSection[]>([
     { text: "Main info", icon: IconDeviceGamepad, error: false },
@@ -164,4 +164,4 @@ const GameSubmitForm: React.FC<IProps> = ({ game }) => {
   );
 };
 
-export default GameSubmitForm;
+export default GameForm;
