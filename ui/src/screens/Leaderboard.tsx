@@ -29,14 +29,6 @@ const LeaderboardScreen = () => {
     "20"
   );
 
-  useEffect(() => {
-    if (!searchParams.get("date")) {
-      navigate(UI_PATHS.HOME);
-    } else {
-      fetchGames();
-    }
-  }, [searchParams]);
-
   const fetchGames = () => {
     apiClient
       .get<IGame[]>(`${PATH}&offset=${index}`)
@@ -46,7 +38,7 @@ const LeaderboardScreen = () => {
           setIndex(index + 1);
         }
 
-        if(initialLoading) {
+        if (initialLoading) {
           setInitialLoading(false);
         }
 
@@ -55,12 +47,20 @@ const LeaderboardScreen = () => {
       .catch((err) => console.error(err));
   };
 
+  useEffect(() => {
+    if (!searchParams.get("date")) {
+      navigate(UI_PATHS.HOME);
+    } else {
+      fetchGames();
+    }
+  }, [searchParams]);
+
   return (
     <main>
       <PageHead />
       <section className="w-10/12 mx-auto">
         {DATE_PARAM && (
-          <p className="text-3xl flex items-center gap-2 mb-8">
+          <p className="text-3xl flex items-center gap-2 mb-4">
             <strong>{formatDateAsString(DATE_PARAM)}</strong>
             <span className="text-primary-brand-color-light">March 13th</span>
           </p>

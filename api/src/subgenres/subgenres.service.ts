@@ -16,6 +16,7 @@ export class SubgenresService {
     @InjectRepository(Subgenre)
     private readonly subgenresRepository: Repository<Subgenre>,
   ) {}
+
   public findAll(limit?: number, offset?: number) {
     const options: FindManyOptions<Subgenre> = {};
 
@@ -35,6 +36,26 @@ export class SubgenresService {
       where,
       relations,
     });
+  }
+
+  public findWithQueryBuilder(subgenreUrlSlug: string, genreUrlSlug: string) {
+    return this.subgenresRepository
+      .createQueryBuilder('subgenre')
+      .where('subgenre.urlSlug = :subgenreUrlSlug', { subgenreUrlSlug })
+      .leftJoinAndSelect('subgenre.genre', 'genre')
+      .andWhere('genre.urlSlug = :genreUrlSlug', { genreUrlSlug })
+      .leftJoinAndSelect('subgenre.games', 'games')
+      .leftJoinAndSelect('games.thumbnail', 'thumbnail')
+      .leftJoinAndSelect('genre.subgenres', 'subgenres')
+      .leftJoinAndSelect('games.upvotes', 'upvotes')
+      .groupBy('subgenre.subgenre_id')
+      .addGroupBy('genre.genre_id')
+      .addGroupBy('games.game_id')
+      .addGroupBy('thumbnail.image_id')
+      .addGroupBy('subgenres.subgenre_id')
+      .addGroupBy('upvotes.user_id')
+      .orderBy('COUNT(upvotes)', 'DESC')
+      .getOne();
   }
 
   public get trending() {

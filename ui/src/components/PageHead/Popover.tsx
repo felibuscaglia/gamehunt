@@ -79,18 +79,20 @@ const PageHeadPopover = () => {
                   {SELECTED_GENRE?.name}
                 </h6>
                 <section className="grid grid-cols-2 mt-2">
-                  {(SELECTED_GENRE?.subgenres || []).map(({ name, urlSlug }) => (
-                    <Link
-                      to={UI_PATHS.SUBGENRE_DETAIL.replace(
-                        ":subgenreUrlSlug",
-                        urlSlug
-                      )}
-                      className="text-sm font-light py-2 text-gray-500 hover:underline"
-                      key={`subgenre-${name}`}
-                    >
-                      {name}
-                    </Link>
-                  ))}
+                  {(SELECTED_GENRE?.subgenres || []).map(
+                    ({ name, urlSlug }) => (
+                      <Link
+                        to={UI_PATHS.SUBGENRE_DETAIL.replace(
+                          ":subgenreUrlSlug",
+                          urlSlug
+                        ).replace(":genreUrlSlug", SELECTED_GENRE.urlSlug)}
+                        className="text-sm font-light py-2 text-gray-500 hover:underline"
+                        key={`subgenre-${name}`}
+                      >
+                        {name}
+                      </Link>
+                    )
+                  )}
                 </section>
               </div>
             </>

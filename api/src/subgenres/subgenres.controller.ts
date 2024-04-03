@@ -36,13 +36,7 @@ export class SubgenresController {
     @Param('urlSlug') subgenreUrlSlug: string,
     @Query('genreUrlSlug') genreUrlSlug: string,
   ) {
-    return this.subgenresService.findOne(
-      {
-        urlSlug: subgenreUrlSlug,
-        genre: { urlSlug: genreUrlSlug },
-      },
-      ['games', 'games.thumbnail', 'genre', 'genre.subgenres'],
-    );
+    return this.subgenresService.findWithQueryBuilder(subgenreUrlSlug, genreUrlSlug);
   }
 
   @Post()

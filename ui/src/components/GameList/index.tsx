@@ -55,6 +55,7 @@ const GameList: React.FC<IProps> = ({ games, setGames }) => {
         </span>
       }
       scrollableTarget="body"
+      className="flex flex-col gap-8"
     >
       {Object.entries(games).map(([dateString, dayGames]) => (
         <DayList

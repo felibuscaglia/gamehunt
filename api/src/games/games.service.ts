@@ -45,13 +45,17 @@ export class GamesService {
     });
   }
 
-  public findByDate(date: string, limit?: number, offset?: number) {
+  public async findByDate(date: string, limit?: number, offset?: number) {
+    const utcDate = new Date(date);
+    utcDate.setUTCHours(0, 0, 0, 0);
+
     let queryBuilder = this.gamesRepository
       .createQueryBuilder('game')
       .leftJoinAndSelect('game.thumbnail', 'thumbnail')
       .leftJoinAndSelect('game.subgenres', 'subgenre')
-      .where('DATE(game.created_at) = Date(:date) AND status = :status', {
-        date,
+      .leftJoinAndSelect('game.upvotes', 'upvotes')
+      .where('DATE(game.created_at) = DATE(:date) AND game.status = :status', {
+        date: utcDate.toISOString().slice(0, 10),
         status: GameStatus.PUBLISHED,
       });
 
@@ -60,10 +64,12 @@ export class GamesService {
     }
 
     if (!isNaN(offset)) {
-      queryBuilder = queryBuilder.skip(offset * (limit || 0));
+      queryBuilder = queryBuilder.offset(offset * (limit || 0));
     }
 
-    return queryBuilder.getMany();
+    return (await queryBuilder.getMany()).sort(
+      (game1, game2) => game2.upvotes.length - game1.upvotes.length,
+    );
   }
 
   public async upvote(gameId: string, user: User) {

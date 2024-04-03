@@ -32,7 +32,10 @@ export class GamesController {
   ) {
     return date
       ? this.gamesService.findByDate(date, limit, offset)
-      : this.gamesService.find({ name: ILike(`${query}%`) });
+      : this.gamesService.find({
+          name: ILike(`${query}%`),
+          status: GameStatus.PUBLISHED,
+        });
   }
 
   @UseGuards(JwtGuard)
