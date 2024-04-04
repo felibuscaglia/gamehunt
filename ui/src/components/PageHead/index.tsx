@@ -12,14 +12,22 @@ const SECTION_CLASSNAMES = "flex items-center gap-6";
 const BTN_CLASSNAMES =
   "hover:bg-gray-100 text-gray-500 py-1 px-2 cursor-pointer hover:text-gray-700";
 
-const PageHead = () => {
+interface IProps {
+  withMarginBottom?: boolean;
+}
+
+const PageHead: React.FC<IProps> = ({ withMarginBottom = true }) => {
   const user = useAppSelector((state) => state.user.user);
   const loadingUser = useAppSelector((state) => state.loading.user);
 
   const navigate = useNavigate();
 
   return (
-    <nav className="z-40 sticky top-0 bg-white border-b border-gray-100 p-4 mb-4 flex items-center justify-between h-20">
+    <nav
+      className={`z-40 sticky top-0 bg-white border-b border-gray-100 p-4 flex items-center justify-between h-20 ${
+        withMarginBottom ? "mb-4" : "mb-0"
+      }`}
+    >
       <section className={SECTION_CLASSNAMES + " w-1/3"}>
         <Link to={UI_PATHS.HOME}>
           <Logo withName />

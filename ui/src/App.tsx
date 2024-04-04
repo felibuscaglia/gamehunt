@@ -27,6 +27,7 @@ import GenreDetailScreen from "screens/GenreDetail";
 import SubgenreDetailScreen from "screens/SubgenreDetail";
 import LeaderboardScreen from "screens/Leaderboard";
 import UserGamesScreen from "screens/UserGames";
+import NotFoundScreen from "screens/NotFound";
 
 const App = () => {
   const loadingUser = useAppSelector((state) => state.loading.user);
@@ -95,6 +96,8 @@ const App = () => {
           element={<AdminPortalScreen />}
           path={UI_PATHS.EDIT_GAME_MODES}
         />
+        <Route element={<NotFoundScreen />} path={UI_PATHS.NOT_FOUND} />
+        <Route element={<NotFoundScreen />} path="*" />
       </Routes>
       <Toaster position="bottom-center" />
     </>
