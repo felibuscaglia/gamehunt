@@ -125,8 +125,8 @@ export class PublishGameDto {
   )
   videoUrl?: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   @MaxLength(520)
-  storyline: string;
+  storyline?: string;
 }

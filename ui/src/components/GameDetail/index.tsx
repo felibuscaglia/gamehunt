@@ -142,10 +142,12 @@ const GameDetail: React.FC<IProps> = ({
             displayKey="name"
             baseUrl="modes"
           />
-          <section className="mt-4">
-            <h6 className="font-semibold mb-2 underline">Storyline</h6>
-            <p>{game.storyline}</p>
-          </section>
+          {game.storyline && (
+            <section className="mt-4">
+              <h6 className="font-semibold mb-2 underline">Storyline</h6>
+              <p>{game.storyline}</p>
+            </section>
+          )}
         </div>
         <Links links={game.links || []} />
       </section>
