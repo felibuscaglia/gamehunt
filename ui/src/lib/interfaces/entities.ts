@@ -54,6 +54,7 @@ export interface IGame {
   comments?: IComment[];
   status: GameStatus;
   createdAt: string;
+  postedAt?: Date;
 }
 
 export interface IGenre {

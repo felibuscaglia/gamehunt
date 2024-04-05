@@ -125,6 +125,13 @@ class Game {
   })
   createdAt: Date;
 
+  @CreateDateColumn({
+    type: 'timestamptz',
+    name: 'posted_at',
+    nullable: true,
+  })
+  postedAt?: Date | null;
+
   @ManyToMany(() => User, { eager: true })
   @JoinTable({
     name: 'upvotes',
@@ -136,7 +143,7 @@ class Game {
   })
   upvotes: User[];
 
-  @OneToMany(() => Comment, (comment) => comment.game) 
+  @OneToMany(() => Comment, (comment) => comment.game)
   comments: Comment[];
 }
 

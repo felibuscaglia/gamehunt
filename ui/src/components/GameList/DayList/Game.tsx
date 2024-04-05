@@ -38,8 +38,7 @@ const DayListGame: React.FC<IProps> = ({
             <strong>{game.name}</strong>
             {game.tagline && (
               <>
-                <span>—</span>
-                <span>{game.tagline}</span>
+                <span className="text-gray-600">—&nbsp;{game.tagline}</span>
               </>
             )}
           </p>

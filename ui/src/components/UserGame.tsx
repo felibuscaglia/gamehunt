@@ -38,7 +38,9 @@ const UserGame: React.FC<IProps> = ({ game }) => {
           <p className="font-semibold">{game.name}</p>
           <p className="text-sm text-gray-400">
             {IS_DRAFT ? "Drafted" : "Posted"} on{" "}
-            {dayjs(game.createdAt).format("MMMM Do, YYYY")}
+            {dayjs(IS_DRAFT ? game.createdAt : game.postedAt).format(
+              "MMMM Do, YYYY"
+            )}
           </p>
         </div>
       </section>

@@ -13,7 +13,7 @@ class GameLink {
   @Column({ nullable: true, type: 'enum', enum: Platform })
   platform?: Platform;
 
-  @ManyToOne(() => Game, (game) => game.links)
+  @ManyToOne(() => Game, (game) => game.links, { onDelete: 'CASCADE' })
   game: Game;
 }
 

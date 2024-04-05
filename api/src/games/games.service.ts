@@ -28,6 +28,7 @@ export class GamesService {
     const newGame = new Game();
 
     newGame.creator = user;
+    newGame.postedAt = null;
 
     return this.gamesRepository.save(newGame);
   }
@@ -58,7 +59,7 @@ export class GamesService {
       .leftJoinAndSelect('game.thumbnail', 'thumbnail')
       .leftJoinAndSelect('game.subgenres', 'subgenre')
       .leftJoinAndSelect('game.upvotes', 'upvotes')
-      .where('DATE(game.created_at) = DATE(:date) AND game.status = :status', {
+      .where('DATE(game.posted_at) = DATE(:date) AND game.status = :status', {
         date: utcDate.toISOString().slice(0, 10),
         status: GameStatus.PUBLISHED,
       });
@@ -150,6 +151,7 @@ export class GamesService {
     }
 
     game.status = GameStatus.PUBLISHED;
+    game.postedAt = new Date();
     game.urlSlug = formatUrlSlug(game.name);
 
     return this.gamesRepository.save(game);
