@@ -7,9 +7,6 @@ class Platform {
 
   @Column({ unique: true, nullable: false })
   name: string;
-
-  @Column({ unique: true, nullable: false })
-  urlSlug: string;
 }
 
 export default Platform;
