@@ -1,4 +1,10 @@
-import { GamePricing, GameStatus, Platform, USER_ROLES } from "lib/enums";
+import {
+  GamePricing,
+  GameStatus,
+  NotificationType,
+  Platform,
+  USER_ROLES,
+} from "lib/enums";
 
 export interface IAuthUser {
   email: string;
@@ -93,4 +99,12 @@ export interface IComment {
   parent?: IComment;
   game: IGame[];
   createdAt: string;
+}
+
+export interface INotification {
+  id: string;
+  sender: IUser;
+  recipient: IUser;
+  type: NotificationType;
+  game?: IGame;
 }

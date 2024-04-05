@@ -12,12 +12,16 @@ import { plainToInstance } from 'class-transformer';
 import { GameStatus } from './lib/enums';
 import { formatUrlSlug, formatValidationErrors } from 'users/lib/helpers';
 import { GameLinksService } from 'game-links/game-links.service';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { Event } from 'lib/enums';
+import { NotificationType } from 'notifications/lib/enums';
 
 @Injectable()
 export class GamesService {
   constructor(
     @InjectRepository(Game) private readonly gamesRepository: Repository<Game>,
     private readonly gameLinksService: GameLinksService,
+    private readonly eventEmitter: EventEmitter2,
   ) {}
 
   public create(user: User) {
@@ -73,7 +77,7 @@ export class GamesService {
   }
 
   public async upvote(gameId: string, user: User) {
-    const GAME = await this.findOne({ id: gameId }, ['upvotes']);
+    const GAME = await this.findOne({ id: gameId }, ['upvotes', 'creator']);
 
     if (!GAME) {
       throw new NotFoundException('Game not found');
@@ -84,6 +88,12 @@ export class GamesService {
     }
 
     GAME.upvotes.push(user);
+
+    this.eventEmitter.emit(Event.NOTIFY_USER, {
+      game: GAME,
+      sender: user,
+      type: NotificationType.UPVOTE
+    });
 
     return this.gamesRepository.save(GAME);
   }

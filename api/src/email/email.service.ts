@@ -2,7 +2,7 @@ import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 import { Cron } from '@nestjs/schedule';
-
+import { Event } from 'lib/enums';
 
 @Injectable()
 export class EmailService {
@@ -16,13 +16,17 @@ export class EmailService {
       template: './newsletter',
       context: {
         games: [
-          { title: "Call of Duty: Modern Warfare 2", description: "aidnfiqdfaijfqifqw", upvotes: [2,2,12,1231] }
-        ]
-      }
+          {
+            title: 'Call of Duty: Modern Warfare 2',
+            description: 'aidnfiqdfaijfqifqw',
+            upvotes: [2, 2, 12, 1231],
+          },
+        ],
+      },
     });
   }
 
-  @OnEvent('user.verify-email')
+  @OnEvent(Event.VERIFY_EMAIL)
   async sendVerificationEmail() {
     const confirmation_url = `example.com/auth/confirm?token=1234`;
 

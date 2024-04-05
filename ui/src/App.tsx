@@ -28,6 +28,7 @@ import SubgenreDetailScreen from "screens/SubgenreDetail";
 import LeaderboardScreen from "screens/Leaderboard";
 import UserGamesScreen from "screens/UserGames";
 import NotFoundScreen from "screens/NotFound";
+import NotificationsScreen from "screens/Notifications";
 
 const App = () => {
   const loadingUser = useAppSelector((state) => state.loading.user);
@@ -95,6 +96,10 @@ const App = () => {
         <Route
           element={<AdminPortalScreen />}
           path={UI_PATHS.EDIT_GAME_MODES}
+        />
+        <Route
+          element={<NotificationsScreen />}
+          path={UI_PATHS.NOTIFICATIONS}
         />
         <Route element={<NotFoundScreen />} path={UI_PATHS.NOT_FOUND} />
         <Route element={<NotFoundScreen />} path="*" />

@@ -12,12 +12,14 @@ interface IAuthGuardProps<T> {
   ) => React.ReactNode;
   apiPath: string;
   method?: AxiosRequestConfig["method"];
+  pageHeadWithMarginBottom?: boolean;
 }
 
 const AuthGuard = <T,>({
   children,
   apiPath,
   method = "GET",
+  pageHeadWithMarginBottom = true,
 }: IAuthGuardProps<T>) => {
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
@@ -58,10 +60,10 @@ const AuthGuard = <T,>({
   }
 
   return (
-    <>
-      <PageHead />
+    <main className="flex flex-col min-h-screen">
+      <PageHead withMarginBottom={pageHeadWithMarginBottom} />
       {children(apiData, setApiData)}
-    </>
+    </main>
   );
 };
 

@@ -18,6 +18,7 @@ import { CommentsModule } from './comments/comments.module';
 import { EmailModule } from './email/email.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ScheduleModule } from '@nestjs/schedule';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -51,7 +52,8 @@ import { ScheduleModule } from '@nestjs/schedule';
     CommentsModule,
     EmailModule,
     EventEmitterModule.forRoot(),
-    ScheduleModule.forRoot()
+    ScheduleModule.forRoot(),
+    NotificationsModule
   ],
   controllers: [AppController],
   providers: [],

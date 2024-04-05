@@ -19,7 +19,7 @@ export const UI_PATHS = {
   USER_PROFILE: "/profile/:username",
   LEADERBOARD: "/leaderboard",
   USER_GAMES: "/my/games",
-  EDIT_USER_GAME: "/games/edit/:gameId"
+  EDIT_USER_GAME: "/games/edit/:gameId",
 };
 
 export const API_PATHS = {
@@ -65,5 +65,6 @@ export const API_PATHS = {
     "/subgenres/:subgenreUrlSlug?genreUrlSlug=:genreUrlSlug",
   GET_MY_GAMES: "/games/me",
   GET_DRAFT_GAME: "/games/me/:gameId",
-  SEARCH_GAMES_BY_NAME: "/games"
+  SEARCH_GAMES_BY_NAME: "/games",
+  GET_USER_NOTIFICATIONS: "/notifications",
 };

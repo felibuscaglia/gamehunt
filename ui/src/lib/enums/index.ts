@@ -35,3 +35,8 @@ export enum GameStatus {
   DRAFT = "DRAFT",
   PUBLISHED = "PUBLISHED",
 }
+
+export enum NotificationType {
+  COMMENT = 'comment',
+  UPVOTE = 'upvote',
+}
