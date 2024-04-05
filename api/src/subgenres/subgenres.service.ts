@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { CreateSubgenreDto } from './dto';
 import { formatUrlSlug } from 'users/lib/helpers';
+import { GameStatus } from 'games/lib/enums';
 
 @Injectable()
 export class SubgenresService {
@@ -44,7 +45,9 @@ export class SubgenresService {
       .where('subgenre.urlSlug = :subgenreUrlSlug', { subgenreUrlSlug })
       .leftJoinAndSelect('subgenre.genre', 'genre')
       .andWhere('genre.urlSlug = :genreUrlSlug', { genreUrlSlug })
-      .leftJoinAndSelect('subgenre.games', 'games')
+      .leftJoinAndSelect('subgenre.games', 'games', 'games.status = :status', {
+        status: GameStatus.PUBLISHED,
+      })
       .leftJoinAndSelect('games.thumbnail', 'thumbnail')
       .leftJoinAndSelect('genre.subgenres', 'subgenres')
       .leftJoinAndSelect('games.upvotes', 'upvotes')

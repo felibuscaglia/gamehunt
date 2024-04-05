@@ -38,11 +38,7 @@ export class GenresController {
 
   @Get('/:urlSlug')
   getGenreByUrlSlug(@Param('urlSlug') genreUrlSlug: string) {
-    return this.genresService.findOne({ urlSlug: genreUrlSlug }, [
-      'subgenres',
-      'subgenres.games',
-      'subgenres.games.thumbnail',
-    ]);
+    return this.genresService.findOneByUrlSlug(genreUrlSlug);
   }
 
   @Post()

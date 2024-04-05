@@ -4,6 +4,7 @@ import { Genre } from '../entities';
 import { FindManyOptions, FindOptionsWhere, Repository } from 'typeorm';
 import { CreateGenreDto } from './dto';
 import { formatUrlSlug } from 'users/lib/helpers';
+import { GameStatus } from 'games/lib/enums';
 
 @Injectable()
 export class GenresService {
@@ -32,6 +33,18 @@ export class GenresService {
 
   public findOne(where: FindOptionsWhere<Genre>, relations: string[] = []) {
     return this.genresRepository.findOne({ where, relations });
+  }
+
+  public findOneByUrlSlug(urlSlug: string) {
+    return this.genresRepository
+      .createQueryBuilder('genre')
+      .where('genre.urlSlug = :urlSlug', { urlSlug })
+      .leftJoinAndSelect('genre.subgenres', 'subgenre')
+      .leftJoinAndSelect('subgenre.games', 'game', 'game.status = :status', {
+        status: GameStatus.PUBLISHED,
+      })
+      .leftJoinAndSelect('game.thumbnail', 'thumbnail')
+      .getOne();
   }
 
   public create(dto: CreateGenreDto) {

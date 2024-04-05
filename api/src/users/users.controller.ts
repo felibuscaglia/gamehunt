@@ -16,11 +16,7 @@ export class UsersController {
   }
 
   @Get('/:username/profile')
-  getUserByUsername(@Param('username') username: string) {
-    return this.usersService.findOne({ username }, [
-      'profilePicture',
-      'games',
-      'games.thumbnail',
-    ]);
+  getProfileByUsername(@Param('username') username: string) {
+    return this.usersService.findProfileByUsername(username);
   }
 }

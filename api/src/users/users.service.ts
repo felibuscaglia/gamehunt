@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../entities';
 import { FindOptionsSelect, FindOptionsWhere, Repository } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
+import { GameStatus } from 'games/lib/enums';
 
 @Injectable()
 export class UsersService {
@@ -20,6 +21,18 @@ export class UsersService {
       relations,
       select,
     });
+  }
+
+  public findProfileByUsername(username: string) {
+    return this.usersRepository
+      .createQueryBuilder('user')
+      .where('user.username = :username', { username })
+      .leftJoinAndSelect('user.games', 'games', 'games.status = :status', {
+        status: GameStatus.PUBLISHED,
+      })
+      .leftJoinAndSelect('games.thumbnail', 'thumbnail')
+      .leftJoinAndSelect('user.profilePicture', 'profilePicture')
+      .getOne();
   }
 
   public findMany(whereOptions: FindOptionsWhere<User>, limit?: number) {
