@@ -10,12 +10,13 @@ interface IProps {
 }
 
 const GameDayList: React.FC<IProps> = ({ games, date }) => {
+  const [DATE_DIFF, ...REST] = (formatDateAsString(date) || '').split(' ');
   return (
     <div>
       <section className="flex items-center justify-between">
         <p className="text-3xl flex items-center gap-2">
-          <strong>{formatDateAsString(date)}</strong>
-          <span className="text-primary-brand-color-light">March 13th</span>
+          <strong>{DATE_DIFF}</strong>
+          <span className="text-primary-brand-color-light">{REST[0]}&nbsp;{REST[1]}</span>
         </p>
         <Link
           to={`${UI_PATHS.LEADERBOARD}?date=${date}`}
