@@ -58,7 +58,7 @@ class Game {
   })
   pricing?: GamePricing;
 
-  @ManyToMany(() => Subgenre, { eager: true })
+  @ManyToMany(() => Subgenre, { onDelete: 'CASCADE', eager: true })
   @JoinTable({
     name: 'game_subgenre',
     joinColumn: { name: 'game_id', referencedColumnName: 'id' },

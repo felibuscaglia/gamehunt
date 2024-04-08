@@ -90,6 +90,12 @@ export class GamesController {
     return this.gamesService.publish(game);
   }
 
+  @UseGuards(JwtGuard, GameOwnerGuard)
+  @Delete('/:gameId')
+  deleteGame(@CurrentGame() game: Game) {
+    return this.gamesService.delete(game);
+  }
+
   @UseGuards(JwtGuard)
   @Post('/:gameId/upvote')
   async upvoteGame(@Param('gameId') gameId: string, @CurrentUser() user: User) {

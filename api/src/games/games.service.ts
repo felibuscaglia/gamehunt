@@ -93,7 +93,7 @@ export class GamesService {
     this.eventEmitter.emit(Event.NOTIFY_USER, {
       game: GAME,
       sender: user,
-      type: NotificationType.UPVOTE
+      type: NotificationType.UPVOTE,
     });
 
     return this.gamesRepository.save(GAME);
@@ -155,5 +155,13 @@ export class GamesService {
     game.urlSlug = formatUrlSlug(game.name);
 
     return this.gamesRepository.save(game);
+  }
+
+  public delete(game: Game) {
+    if (game.status !== GameStatus.DRAFT) {
+      throw new BadRequestException('Only draft games can be deleted');
+    }
+
+    return this.gamesRepository.delete(game.id);
   }
 }
