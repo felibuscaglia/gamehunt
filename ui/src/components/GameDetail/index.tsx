@@ -108,7 +108,7 @@ const GameDetail: React.FC<IProps> = ({
           />
           <button
             onClick={onUpvoteBtnClick}
-            className={`text-sm flex items-center gap-2 justify-center border border-primary-brand-color w-full ${
+            className={`text-sm flex items-center gap-2 justify-center border border-primary-brand-color w-[170px] ${
               userUpvoted
                 ? "text-primary-brand-color"
                 : "bg-primary-brand-color text-white hover:bg-primary-brand-color-reduced"
