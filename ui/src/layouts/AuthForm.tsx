@@ -1,6 +1,7 @@
 import AuthButtons from "components/AuthButtons";
 import Button from "components/Button";
 import Logo from "components/Logo";
+import SocialAuth from "components/SocialAuth";
 import { UI_PATHS } from "lib/constants";
 import { Link } from "react-router-dom";
 
@@ -23,7 +24,7 @@ const AuthFormLayout: React.FC<IProps> = ({
   children,
   bottomComponent,
   title,
-  buttonText
+  buttonText,
 }) => {
   return (
     <main className="h-screen flex flex-col">
@@ -38,6 +39,7 @@ const AuthFormLayout: React.FC<IProps> = ({
       <div className="flex-grow w-10/12 mx-auto flex flex-col items-center justify-center gap-8">
         <h2 className="text-5xl font-bold">{title}</h2>
         {displayError && errorComponent}
+        <SocialAuth />
         <form className="w-1/4 flex flex-col gap-4" onSubmit={onSubmit}>
           {children}
           <Button type="submit" text={buttonText} loading={loading} />

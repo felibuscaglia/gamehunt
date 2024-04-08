@@ -19,8 +19,8 @@ class User {
   @Column({ nullable: false })
   fullName: string;
 
-  @Column({ type: 'varchar', nullable: false, select: false })
-  password: string;
+  @Column({ type: 'varchar', nullable: true, select: false })
+  password?: string;
 
   @Column({ nullable: false, unique: true })
   email: string;

@@ -101,7 +101,6 @@ const SignUpScreen = () => {
         </p>
       }
     >
-      <span>THIS WHOLE THING SHOULD LOOK LIKE UPLOADCARE.</span>
       <TextInput
         label="Full name"
         placeholder="Enter your full name..."

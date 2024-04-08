@@ -65,7 +65,9 @@ export class AuthService {
       throw new ConflictException();
     }
 
-    const hashedPassword = await hash(signUpDto.password, await genSalt(10));
+    const hashedPassword = signUpDto.password
+      ? await hash(signUpDto.password, await genSalt(10))
+      : undefined;
 
     const { password, ...newUser } = await this.usersService.create(
       signUpDto.fullName,

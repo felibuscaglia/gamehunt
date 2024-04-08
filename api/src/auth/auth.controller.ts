@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Get,
@@ -11,14 +12,19 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ConfigService } from '@nestjs/config';
-import { JwtGuard, LocalAuthGuard, RefreshJwtGuard } from './guards';
+import {
+  GoogleOauthGuard,
+  JwtGuard,
+  LocalAuthGuard,
+  RefreshJwtGuard,
+} from './guards';
 import { CurrentUser } from './decorators';
 import { User } from '../entities';
 import {
   ACCESS_TOKEN_COOKIE_NAME,
   REFRESH_TOKEN_COOKIE_NAME,
 } from './lib/constants';
-import { Response } from 'express';
+import { Response, response } from 'express';
 import { PatchMeDto, SignUpDto } from './dto';
 import { UsersService } from 'users/users.service';
 
@@ -125,5 +131,46 @@ export class AuthController {
     });
 
     return { accessToken, refreshToken };
+  }
+
+  @Get('google')
+  @UseGuards(GoogleOauthGuard)
+  async googleAuth() {}
+
+  @Get('google/callback')
+  @UseGuards(GoogleOauthGuard)
+  async googleAuthCallback(
+    @CurrentUser() dto: SignUpDto,
+    @Res() response: Response,
+  ) {
+    let user: User;
+
+    try {
+      user = await this.authService.signUp(dto);
+    } catch (err) {
+      if (err?.status === 409) {
+        user = await this.usersService.findOne({ email: dto.email });
+      }
+    }
+
+    if (!user) {
+      throw new BadRequestException(
+        'Something unexpected happened. Please, try again later.',
+      );
+    }
+
+    const { refreshToken, accessToken } =
+      await this.authService.generateTokens(user);
+
+    response.cookie(ACCESS_TOKEN_COOKIE_NAME, accessToken, {
+      httpOnly: true,
+      domain: this.configService.get('UI_DOMAIN'),
+    });
+    response.cookie(REFRESH_TOKEN_COOKIE_NAME, refreshToken, {
+      httpOnly: true,
+      domain: this.configService.get('UI_DOMAIN'),
+    });
+
+    return response.redirect(this.configService.get('UI_URL'));
   }
 }

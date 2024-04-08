@@ -42,12 +42,12 @@ export class UsersService {
     });
   }
 
-  async create(fullName: string, email: string, password: string) {
+  async create(fullName: string, email: string, password?: string) {
     const newUser = new User();
 
     newUser.fullName = fullName;
     newUser.email = email;
-    newUser.password = password;
+    newUser.password = password || null;
     newUser.username = fullName.toLowerCase().replace(/\s/g, '');
 
     try {

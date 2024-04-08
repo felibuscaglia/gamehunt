@@ -67,5 +67,6 @@ export const API_PATHS = {
   GET_DRAFT_GAME: "/games/me/:gameId",
   SEARCH_GAMES_BY_NAME: "/games",
   GET_USER_NOTIFICATIONS: "/notifications",
-  DELETE_GAME: "/games/:gameId"
+  DELETE_GAME: "/games/:gameId",
+  GOOGLE_AUTH: "auth/google",
 };
