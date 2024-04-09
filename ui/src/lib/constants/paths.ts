@@ -71,4 +71,5 @@ export const API_PATHS = {
   DELETE_GAME: "/games/:gameId",
   GOOGLE_AUTH: "auth/google",
   RESET_PASSWORD: "/auth/reset-password",
+  CHANGE_PASSWORD: "/auth/change-password"
 };

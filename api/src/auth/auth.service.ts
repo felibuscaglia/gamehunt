@@ -1,6 +1,11 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { UsersService } from 'users/users.service';
-import { SignUpDto } from './dto';
+import { ChangePasswordDto, SignUpDto } from './dto';
 import { JwtService } from '@nestjs/jwt';
 import { compare, genSalt, hash } from 'bcrypt';
 import { ResetPasswordToken, User } from '../entities';
@@ -9,6 +14,7 @@ import { Event } from 'lib/enums';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as crypto from 'crypto';
+import { INVALID_RESET_PASSWORD_TOKEN_ERROR_MSG } from './lib/constants';
 
 @Injectable()
 export class AuthService {
@@ -71,7 +77,7 @@ export class AuthService {
     }
 
     const hashedPassword = signUpDto.password
-      ? await hash(signUpDto.password, await genSalt(10))
+      ? await this._hash(signUpDto.password)
       : undefined;
 
     const { password, ...newUser } = await this.usersService.create(
@@ -102,6 +108,29 @@ export class AuthService {
     };
   }
 
+  public async changePassword(dto: ChangePasswordDto) {
+    if (dto.newPassword !== dto.newPasswordConfirmation) {
+      throw new BadRequestException({
+        errors: { newPasswordConfirmation: ["Passwords don't match"] },
+      });
+    }
+
+    const TOKEN = await this.resetPasswordTokenRepository.findOne({
+      where: { user: { id: dto.userId } },
+    });
+
+    if (!TOKEN || !(await compare(dto.token, TOKEN.token))) {
+      throw new NotFoundException(INVALID_RESET_PASSWORD_TOKEN_ERROR_MSG);
+    }
+
+    await this.usersService.update(dto.userId, {
+      password: await this._hash(dto.newPassword),
+    });
+    await this.resetPasswordTokenRepository.delete(TOKEN);
+
+    return true;
+  }
+
   public async resetPassword(userEmail: string) {
     const USER = await this.usersService.findOne({ email: userEmail });
 
@@ -121,7 +150,7 @@ export class AuthService {
     const NEW_TOKEN = new ResetPasswordToken();
 
     NEW_TOKEN.user = USER;
-    NEW_TOKEN.token = await this.hashResetToken(RESET_TOKEN);
+    NEW_TOKEN.token = await this._hash(RESET_TOKEN);
 
     await this.resetPasswordTokenRepository.save(NEW_TOKEN);
 
@@ -131,7 +160,7 @@ export class AuthService {
     });
   }
 
-  private async hashResetToken(resetToken: string) {
-    return await hash(resetToken, await genSalt(10));
+  private async _hash(unhashedString: string) {
+    return await hash(unhashedString, await genSalt(10));
   }
 }

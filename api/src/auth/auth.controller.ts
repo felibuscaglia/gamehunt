@@ -25,7 +25,12 @@ import {
   REFRESH_TOKEN_COOKIE_NAME,
 } from './lib/constants';
 import { Response } from 'express';
-import { PatchMeDto, ResetPasswordDto, SignUpDto } from './dto';
+import {
+  ChangePasswordDto,
+  PatchMeDto,
+  ResetPasswordDto,
+  SignUpDto,
+} from './dto';
 import { UsersService } from 'users/users.service';
 
 @Controller('auth')
@@ -138,6 +143,13 @@ export class AuthController {
     this.authService.resetPassword(email);
 
     return HttpStatus.ACCEPTED;
+  }
+
+  @Post('/change-password')
+  async changeUserPassword(@Body() changePasswordDto: ChangePasswordDto) {
+    await this.authService.changePassword(changePasswordDto);
+
+    return HttpStatus.OK;
   }
 
   @Get('google')
