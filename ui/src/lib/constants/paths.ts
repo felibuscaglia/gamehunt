@@ -4,7 +4,6 @@ export const UI_PATHS = {
   SIGN_UP: "/sign-up",
   TERMS: "/terms-and-conditions",
   PRIVACY_POLICY: "/privacy-policy",
-  RECOVER_PASSWORD: "/recover-password",
   SUBMIT_GAME: "/games/new",
   NOTIFICATIONS: "/notifications",
   EDIT_GENRES: "/admin/genres",
@@ -20,6 +19,8 @@ export const UI_PATHS = {
   LEADERBOARD: "/leaderboard",
   USER_GAMES: "/my/games",
   EDIT_USER_GAME: "/games/edit/:gameId",
+  RESET_PASSWORD: "/reset-password",
+  CHANGE_PASSWORD: "/change-password",
 };
 
 export const API_PATHS = {
@@ -69,4 +70,5 @@ export const API_PATHS = {
   GET_USER_NOTIFICATIONS: "/notifications",
   DELETE_GAME: "/games/:gameId",
   GOOGLE_AUTH: "auth/google",
+  RESET_PASSWORD: "/auth/reset-password",
 };

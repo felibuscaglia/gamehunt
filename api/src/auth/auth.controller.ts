@@ -24,8 +24,8 @@ import {
   ACCESS_TOKEN_COOKIE_NAME,
   REFRESH_TOKEN_COOKIE_NAME,
 } from './lib/constants';
-import { Response, response } from 'express';
-import { PatchMeDto, SignUpDto } from './dto';
+import { Response } from 'express';
+import { PatchMeDto, ResetPasswordDto, SignUpDto } from './dto';
 import { UsersService } from 'users/users.service';
 
 @Controller('auth')
@@ -131,6 +131,13 @@ export class AuthController {
     });
 
     return { accessToken, refreshToken };
+  }
+
+  @Post('/reset-password')
+  resetUserPassword(@Body() { email }: ResetPasswordDto) {
+    this.authService.resetPassword(email);
+
+    return HttpStatus.ACCEPTED;
   }
 
   @Get('google')

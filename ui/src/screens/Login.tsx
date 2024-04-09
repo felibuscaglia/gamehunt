@@ -64,7 +64,7 @@ const LogInScreen = () => {
       errorComponent={<p className="text-red-500">Invalid credentials.</p>}
       bottomComponent={
         <Link
-          to={UI_PATHS.RECOVER_PASSWORD}
+          to={UI_PATHS.RESET_PASSWORD}
           className="text-sm text-primary-brand-color"
         >
           Forgot your password?

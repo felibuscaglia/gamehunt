@@ -6,12 +6,21 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtStrategy, LocalStrategy, RefreshJwtStrategy } from './strategies';
 import { GoogleStrategy } from './strategies/google.strategy';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ResetPasswordToken } from '../entities';
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, JwtStrategy, RefreshJwtStrategy, GoogleStrategy],
+  providers: [
+    AuthService,
+    LocalStrategy,
+    JwtStrategy,
+    RefreshJwtStrategy,
+    GoogleStrategy,
+  ],
   imports: [
     UsersModule,
+    TypeOrmModule.forFeature([ResetPasswordToken]),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

@@ -4,6 +4,7 @@ import { User } from '../entities';
 import { FindOptionsSelect, FindOptionsWhere, Repository } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { GameStatus } from 'games/lib/enums';
+import { UserProviders } from './lib/enums';
 
 @Injectable()
 export class UsersService {
@@ -42,13 +43,19 @@ export class UsersService {
     });
   }
 
-  async create(fullName: string, email: string, password?: string) {
+  async create(
+    fullName: string,
+    email: string,
+    password?: string,
+    provider = UserProviders.LOCAL,
+  ) {
     const newUser = new User();
 
     newUser.fullName = fullName;
     newUser.email = email;
     newUser.password = password || null;
     newUser.username = fullName.toLowerCase().replace(/\s/g, '');
+    newUser.provider = provider;
 
     try {
       return await this.usersRepository.save(newUser);

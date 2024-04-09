@@ -8,6 +8,7 @@ import Platform from './Platform.entity';
 import GameMode from './GameMode.entity';
 import Comment from './Comment.entity';
 import Notification from './Notification.entity';
+import ResetPasswordToken from './ResetPasswordToken.entity';
 
 export {
   User,
@@ -20,7 +21,9 @@ export {
   GameMode,
   Comment,
   Notification,
+  ResetPasswordToken,
 };
+
 export default [
   User,
   Game,
@@ -32,4 +35,5 @@ export default [
   GameMode,
   Comment,
   Notification,
+  ResetPasswordToken,
 ];

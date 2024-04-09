@@ -6,7 +6,7 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { USER_ROLES } from 'users/lib/enums';
+import { USER_ROLES, UserProviders } from 'users/lib/enums';
 import Game from './Game.entity';
 import Comment from './Comment.entity';
 import Image from './Image.entity';
@@ -53,6 +53,13 @@ class User {
 
   @OneToMany(() => Comment, (comment) => comment.author)
   comments: Comment[];
+
+  @Column({
+    nullable: false,
+    enum: UserProviders,
+    default: UserProviders.LOCAL,
+  })
+  provider: UserProviders;
 }
 
 export default User;

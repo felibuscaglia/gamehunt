@@ -29,6 +29,8 @@ import LeaderboardScreen from "screens/Leaderboard";
 import UserGamesScreen from "screens/UserGames";
 import NotFoundScreen from "screens/NotFound";
 import NotificationsScreen from "screens/Notifications";
+import ResetPasswordScreen from "screens/ResetPassword";
+import ChangePasswordScreen from "screens/ChangePassword";
 
 const App = () => {
   const loadingUser = useAppSelector((state) => state.loading.user);
@@ -100,6 +102,14 @@ const App = () => {
         <Route
           element={<NotificationsScreen />}
           path={UI_PATHS.NOTIFICATIONS}
+        />
+        <Route
+          element={<ResetPasswordScreen />}
+          path={UI_PATHS.RESET_PASSWORD}
+        />
+        <Route
+          element={<ChangePasswordScreen />}
+          path={UI_PATHS.CHANGE_PASSWORD}
         />
         <Route element={<NotFoundScreen />} path={UI_PATHS.NOT_FOUND} />
         <Route element={<NotFoundScreen />} path="*" />

@@ -1,8 +1,15 @@
 import { CUSTOM_EMAIL_ERROR_MESSAGE } from 'auth/lib/constants';
-import { IsEmail, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {
+  IsEmail,
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
+import { UserProviders } from 'users/lib/enums';
 
 export class SignUpDto {
-  @IsNotEmpty({ message: "Full name must not be empty" })
+  @IsNotEmpty({ message: 'Full name must not be empty' })
   fullName: string;
 
   @IsNotEmpty()
@@ -12,4 +19,8 @@ export class SignUpDto {
   @IsOptional()
   @IsString()
   password?: string;
+
+  @IsOptional()
+  @IsEnum(UserProviders)
+  provider?: UserProviders;
 }
