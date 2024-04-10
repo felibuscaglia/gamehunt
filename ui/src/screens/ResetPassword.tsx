@@ -47,8 +47,8 @@ const ResetPasswordScreen = () => {
           <IconMail color={PRIMARY_BRAND_COLOR} size={50} />
           <h2 className="text-2xl font-bold">Check Your Email</h2>
           <p className="text-gray-500">
-            Please check the email address {input.email} for instructions to
-            reset your password.
+            If there's a user with the specified email address ({input.email}),
+            instructions to reset your password will be sent.
           </p>
           <div className="w-1/3">
             <Button text="Resend email" onClick={resetPassword} />

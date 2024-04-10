@@ -1,57 +1,91 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameHunt Daily Newsletter</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-        .header {
-            background-color: #7e57c2;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        .footer {
-            background-color: #7e57c2;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-        .content {
-            padding: 20px;
-        }
-        .game {
-            margin-bottom: 20px;
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <h1>Welcome to GameHunt Daily Newsletter!</h1>
-    </div>
-
-    <div class="content">
-        <h2>Today's Top Games:</h2>
-        <% games.forEach(function(game) { %>
-            <div class="game">
-                <h3><%= game.title %></h3>
-                <p><%= game.description %></p>
-                <p>Upvotes: <%= game.upvotes.length %></p>
-            </div>
-        <% }); %>
-    </div>
-
-    <div class="footer">
-        <p>GameHunt - All rights reserved.</p>
-    </div>
-</body>
+   <head>
+      <%- include('./shared/head.ejs', { title: 'GameHunt Daily Newsletter' }) %>
+      <style>
+         .games {
+         padding: 24px;
+         background-color: white;
+         width: 60vw;
+         }
+         .date {
+         font-weight: 600;
+         font-size: 12px;
+         line-height: 24px;
+         }
+         .primary-brand-color {
+         color: #7e57c2;
+         }
+         .thumbnail {
+         height: 48px;
+         width: 48px;
+         border-radius: 3px;
+         background-position: center;
+         background-repeat: no-repeat;
+         background-size: cover;
+         }
+         table {
+         border-collapse:collapse;
+         border-spacing:0 10px;
+         margin-top:10px;
+         }
+         .game {
+         padding: 0 10px 18px 10px;
+         border-bottom: 1px solid #eef2ff;
+         }
+         .discover-more-btn {
+         background-color: rgba(126, 87, 194, 0.2);
+         display: block;
+         color: #7e57c2;
+         font-size: 14px;
+         font-weight: 600;
+         text-align: center;
+         padding: 14px;
+         margin-top: 24px;
+         border-radius: 5px;
+         }
+         td {
+         box-sizing: border-box; 
+         padding: 18px 10px; 
+         vertical-align: center;
+         }
+         .game-name {
+         display: block;
+         margin-top: 1.33em;
+         margin-bottom: 1.33em;
+         margin-left: 0;
+         margin-right: 0;
+         font-weight: bold;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="games">
+      <h6 class="date primary-brand-color">
+        <%= date %>
+      </h6>
+      <h1>Yesterday's Top Games</h1>
+      <table>
+         <% games.forEach(game => { %>
+            <tr class="game">
+               <td>
+                  <div
+                     class="thumbnail"
+                     style="
+                     background-image: url('<%= game.thumbnail.url %>');
+                     "
+                     />
+               </td>
+               <td class="game-name">
+                  <%= game.name %>
+                  <% if (game.tagline !== null) { %>
+                     <span style="font-weight: 400;">— <%= game.tagline %></span>
+                   <% } %>
+               </td>
+            </tr>
+         <% }); %>
+      </table>
+      <a class="discover-more-btn">Discover many more</a>
+      </div>
+   </body>
 </html>

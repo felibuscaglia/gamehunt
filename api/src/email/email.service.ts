@@ -6,28 +6,33 @@ import { Cron } from '@nestjs/schedule';
 import { APP_NAME } from 'auth/lib/constants';
 import { User } from '../entities';
 import { Event } from 'lib/enums';
+import dayjs from 'dayjs';
+import { GamesService } from 'games/games.service';
 
 @Injectable()
 export class EmailService {
   constructor(
     private readonly mailerService: MailerService,
     private readonly configService: ConfigService,
+    private readonly gamesService: GamesService,
   ) {}
 
   @Cron('0 11 * * 1-5')
   async sendNewsletter() {
+    const YESTERDAY = dayjs().subtract(1, 'day');
+
+    const YESTERDAY_GAMES = await this.gamesService.findByDate(
+      YESTERDAY.toISOString(),
+      10,
+    );
+
     await this.mailerService.sendMail({
       to: 'felipebbuscaglia@gmail.com',
       subject: 'GameHunt Daily Newsletter',
       template: './newsletter',
       context: {
-        games: [
-          {
-            title: 'Call of Duty: Modern Warfare 2',
-            description: 'aidnfiqdfaijfqifqw',
-            upvotes: [2, 2, 12, 1231],
-          },
-        ],
+        date: YESTERDAY.format('dddd, D MMMM YYYY'),
+        games: YESTERDAY_GAMES,
       },
     });
   }

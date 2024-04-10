@@ -4,10 +4,12 @@ import { Global, Module } from '@nestjs/common';
 import { EmailService } from './email.service';
 import { join } from 'path';
 import { ConfigService } from '@nestjs/config';
+import { GamesModule } from 'games/games.module';
 
 @Global()
 @Module({
   imports: [
+    GamesModule,
     MailerModule.forRootAsync({
       useFactory: async (config: ConfigService) => ({
         transport: {

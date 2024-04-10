@@ -10,5 +10,6 @@ import { GameLinksModule } from 'game-links/game-links.module';
   controllers: [GamesController],
   providers: [GamesService, GameOwnerGuard],
   imports: [TypeOrmModule.forFeature([Game]), GameLinksModule],
+  exports: [GamesService],
 })
 export class GamesModule {}
