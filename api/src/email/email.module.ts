@@ -5,11 +5,13 @@ import { EmailService } from './email.service';
 import { join } from 'path';
 import { ConfigService } from '@nestjs/config';
 import { GamesModule } from 'games/games.module';
+import { UsersModule } from 'users/users.module';
 
 @Global()
 @Module({
   imports: [
     GamesModule,
+    UsersModule,
     MailerModule.forRootAsync({
       useFactory: async (config: ConfigService) => ({
         transport: {

@@ -8,6 +8,7 @@ import { User } from '../entities';
 import { Event } from 'lib/enums';
 import dayjs from 'dayjs';
 import { GamesService } from 'games/games.service';
+import { UsersService } from 'users/users.service';
 
 @Injectable()
 export class EmailService {
@@ -15,6 +16,7 @@ export class EmailService {
     private readonly mailerService: MailerService,
     private readonly configService: ConfigService,
     private readonly gamesService: GamesService,
+    private readonly usersService: UsersService,
   ) {}
 
   @Cron('0 11 * * 1-5')
@@ -26,15 +28,25 @@ export class EmailService {
       10,
     );
 
-    await this.mailerService.sendMail({
-      to: 'felipebbuscaglia@gmail.com',
-      subject: 'GameHunt Daily Newsletter',
-      template: './newsletter',
-      context: {
-        date: YESTERDAY.format('dddd, D MMMM YYYY'),
-        games: YESTERDAY_GAMES,
-      },
+    const SUBSCRIBED_USERS = await this.usersService.findMany({
+      isSubscribedToNewsletter: true,
     });
+
+    for (const USER of SUBSCRIBED_USERS) {
+      try {
+        await this.mailerService.sendMail({
+          to: USER.email,
+          subject: 'GameHunt Daily Newsletter',
+          template: './newsletter',
+          context: {
+            date: YESTERDAY.format('dddd, D MMMM YYYY'),
+            games: YESTERDAY_GAMES,
+          },
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
   }
 
   @OnEvent(Event.VERIFY_EMAIL)
