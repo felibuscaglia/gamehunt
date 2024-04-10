@@ -16,7 +16,7 @@ const GameDayList: React.FC<IProps> = ({ games, date }) => {
       <section className="flex items-center justify-between">
         <p className="text-3xl flex items-center gap-2">
           <strong>{DATE_DIFF}</strong>
-          <span className="text-primary-brand-color-light">{REST[0]}&nbsp;{REST[1]}</span>
+          <span className="text-primary-brand-color-light">{REST.join(' ')}</span>
         </p>
         <Link
           to={`${UI_PATHS.LEADERBOARD}?date=${date}`}

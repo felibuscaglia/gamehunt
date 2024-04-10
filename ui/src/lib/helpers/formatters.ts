@@ -1,26 +1,26 @@
-import { convertDateToUtc } from "./converters";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 
+dayjs.extend(utc);
 dayjs.extend(advancedFormat);
 
 export const formatDateAsString = (inputDate: string): string => {
-  const today = convertDateToUtc();
-  const targetDate = convertDateToUtc(new Date(inputDate));
-  const yesterday = convertDateToUtc();
-  yesterday.setDate(today.getDate() - 1);
+  const today = dayjs().utc().startOf('day');
+  const targetDate = dayjs(inputDate).utc().startOf('day');
+  const yesterday = dayjs().utc().subtract(1, 'day').startOf('day');
 
   let dayDiff: string;
 
-  if (targetDate.toDateString() === today.toDateString()) {
+  if (targetDate.isSame(today, 'day')) {
     dayDiff = "Today";
-  } else if (targetDate.toDateString() === yesterday.toDateString()) {
+  } else if (targetDate.isSame(yesterday, 'day')) {
     dayDiff = "Yesterday";
   } else {
-    dayDiff = targetDate.toLocaleDateString("en-US", { weekday: "long" });
+    dayDiff = targetDate.format("dddd");
   }
   
-  const dayJsDate = dayjs(targetDate);
+  const yearString = targetDate.year() !== today.year() ? `, ${targetDate.year()}` : '';
 
-  return `${dayDiff} ${dayJsDate.format('MMMM Do')}`
+  return `${dayDiff} ${targetDate.format('MMMM Do')}${yearString}`;
 };

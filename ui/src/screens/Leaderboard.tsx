@@ -55,7 +55,7 @@ const LeaderboardScreen = () => {
     }
   }, [searchParams]);
 
-  const [DATE_DIFF, ...REST] = (formatDateAsString(DATE_PARAM || '')).split(' ');
+  const [DATE_DIFF, ...REST] = formatDateAsString(DATE_PARAM || "").split(" ");
 
   return (
     <main>
@@ -64,7 +64,9 @@ const LeaderboardScreen = () => {
         {DATE_PARAM && (
           <p className="text-3xl flex items-center gap-2 mb-4">
             <strong>{DATE_DIFF}</strong>
-            <span className="text-primary-brand-color-light">{REST[0]}&nbsp;{REST[1]}</span>
+            <span className="text-primary-brand-color-light">
+              {REST.join(" ")}
+            </span>
           </p>
         )}
         {initialLoading ? (
