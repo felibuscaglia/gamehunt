@@ -123,27 +123,30 @@ const GameDetail: React.FC<IProps> = ({
       </section>
       <section className="flex items-start my-8">
         <div className="flex flex-col gap-4 w-3/4">
-          <p className="mb-4">{game.description}</p>
+          <p>{game.description}</p>
           <Tags<ISubgenre>
             elements={game.subgenres}
             title="Genres"
             displayKey="name"
-            baseUrl="subgenres"
+            urlSlugGenerator={(sg) =>
+              UI_PATHS.SUBGENRE_DETAIL.replace(
+                ":genreUrlSlug",
+                sg.genre?.urlSlug
+              ).replace(":subgenreUrlSlug", sg.urlSlug)
+            }
           />
           <Tags<IPlatform>
             elements={game.platforms}
             title="Platforms"
             displayKey="name"
-            baseUrl="platforms"
           />
           <Tags<IGameMode>
             elements={game.modes}
             title="Modes"
             displayKey="name"
-            baseUrl="modes"
           />
           {game.storyline && (
-            <section className="mt-4">
+            <section>
               <h6 className="font-semibold mb-2 underline">Storyline</h6>
               <p>{game.storyline}</p>
             </section>

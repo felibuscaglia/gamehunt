@@ -62,6 +62,7 @@ export class GamesController {
         'links',
         'creator',
         'creator.profilePicture',
+        'subgenres.genre',
         'upvotes',
         'comments',
         'comments.author',
