@@ -33,6 +33,7 @@ export class UsersService {
       })
       .leftJoinAndSelect('games.thumbnail', 'thumbnail')
       .leftJoinAndSelect('user.profilePicture', 'profilePicture')
+      .orderBy('games.postedAt', 'DESC')
       .getOne();
   }
 
