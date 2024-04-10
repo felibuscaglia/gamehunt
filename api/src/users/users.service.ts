@@ -31,6 +31,7 @@ export class UsersService {
       .leftJoinAndSelect('user.games', 'games', 'games.status = :status', {
         status: GameStatus.PUBLISHED,
       })
+      .leftJoinAndSelect('games.upvotes', 'upvotes')
       .leftJoinAndSelect('games.thumbnail', 'thumbnail')
       .leftJoinAndSelect('user.profilePicture', 'profilePicture')
       .orderBy('games.postedAt', 'DESC')

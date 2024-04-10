@@ -97,7 +97,7 @@ const UserProfileScreen = () => {
             {user.games?.length ? (
               <section>
                 {user.games.map((game) => (
-                  <Game game={game} withUpvoteCount={false} />
+                  <Game game={game} />
                 ))}
               </section>
             ) : (
