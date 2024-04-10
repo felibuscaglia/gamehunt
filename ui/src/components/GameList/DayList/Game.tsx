@@ -2,6 +2,7 @@ import { IconChevronUp } from "@tabler/icons-react";
 import { UI_PATHS } from "lib/constants";
 import { IGame } from "lib/interfaces";
 import { Link } from "react-router-dom";
+import dayjs from 'dayjs';
 
 interface IProps {
   game: IGame;
@@ -54,14 +55,14 @@ const DayListGame: React.FC<IProps> = ({
           </div>
         </div>
       </section>
-      {withUpvoteCount && (
+      {withUpvoteCount ? (
         <div className="text-gray-700 h-12 w-12 flex-col flex items-center justify-center rounded border border-gray-100">
           <IconChevronUp stroke={1.5} />
           <span className="text-xs font-semibold">
             {game.upvotes?.length || 0}
           </span>
         </div>
-      )}
+      ) : <span className="text-sm text-gray-500">{dayjs(game.postedAt).format('MMM YYYY')}</span>}
     </Link>
   );
 };

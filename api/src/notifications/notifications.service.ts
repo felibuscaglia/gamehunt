@@ -35,11 +35,17 @@ export class NotificationsService {
 
   @OnEvent(Event.NOTIFY_USER)
   notifyUser(payload: { game: Game; sender: User; type: NotificationType }) {
+    const RECIPIENT = payload.game.creator;
+
+    if (RECIPIENT.id === payload.sender.id) {
+      return;
+    }
+
     const NEW_NOTIFICATION = new Notification();
 
     NEW_NOTIFICATION.sender = payload.sender;
     NEW_NOTIFICATION.type = payload.type;
-    NEW_NOTIFICATION.recipient = payload.game.creator;
+    NEW_NOTIFICATION.recipient = RECIPIENT;
     NEW_NOTIFICATION.game = payload.game;
 
     this.notificationsRepository.save(NEW_NOTIFICATION);
