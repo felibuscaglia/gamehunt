@@ -152,7 +152,7 @@ export class GamesService {
 
     game.status = GameStatus.PUBLISHED;
     game.postedAt = new Date();
-    game.urlSlug = formatUrlSlug(game.name);
+    game.urlSlug = await this.generateUrlSlug(game.name);
 
     return this.gamesRepository.save(game);
   }
@@ -163,5 +163,19 @@ export class GamesService {
     }
 
     return this.gamesRepository.delete(game.id);
+  }
+
+  private async generateUrlSlug(gameName: string) {
+    let urlSlug = formatUrlSlug(gameName);
+    let counter = 1;
+    let existingGameWithSlug = await this.findOne({ urlSlug });
+    
+    while (existingGameWithSlug) {
+      urlSlug = `${formatUrlSlug(gameName)}-${counter}`;
+      counter++;
+      existingGameWithSlug = await this.findOne({ urlSlug });
+    }
+
+    return urlSlug;
   }
 }
