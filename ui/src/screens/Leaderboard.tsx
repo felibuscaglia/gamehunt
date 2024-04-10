@@ -60,14 +60,14 @@ const LeaderboardScreen = () => {
   return (
     <main>
       <PageHead />
-      <section className="w-10/12 mx-auto">
+      <section className="w-10/12 mx-auto py-5">
         {DATE_PARAM && (
-          <p className="text-3xl flex items-center gap-2 mb-4">
+          <h2 className="text-3xl flex items-center gap-2 mb-4">
             <strong>{DATE_DIFF}</strong>
             <span className="text-primary-brand-color-light">
               {REST.join(" ")}
             </span>
-          </p>
+          </h2>
         )}
         {initialLoading ? (
           [...Array(8)].map((_, i) => (

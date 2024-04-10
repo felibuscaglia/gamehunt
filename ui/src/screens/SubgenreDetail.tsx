@@ -44,7 +44,7 @@ const SubgenreDetailScreen = () => {
         />
       ) : (
         <div className="w-10/12 mx-auto py-5">
-          <h2 className="text-4xl font-semibold pb-5">{subgenre.name} games</h2>
+          <h2 className="text-3xl font-semibold pb-10 text-primary-brand-color-medium">{subgenre.name} games</h2>
           <section className="flex items-start gap-8">
             <div className="w-9/12">
               {(subgenre.games || []).map((game, i) => (

@@ -41,7 +41,7 @@ const GenreDetailScreen = () => {
         />
       ) : (
         <div className="w-10/12 mx-auto py-5">
-          <h2 className="text-4xl font-semibold pb-10">{genre.name} games</h2>
+          <h2 className="text-3xl font-semibold pb-10 text-primary-brand-color-medium">{genre.name} games</h2>
           <section className="grid grid-cols-3 gap-y-16">
             {(genre.subgenres || []).map((subgenre) => (
               <SubgenreDetail

@@ -32,14 +32,11 @@ const AuthGuard = <T,>({
       method,
       url: apiPath,
     })
-      .then(({ data }) => {
-        setApiData(data);
-        setLoading(false);
-      })
+      .then(({ data }) => setApiData(data))
       .catch((err) => {
         setNotFound(err.response?.status === HttpStatusCode.NotFound);
-        setLoading(false);
-      });
+      })
+      .finally(() => setLoading(false));
   }, [apiPath, authApiClient]);
 
   if (loading) {
@@ -47,16 +44,12 @@ const AuthGuard = <T,>({
   }
 
   if (notFound) {
-    return (
-      <ErrorScreen msg="Uh-oh. We couldn't find what you're looking for." />
-    );
+    return <ErrorScreen status={HttpStatusCode.NotFound} />;
   }
 
   // if apiData === null even though notFound !== true and loading !== true, then that's def an error.
   if (apiData === null) {
-    return (
-      <ErrorScreen msg="Uh-oh. An unexpected error occurred. Please, try again later." />
-    );
+    return <ErrorScreen status={HttpStatusCode.InternalServerError} />;
   }
 
   return (

@@ -27,10 +27,11 @@ import GenreDetailScreen from "screens/GenreDetail";
 import SubgenreDetailScreen from "screens/SubgenreDetail";
 import LeaderboardScreen from "screens/Leaderboard";
 import UserGamesScreen from "screens/UserGames";
-import NotFoundScreen from "screens/NotFound";
+import ErrorScreen from "screens/Error";
 import NotificationsScreen from "screens/Notifications";
 import ResetPasswordScreen from "screens/ResetPassword";
 import ChangePasswordScreen from "screens/ChangePassword";
+import { HttpStatusCode } from "axios";
 
 const App = () => {
   const loadingUser = useAppSelector((state) => state.loading.user);
@@ -111,8 +112,8 @@ const App = () => {
           element={<ChangePasswordScreen />}
           path={UI_PATHS.CHANGE_PASSWORD}
         />
-        <Route element={<NotFoundScreen />} path={UI_PATHS.NOT_FOUND} />
-        <Route element={<NotFoundScreen />} path="*" />
+        <Route element={<ErrorScreen status={HttpStatusCode.NotFound} />} path={UI_PATHS.NOT_FOUND} />
+        <Route element={<ErrorScreen status={HttpStatusCode.NotFound} />} path="*" />
       </Routes>
       <Toaster position="bottom-center" />
     </>
