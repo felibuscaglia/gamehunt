@@ -107,4 +107,5 @@ export interface INotification {
   recipient: IUser;
   type: NotificationType;
   game?: IGame;
+  createdAt: Date;
 }

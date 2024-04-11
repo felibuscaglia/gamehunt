@@ -4,6 +4,7 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  CreateDateColumn,
 } from 'typeorm';
 import User from './User.entity';
 import Game from './Game.entity';
@@ -31,6 +32,13 @@ class Notification {
   @ManyToOne(() => Game, { onDelete: 'CASCADE', nullable: true })
   @JoinColumn({ name: 'game_id' })
   game?: Game;
+
+  @CreateDateColumn({
+    type: 'timestamptz',
+    default: () => 'CURRENT_TIMESTAMP',
+    name: 'created_at',
+  })
+  createdAt: Date;
 }
 
 export default Notification;
