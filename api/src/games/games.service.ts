@@ -78,25 +78,27 @@ export class GamesService {
   }
 
   public async upvote(gameId: string, user: User) {
-    const GAME = await this.findOne({ id: gameId }, ['upvotes', 'creator']);
+    let game = await this.findOne({ id: gameId }, ['upvotes', 'creator']);
 
-    if (!GAME) {
+    if (!game) {
       throw new NotFoundException('Game not found');
     }
 
-    if (GAME.upvotes.some((upvote) => upvote.id === user.id)) {
+    if (game.upvotes.some((upvote) => upvote.id === user.id)) {
       throw new BadRequestException("Users can't upvote the same game twice");
     }
 
-    GAME.upvotes.push(user);
+    game.upvotes.push(user);
+
+    game = await this.gamesRepository.save(game);
 
     this.eventEmitter.emit(Event.NOTIFY_USER, {
-      game: GAME,
+      game,
       sender: user,
       type: NotificationType.UPVOTE,
     });
 
-    return this.gamesRepository.save(GAME);
+    return game;
   }
 
   public async downvote(gameId: string, user: User) {
@@ -169,7 +171,7 @@ export class GamesService {
     let urlSlug = formatUrlSlug(gameName);
     let counter = 1;
     let existingGameWithSlug = await this.findOne({ urlSlug });
-    
+
     while (existingGameWithSlug) {
       urlSlug = `${formatUrlSlug(gameName)}-${counter}`;
       counter++;

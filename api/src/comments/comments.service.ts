@@ -7,19 +7,23 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SaveCommentDto } from './dto';
 import { Comment, Game, User } from '../entities';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { Event } from 'lib/enums';
+import { NotificationType } from 'notifications/lib/enums';
+import { GamesService } from 'games/games.service';
 
 @Injectable()
 export class CommentsService {
   constructor(
     @InjectRepository(Comment)
     private readonly commentsRepository: Repository<Comment>,
+    private readonly eventEmitter: EventEmitter2,
+    private readonly gamesService: GamesService
   ) {}
 
   public async save(dto: SaveCommentDto, user: User) {
     const NEW_COMMENT = new Comment();
-    const GAME = new Game();
-
-    GAME.id = dto.gameId;
+    const GAME = await this.gamesService.findOne({ id: dto.gameId }, ['creator'])
 
     NEW_COMMENT.author = user;
     NEW_COMMENT.game = GAME;
@@ -32,13 +36,21 @@ export class CommentsService {
       NEW_COMMENT.parent = PARENT_COMMENT;
     }
 
-    return this.commentsRepository.save(NEW_COMMENT);
+    const SAVED_COMMENT = await this.commentsRepository.save(NEW_COMMENT);
+
+    this.eventEmitter.emit(Event.NOTIFY_USER, {
+      game: GAME,
+      sender: user,
+      type: NotificationType.COMMENT,
+    });
+
+    return SAVED_COMMENT;
   }
 
   private async validateReply(parentCommentId: number) {
     const COMMENT = await this.commentsRepository.findOne({
       where: { id: parentCommentId },
-      relations: ['parent']
+      relations: ['parent'],
     });
 
     if (!COMMENT) {
