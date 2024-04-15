@@ -10,7 +10,7 @@ const TrendingSubgenre: React.FC<ISubgenre> = ({ name, urlSlug, genre }) => {
     <Link
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="flex items-center gap-2 justify-between p-2 hover:bg-primary-brand-color-extra-light border-b border-b-gray-100 text-gray-500 hover:text-inherit"
+      className="flex items-center gap-2 justify-between sm:px-2 py-2 hover:bg-primary-brand-color-extra-light border-b border-b-gray-100 text-gray-500 hover:text-inherit"
       to={UI_PATHS.SUBGENRE_DETAIL.replace(":subgenreUrlSlug", urlSlug).replace(
         ":genreUrlSlug",
         genre?.urlSlug

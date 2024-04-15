@@ -25,7 +25,7 @@ const PageHead: React.FC<IProps> = ({ withMarginBottom = true }) => {
   return (
     <nav
       className={`w-full z-40 sm:sticky top-0 bg-white border-b border-gray-100 p-4 flex items-start sm:items-center justify-between relative sm:h-20 h-28 ${
-        withMarginBottom ? "mb-4" : "mb-0"
+        withMarginBottom ? "mb-2 sm:mb-4" : "mb-0"
       }`}
     >
       <section className={SECTION_CLASSNAMES + " w-1/2 sm:w-1/3"}>
