@@ -148,7 +148,7 @@ export class AuthService {
   public async resetPassword(userEmail: string) {
     const USER = await this.usersService.findOne({ email: userEmail });
 
-    if (!USER) {
+    if (!USER || USER.provider !== UserProviders.LOCAL) {
       return;
     }
 
