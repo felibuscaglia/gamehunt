@@ -29,6 +29,9 @@ export class NotificationsService {
           urlSlug: true,
         },
       },
+      order: {
+        createdAt: 'DESC', 
+      },
       relations: ['sender', 'game'],
     });
   }
