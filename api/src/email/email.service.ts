@@ -9,6 +9,7 @@ import { Event } from 'lib/enums';
 import dayjs from 'dayjs';
 import { GamesService } from 'games/games.service';
 import { UsersService } from 'users/users.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class EmailService {
@@ -17,6 +18,7 @@ export class EmailService {
     private readonly configService: ConfigService,
     private readonly gamesService: GamesService,
     private readonly usersService: UsersService,
+    private readonly jwtService: JwtService,
   ) {}
 
   @Cron('0 11 * * 1-5')
@@ -30,6 +32,7 @@ export class EmailService {
 
     const SUBSCRIBED_USERS = await this.usersService.findMany({
       isSubscribedToNewsletter: true,
+      emailConfirmed: true,
     });
 
     for (const USER of SUBSCRIBED_USERS) {
@@ -50,14 +53,22 @@ export class EmailService {
   }
 
   @OnEvent(Event.VERIFY_EMAIL)
-  async sendVerificationEmail() {
+  async sendVerificationEmail(payload: { recipient: User }) {
+    const RECIPIENT_EMAIL = payload.recipient.email;
+
     await this.mailerService.sendMail({
-      to: 'felipebbuscaglia@gmail.com',
-      subject: 'Welcome to Nice App! Confirm your Email',
-      template: './welcome',
+      to: RECIPIENT_EMAIL,
+      subject: 'Please verify your email address',
+      template: './verification',
       context: {
-        name: 'Hi!',
-        confirmation_url: `example.com/auth/confirm?token=1234`,
+        full_name: payload.recipient.fullName,
+        username: payload.recipient.username,
+        app_name: APP_NAME,
+        confirmation_url: `${this.configService.get(
+          'UI_URL',
+        )}/confirm-email?token=${this.jwtService.sign({
+          email: RECIPIENT_EMAIL,
+        })}`,
       },
     });
   }

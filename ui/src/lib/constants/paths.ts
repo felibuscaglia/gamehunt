@@ -21,6 +21,7 @@ export const UI_PATHS = {
   EDIT_USER_GAME: "/games/edit/:gameId",
   RESET_PASSWORD: "/reset-password",
   CHANGE_PASSWORD: "/change-password",
+  CONFIRM_EMAIL: "/confirm-email",
 };
 
 export const API_PATHS = {
@@ -71,5 +72,5 @@ export const API_PATHS = {
   DELETE_GAME: "/games/:gameId",
   GOOGLE_AUTH: "auth/google",
   RESET_PASSWORD: "/auth/reset-password",
-  CHANGE_PASSWORD: "/auth/change-password"
+  CHANGE_PASSWORD: "/auth/change-password",
 };

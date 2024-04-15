@@ -32,6 +32,8 @@ import {
   SignUpDto,
 } from './dto';
 import { UsersService } from 'users/users.service';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { Event } from 'lib/enums';
 
 @Controller('auth')
 export class AuthController {
@@ -39,6 +41,7 @@ export class AuthController {
     private readonly authService: AuthService,
     private readonly configService: ConfigService,
     private readonly usersService: UsersService,
+    private readonly eventEmitter: EventEmitter2,
   ) {}
 
   @UseGuards(LocalAuthGuard)
@@ -82,14 +85,23 @@ export class AuthController {
   @UseGuards(JwtGuard)
   @Patch('/me')
   async patchMe(
-    @CurrentUser('id') userId: string,
+    @CurrentUser() user: User,
     @Body() patchMeDto: PatchMeDto,
     @Res({ passthrough: true }) response: Response,
   ) {
-    const UPDATED_USER = await this.usersService.update(userId, patchMeDto);
+    if (patchMeDto.isSubscribedToNewsletter && !user.emailConfirmed) {
+      this.eventEmitter.emit(Event.VERIFY_EMAIL, {
+        recipient: user,
+      });
+    }
+
+    const UPDATED_USER = await this.usersService.update(user.id, patchMeDto);
 
     const { accessToken, refreshToken } =
-      await this.authService.generateTokens(UPDATED_USER);
+      await this.authService.generateTokens({
+        ...user,
+        ...UPDATED_USER
+      });
 
     response.cookie(ACCESS_TOKEN_COOKIE_NAME, accessToken, {
       httpOnly: true,

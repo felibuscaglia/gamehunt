@@ -3,15 +3,25 @@ import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
 import { Global, Module } from '@nestjs/common';
 import { EmailService } from './email.service';
 import { join } from 'path';
-import { ConfigService } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GamesModule } from 'games/games.module';
 import { UsersModule } from 'users/users.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Global()
 @Module({
   imports: [
     GamesModule,
     UsersModule,
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        global: true,
+        secret: configService.get('JWT_SECRET'),
+        signOptions: { expiresIn: '6h' },
+      }),
+    }),
     MailerModule.forRootAsync({
       useFactory: async (config: ConfigService) => ({
         transport: {

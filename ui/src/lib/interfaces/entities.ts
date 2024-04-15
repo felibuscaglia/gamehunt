@@ -12,6 +12,7 @@ export interface IAuthUser {
   role: USER_ROLES;
   username: string;
   isSubscribedToNewsletter: boolean;
+  emailConfirmed: boolean;
 }
 
 export interface IUser {
@@ -26,6 +27,7 @@ export interface IUser {
   profilePicture: IImage;
   about?: string;
   isSubscribedToNewsletter: boolean;
+  emailConfirmed: boolean;
 }
 
 export interface IGameMode {

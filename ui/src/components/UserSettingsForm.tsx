@@ -5,7 +5,7 @@ import TextArea from "./Inputs/TextArea";
 import ThumbnailUploader from "./Inputs/Media/ThumbnailUploader";
 import Button from "./Button";
 import useAxiosAuth from "lib/hooks/useAxiosAuth";
-import { API_PATHS } from "lib/constants";
+import { API_PATHS, VALIDATE_EMAIL_WARN } from "lib/constants";
 import toast from "react-hot-toast";
 import SwitchInput from "./Inputs/Switch";
 import { useAppDispatch } from "store";
@@ -62,7 +62,11 @@ const UserSettingsForm: React.FC<IProps> = ({ user }) => {
       .patch<IUser>(API_PATHS.PATCH_ME, input)
       .then(() => {
         dispatch(addUser({ ...user, ...input }));
-        toast.success("User settings saved successfully");
+        if (input.isSubscribedToNewsletter && !user.emailConfirmed) {
+          toast(VALIDATE_EMAIL_WARN);
+        }
+
+        toast.success("User settings saved successfully", { duration: 6000 });
       })
       .catch((err) => {
         if (err?.response?.status === 409) {

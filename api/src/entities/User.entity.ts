@@ -60,6 +60,12 @@ class User {
     default: UserProviders.LOCAL,
   })
   provider: UserProviders;
+
+  @Column({
+    nullable: false,
+    default: false
+  })
+  emailConfirmed: boolean;
 }
 
 export default User;

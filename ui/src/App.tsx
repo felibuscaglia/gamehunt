@@ -32,6 +32,7 @@ import NotificationsScreen from "screens/Notifications";
 import ResetPasswordScreen from "screens/ResetPassword";
 import ChangePasswordScreen from "screens/ChangePassword";
 import { HttpStatusCode } from "axios";
+import ConfirmEmailScreen from "screens/ConfirmEmail";
 
 const App = () => {
   const loadingUser = useAppSelector((state) => state.loading.user);
@@ -112,8 +113,15 @@ const App = () => {
           element={<ChangePasswordScreen />}
           path={UI_PATHS.CHANGE_PASSWORD}
         />
-        <Route element={<ErrorScreen status={HttpStatusCode.NotFound} />} path={UI_PATHS.NOT_FOUND} />
-        <Route element={<ErrorScreen status={HttpStatusCode.NotFound} />} path="*" />
+        <Route element={<ConfirmEmailScreen />} path={UI_PATHS.CONFIRM_EMAIL} />
+        <Route
+          element={<ErrorScreen status={HttpStatusCode.NotFound} />}
+          path={UI_PATHS.NOT_FOUND}
+        />
+        <Route
+          element={<ErrorScreen status={HttpStatusCode.NotFound} />}
+          path="*"
+        />
       </Routes>
       <Toaster position="bottom-center" />
     </>

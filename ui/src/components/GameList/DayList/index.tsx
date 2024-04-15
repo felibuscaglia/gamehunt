@@ -25,7 +25,7 @@ const GameDayList: React.FC<IProps> = ({ games, date }) => {
           See all
         </Link>
       </section>
-      <section className="mt-4 flex flex-col divide-y divide-y-primary-brand-color-extra-light">
+      <section className="mt-4 flex flex-col">
         {games.map((game, i) => (
           <Game game={game} index={i} key={`game-${i}-${date}`} />
         ))}

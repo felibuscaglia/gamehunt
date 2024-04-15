@@ -27,7 +27,7 @@ import { ResetPasswordToken } from '../entities';
       useFactory: async (configService: ConfigService) => ({
         global: true,
         secret: configService.get('JWT_SECRET'),
-        signOptions: { expiresIn: '15m' },
+        signOptions: { expiresIn: '10s' },
       }),
     }),
   ],

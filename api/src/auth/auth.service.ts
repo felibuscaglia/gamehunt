@@ -37,6 +37,7 @@ export class AuthService {
       role: true,
       username: true,
       isSubscribedToNewsletter: true,
+      emailConfirmed: true,
     });
 
     if (user && (await compare(password, user.password))) {
@@ -56,6 +57,7 @@ export class AuthService {
       role: user.role,
       username: user.username,
       isSubscribedToNewsletter: user.isSubscribedToNewsletter,
+      emailConfirmed: user.emailConfirmed
     };
 
     return {
@@ -87,8 +89,6 @@ export class AuthService {
       signUpDto.provider,
     );
 
-    this.eventEmitter.emit(Event.VERIFY_EMAIL);
-
     return newUser;
   }
 
@@ -100,6 +100,7 @@ export class AuthService {
       role: user.role,
       username: user.username,
       isSubscribedToNewsletter: user.isSubscribedToNewsletter,
+      emailConfirmed: user.emailConfirmed
     };
 
     return {

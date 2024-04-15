@@ -43,9 +43,7 @@ const HomeScreen = () => {
         {USER && !USER.isSubscribedToNewsletter && (
           <NewsletterSignup user={USER} />
         )}
-        <div id="productList" className="h-full">
-          <GameList games={gamesByDay} setGames={setGamesByDay} />
-        </div>
+        <GameList games={gamesByDay} setGames={setGamesByDay} />
       </section>
     </main>
   );

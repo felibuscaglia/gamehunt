@@ -46,15 +46,14 @@ const GameList: React.FC<IProps> = ({ games, setGames }) => {
       dataLength={Object.keys(games).length}
       hasMore={hasMore}
       next={fetchProductsByDay}
-      loader={[...Array(8)].map((_, i) => (
-        <Skeleton key={`loader-${i}`} height={56} className="mb-4" />
+      loader={[...Array(10)].map((_, i) => (
+        <Skeleton key={`loader-${i}`} height={70} />
       ))}
       endMessage={
         <span className="mt-4 text-sm block text-center text-gray-500">
           🎉 You've reached the end!
         </span>
       }
-      scrollableTarget="body"
       className="flex flex-col gap-8"
     >
       {Object.entries(games).map(([dateString, dayGames]) => (
