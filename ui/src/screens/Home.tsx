@@ -38,7 +38,7 @@ const HomeScreen = () => {
   return (
     <main>
       <PageHead />
-      <section className="w-10/12 mx-auto min-h-screen flex-grow">
+      <section className="w-11/12 sm:w-10/12 mx-auto min-h-screen flex-grow">
         <TrendingSection />
         {USER && !USER.isSubscribedToNewsletter && (
           <NewsletterSignup user={USER} />
