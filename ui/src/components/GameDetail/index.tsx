@@ -17,6 +17,8 @@ import { createRef } from "react";
 import ShareGameDialog from "components/Dialog/ShareGameDialog";
 import { Link } from "react-router-dom";
 
+import "react-image-gallery/styles/css/image-gallery.css";
+
 interface IProps {
   game: IGame;
   onUpvoteBtnClick: () => void;

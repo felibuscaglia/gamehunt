@@ -79,10 +79,6 @@ export class SaveGameDto {
 
   @IsOptional()
   @IsString()
-  videoUrl?: string;
-
-  @IsOptional()
-  @IsString()
   @MaxLength(520)
   storyline?: string;
 }

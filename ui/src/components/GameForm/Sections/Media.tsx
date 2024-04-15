@@ -30,34 +30,13 @@ const MediaSection = () => {
       </div>
       <hr className="border-t border-t-gray-200" />
       <h6 className={TITLE_CLASSNAMES}>Gallery</h6>
-      <div className="w-3/4">
+      <div className="w-3/4 mb-8">
         <GalleryInput />
         {errors.gallery && (
           <span className="text-red-500 text-sm block mt-2 capitalize-first">
             {errors.gallery[0]}
           </span>
         )}
-      </div>
-      <hr className="border-t border-t-gray-200" />
-      <div>
-        <h6 className={TITLE_CLASSNAMES}>Video</h6>
-        <p className="mt-4 text-gray-700">
-          Share a video trailer or gameplay of your game by providing a link
-          from YouTube or Loom (optional).
-        </p>
-      </div>
-      <div className="w-1/2 mb-8">
-        <TextInput
-          label="Link"
-          value={input.videoUrl || ""}
-          id="videoUrl"
-          onChange={({ target }) =>
-            setInput({ ...input, videoUrl: target.value })
-          }
-          textSize="small"
-          placeholder="Enter your Loom/YouTube video URL here..."
-          error={(errors.videoUrl || [])[0]}
-        />
       </div>
     </div>
   );

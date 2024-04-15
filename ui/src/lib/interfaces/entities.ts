@@ -47,7 +47,6 @@ export interface IGame {
   links?: IGameLink[];
   thumbnail?: IImage;
   gallery: IImage[];
-  videoUrl?: string;
   platforms: IPlatform[];
   modes: IGameMode[];
   storyline?: string;

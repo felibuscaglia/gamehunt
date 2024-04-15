@@ -122,8 +122,6 @@ export class GamesService {
   }
 
   public async publish(game: Game) {
-    game.videoUrl = game.videoUrl || null;
-
     const GAME_ERRORS = await validate(plainToInstance(PublishGameDto, game));
 
     let linkErrors: ValidationError[] = [];

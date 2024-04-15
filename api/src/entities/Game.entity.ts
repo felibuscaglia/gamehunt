@@ -109,13 +109,10 @@ class Game {
   })
   modes: GameMode[];
 
-  @Column({ nullable: true, name: 'video_url' })
-  videoUrl?: string;
-
   @Column({ nullable: true })
   storyline?: string;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, name: "url_slug" })
   urlSlug?: string;
 
   @CreateDateColumn({

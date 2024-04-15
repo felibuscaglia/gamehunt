@@ -116,17 +116,6 @@ export class PublishGameDto {
 
   @IsOptional()
   @IsString()
-  @IsUrl(
-    {},
-    {
-      message:
-        'The provided URL is not valid. Please ensure it follows the correct format.',
-    },
-  )
-  videoUrl?: string;
-
-  @IsOptional()
-  @IsString()
   @MaxLength(520)
   storyline?: string;
 }

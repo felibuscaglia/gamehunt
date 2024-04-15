@@ -41,7 +41,7 @@ const formatSectionErrors = (
   }
 
   for (const key in errors) {
-    if (!["links", "videoUrl", "gallery", "thumbnail"].includes(key)) {
+    if (!["links", "gallery", "thumbnail"].includes(key)) {
       sectionOneHasError = true;
       break;
     }
@@ -51,7 +51,7 @@ const formatSectionErrors = (
     sectionTwoHasError = true;
   }
 
-  if ("videoUrl" in errors || "gallery" in errors || "thumbnail" in errors) {
+  if ("gallery" in errors || "thumbnail" in errors) {
     sectionThreeHasError = true;
   }
 
