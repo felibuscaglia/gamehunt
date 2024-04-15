@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   ConflictException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -15,6 +16,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as crypto from 'crypto';
 import { INVALID_RESET_PASSWORD_TOKEN_ERROR_MSG } from './lib/constants';
+import { UserProviders } from 'users/lib/enums';
 
 @Injectable()
 export class AuthService {
@@ -38,9 +40,20 @@ export class AuthService {
       username: true,
       isSubscribedToNewsletter: true,
       emailConfirmed: true,
+      provider: true,
     });
 
-    if (user && (await compare(password, user.password))) {
+    if (!user) {
+      return result;
+    }
+
+    if (user.provider !== UserProviders.LOCAL) {
+      throw new ForbiddenException(
+        `It seems you signed up using social login. Please use the corresponding ${user.provider} login option.`,
+      );
+    }
+
+    if (await compare(password, user.password)) {
       const { password, ...userData } = user;
 
       result = userData;

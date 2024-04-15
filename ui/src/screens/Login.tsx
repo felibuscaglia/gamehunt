@@ -47,7 +47,7 @@ const LogInScreen = () => {
         if (err?.response?.status === HttpStatusCode.Unauthorized) {
           setError(true);
         } else {
-          toast.error(UNEXPECTED_ERROR_MSG);
+          toast.error(err?.response?.data?.message || UNEXPECTED_ERROR_MSG);
         }
 
         setLoading(false);
