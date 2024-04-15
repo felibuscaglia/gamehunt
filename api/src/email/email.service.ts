@@ -83,7 +83,6 @@ export class EmailService {
         reset_password_url: `${this.configService.get(
           'UI_URL',
         )}/change-password?token=${payload.token}&id=${payload.recipient.id}`,
-        app_name: APP_NAME,
       },
     });
   }
