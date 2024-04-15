@@ -57,12 +57,13 @@ export class UsersService {
     newUser.password = password || null;
     newUser.username = fullName.toLowerCase().replace(/\s/g, '');
     newUser.provider = provider;
+    newUser.emailConfirmed = provider !== UserProviders.LOCAL;
 
     try {
       return await this.usersRepository.save(newUser);
     } catch (error) {
       if (error.code === '23505') {
-        newUser.username = this.generateRandomUsername();
+        newUser.username = await this.generateRandomUsername();
         return await this.usersRepository.save(newUser);
       }
       throw error;
@@ -84,7 +85,15 @@ export class UsersService {
     }
   }
 
-  private generateRandomUsername(): string {
-    return 'user-' + uuidv4();
+  private async generateRandomUsername() {
+    let username = 'user-' + uuidv4();
+    let existingUserWithUsername = await this.findOne({ username });
+
+    while (existingUserWithUsername) {
+      username = 'user-' + uuidv4();
+      existingUserWithUsername = await this.findOne({ username });
+    }
+
+    return username;
   }
 }
