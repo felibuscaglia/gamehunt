@@ -35,16 +35,21 @@ export class EmailService {
       emailConfirmed: true,
     });
 
+    const CONTEXT = {
+      date: YESTERDAY.format('dddd, D MMMM YYYY'),
+      games: YESTERDAY_GAMES,
+      leaderboard_url: `${this.configService.get('UI_URL')}/leaderboard?date=${
+        YESTERDAY.format('YYYY-MM-DD')
+      }`,
+    };
+
     for (const USER of SUBSCRIBED_USERS) {
       try {
         await this.mailerService.sendMail({
           to: USER.email,
           subject: 'GameHunt Daily Newsletter',
           template: './newsletter',
-          context: {
-            date: YESTERDAY.format('dddd, D MMMM YYYY'),
-            games: YESTERDAY_GAMES,
-          },
+          context: CONTEXT,
         });
       } catch (err) {
         console.error(err);
