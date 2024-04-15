@@ -57,7 +57,7 @@ export class AuthService {
       role: user.role,
       username: user.username,
       isSubscribedToNewsletter: user.isSubscribedToNewsletter,
-      emailConfirmed: user.emailConfirmed
+      emailConfirmed: user.emailConfirmed,
     };
 
     return {
@@ -100,7 +100,7 @@ export class AuthService {
       role: user.role,
       username: user.username,
       isSubscribedToNewsletter: user.isSubscribedToNewsletter,
-      emailConfirmed: user.emailConfirmed
+      emailConfirmed: user.emailConfirmed,
     };
 
     return {
@@ -159,6 +159,38 @@ export class AuthService {
       recipient: USER,
       token: RESET_TOKEN,
     });
+  }
+
+  public async confirmEmail(email: string) {
+    const USER = await this.usersService.findOne({ email });
+
+    if (!USER) {
+      throw new NotFoundException('User not found');
+    }
+
+    if (USER.emailConfirmed) {
+      throw new BadRequestException('Email already confirmed');
+    }
+
+    await this.usersService.update(USER.id, { emailConfirmed: true });
+
+    return {
+      ...USER,
+      emailConfirmed: true,
+    };
+  }
+
+  public async decodeConfirmationToken(token: string) {
+    try {
+      const PAYLOAD = await this.jwtService.verify(token);
+
+      return PAYLOAD.email;
+    } catch (error) {
+      if (error?.name === 'TokenExpiredError') {
+        throw new BadRequestException('Email confirmation token expired');
+      }
+      throw new BadRequestException('Bad confirmation token');
+    }
   }
 
   private async _hash(unhashedString: string) {

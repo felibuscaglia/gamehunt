@@ -27,6 +27,7 @@ import {
 import { Response } from 'express';
 import {
   ChangePasswordDto,
+  ConfirmEmailDto,
   PatchMeDto,
   ResetPasswordDto,
   SignUpDto,
@@ -97,11 +98,12 @@ export class AuthController {
 
     const UPDATED_USER = await this.usersService.update(user.id, patchMeDto);
 
-    const { accessToken, refreshToken } =
-      await this.authService.generateTokens({
+    const { accessToken, refreshToken } = await this.authService.generateTokens(
+      {
         ...user,
-        ...UPDATED_USER
-      });
+        ...UPDATED_USER,
+      },
+    );
 
     response.cookie(ACCESS_TOKEN_COOKIE_NAME, accessToken, {
       httpOnly: true,
@@ -203,5 +205,23 @@ export class AuthController {
     });
 
     return response.redirect(this.configService.get('UI_URL'));
+  }
+
+  @Post('/confirm-email')
+  async confirmUserEmail(@Body() { token }: ConfirmEmailDto, @Res({ passthrough: true }) response: Response,) {
+    const EMAIL = await this.authService.decodeConfirmationToken(token);
+    const UPDATED_USER = await this.authService.confirmEmail(EMAIL);
+
+    const { refreshToken, accessToken } =
+      await this.authService.generateTokens(UPDATED_USER);
+
+    response.cookie(ACCESS_TOKEN_COOKIE_NAME, accessToken, {
+      httpOnly: true,
+      domain: this.configService.get('UI_DOMAIN'),
+    });
+    response.cookie(REFRESH_TOKEN_COOKIE_NAME, refreshToken, {
+      httpOnly: true,
+      domain: this.configService.get('UI_DOMAIN'),
+    });
   }
 }

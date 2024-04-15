@@ -73,4 +73,5 @@ export const API_PATHS = {
   GOOGLE_AUTH: "auth/google",
   RESET_PASSWORD: "/auth/reset-password",
   CHANGE_PASSWORD: "/auth/change-password",
+  CONFIRM_EMAIL: "/auth/confirm-email",
 };

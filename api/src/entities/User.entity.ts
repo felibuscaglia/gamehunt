@@ -16,7 +16,7 @@ class User {
   @PrimaryGeneratedColumn('uuid', { name: 'user_id' })
   id: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, name: 'full_name' })
   fullName: string;
 
   @Column({ type: 'varchar', nullable: true, select: false })
@@ -34,7 +34,12 @@ class User {
   @Column({ nullable: true, length: 300 })
   about?: string;
 
-  @Column({ nullable: false, default: false, type: 'boolean' })
+  @Column({
+    nullable: false,
+    default: false,
+    type: 'boolean',
+    name: 'is_subscribed_to_newsletter',
+  })
   isSubscribedToNewsletter: boolean;
 
   @OneToOne(() => Image, { nullable: true })
@@ -63,7 +68,8 @@ class User {
 
   @Column({
     nullable: false,
-    default: false
+    default: false,
+    name: 'email_confirmed',
   })
   emailConfirmed: boolean;
 }
