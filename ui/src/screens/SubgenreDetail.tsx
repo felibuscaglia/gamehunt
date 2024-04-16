@@ -43,15 +43,15 @@ const SubgenreDetailScreen = () => {
           color={PRIMARY_BRAND_COLOR}
         />
       ) : (
-        <div className="w-10/12 mx-auto py-5">
-          <h2 className="text-3xl font-semibold pb-10 text-primary-brand-color-medium">{subgenre.name} games</h2>
+        <div className="w-11/12 sm:w-10/12 mx-auto py-5">
+          <h2 className="text-2xl sm:text-3xl font-semibold pb-5 sm:pb-10 text-primary-brand-color-medium sm:text-left text-center">{subgenre.name} games</h2>
           <section className="flex items-start gap-8">
-            <div className="w-9/12">
+            <div className="sm:w-9/12">
               {(subgenre.games || []).map((game, i) => (
                 <Game index={i} game={game} key={`subgenre-game-${game.id}`} />
               ))}
             </div>
-            <div className="w-3/12 py-3">
+            <div className="w-3/12 py-3 sm:block hidden">
               <label className="uppercase text-xs font-semibold text-gray-500 mb-8">
                 {subgenre.genre?.name}
               </label>
