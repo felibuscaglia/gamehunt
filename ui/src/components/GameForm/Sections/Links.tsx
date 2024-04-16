@@ -1,7 +1,9 @@
+import Button from "components/Button";
 import PlusButton from "components/Button/Plus";
 import GameLinkInput from "components/Inputs/GameLink";
 import { API_PATHS, UNEXPECTED_ERROR_MSG } from "lib/constants";
 import { GameFormContext } from "lib/contexts/GameForm.context";
+import { GameCreationSidebarSectionIndexes } from "lib/enums";
 import useAxiosAuth from "lib/hooks/useAxiosAuth";
 import { IGameLink } from "lib/interfaces";
 import { useContext, useEffect, useState } from "react";
@@ -12,7 +14,7 @@ const LINK_AMOUNT_LIMIT = 11;
 const LinksSection = () => {
   const [loading, setLoading] = useState(false);
 
-  const { input, setInput, errors } = useContext(GameFormContext);
+  const { input, setInput, errors, setSelectedSection } = useContext(GameFormContext);
 
   const authApiClient = useAxiosAuth();
 
@@ -80,9 +82,9 @@ const LinksSection = () => {
   };
 
   return (
-    <div className="flex flex-col gap-8">
-      <h6 className="font-bold text-2xl">Where can users find your game?</h6>
-      <section className="w-3/4 flex flex-col gap-4">
+    <div className="flex flex-col gap-4 sm:gap-8">
+      <h6 className="font-bold text-lg sm:text-2xl">Where can users find your game?</h6>
+      <section className="sm:w-3/4 flex flex-col gap-4">
         {LINKS.length ? (
           LINKS.map(({ url, platform, id }, i) => (
             <GameLinkInput
@@ -125,6 +127,16 @@ const LinksSection = () => {
           {errors.links[0]}
         </span>
       )}
+      <div className="sm:w-2/12 my-8">
+        <Button
+          onClick={() => {
+            setSelectedSection(GameCreationSidebarSectionIndexes.MEDIA);
+            window.scrollTo(0, 0);
+          }}
+          text="Next step: Media"
+          textSize="small"
+        />
+      </div>
     </div>
   );
 };

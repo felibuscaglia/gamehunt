@@ -80,7 +80,7 @@ const ThumbnailUploader: React.FC<IProps> = ({ onFileUpload, thumbnail }) => {
       )}
       <div className="h-20 grow justify-center gap-2 flex flex-col">
         <div className="flex items-center gap-4">
-          <div className="w-1/4">
+          <div className="w-full sm:w-1/4">
             <Button
               text="Upload an image"
               textSize="small"

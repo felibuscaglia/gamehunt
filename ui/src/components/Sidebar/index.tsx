@@ -9,7 +9,7 @@ interface IProps {
 
 const Sidebar: React.FC<IProps> = ({ selectedSection, onSectionClick, sections }) => {
   return (
-    <div className="w-3/12">
+    <div className="w-3/12 hidden sm:block">
       <div className="flex flex-col gap-1 sticky top-[200px]">
         {sections.map((section, i) => (
           <Section

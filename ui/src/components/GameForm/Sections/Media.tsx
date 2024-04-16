@@ -12,7 +12,7 @@ const MediaSection = () => {
   return (
     <div className="flex flex-col gap-8">
       <h6 className={TITLE_CLASSNAMES}>Thumbnail</h6>
-      <div className="w-3/4">
+      <div className="sm:w-3/4">
         <ThumbnailUploader
           thumbnail={input.thumbnail}
           onFileUpload={(thumbnail) =>
@@ -30,7 +30,7 @@ const MediaSection = () => {
       </div>
       <hr className="border-t border-t-gray-200" />
       <h6 className={TITLE_CLASSNAMES}>Gallery</h6>
-      <div className="w-3/4 mb-8">
+      <div className="sm:w-3/4 mb-8">
         <GalleryInput />
         {errors.gallery && (
           <span className="text-red-500 text-sm block mt-2 capitalize-first">
