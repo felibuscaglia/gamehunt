@@ -30,19 +30,19 @@ const AuthFormLayout: React.FC<IProps> = ({
 }) => {
   return (
     <main className="h-screen flex flex-col">
-      <nav className="w-10/12 mx-auto py-4 flex items-center justify-between">
+      <nav className="w-11/12 sm:w-10/12 mx-auto py-4 flex items-center justify-between">
         <Link to={UI_PATHS.HOME}>
           <Logo size={40} withName />
         </Link>
-        <section className="flex items-center gap-6">
+        <section className="flex items-center gap-3 sm:gap-6">
           <AuthButtons />
         </section>
       </nav>
-      <div className="flex-grow w-10/12 mx-auto flex flex-col items-center justify-center gap-8">
-        <h2 className="text-5xl font-bold">{title}</h2>
+      <div className="flex-grow w-11/12 sm:w-10/12 mx-auto flex flex-col items-center justify-center gap-8">
+        <h2 className="text-2xl sm:text-5xl font-bold">{title}</h2>
         {displayError && errorComponent}
         {withSso && <SocialAuth />}
-        <form className="w-1/4 flex flex-col gap-4" onSubmit={onSubmit}>
+        <form className="w-full sm:w-1/4 flex flex-col gap-4" onSubmit={onSubmit}>
           {children}
           <Button type="submit" text={buttonText} loading={loading} />
         </form>
