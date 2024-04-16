@@ -66,7 +66,7 @@ const DayListGame: React.FC<IProps> = ({
           </span>
         </div>
       ) : (
-        <span className="text-sm text-gray-500">
+        <span className="text-sm text-gray-500 whitespace-nowrap">
           {dayjs(game.postedAt).format("MMM YYYY")}
         </span>
       )}
