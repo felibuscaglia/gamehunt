@@ -3,7 +3,7 @@ import PageHead from "components/PageHead";
 import { apiClient } from "lib/axios/apiClient";
 import {
   API_PATHS,
-  PRIMARY_BRAND_COLOR,
+  APP_NAME,
   UI_PATHS,
   UNEXPECTED_ERROR_MSG,
 } from "lib/constants";
@@ -12,8 +12,10 @@ import { IGame } from "lib/interfaces";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
-import { PacmanLoader } from "react-spinners";
 import { useAppSelector } from "store";
+import LoadingScreen from "./Loading";
+import { Helmet } from "react-helmet-async";
+import MetaTags from "components/MetaTags";
 
 const GameDetailScreen = () => {
   const [loading, setLoading] = useState(true);
@@ -28,10 +30,10 @@ const GameDetailScreen = () => {
   const user = useAppSelector((state) => state.user.user);
 
   useEffect(() => {
-    if(!loading) {
+    if (!loading) {
       setLoading(true);
     }
-    
+
     apiClient
       .get<IGame>(
         API_PATHS.GET_GAME_BY_URL_SLUG.replace(":gameUrlSlug", gameUrlSlug)
@@ -86,23 +88,24 @@ const GameDetailScreen = () => {
       );
   };
 
+  if (loading || !game) {
+    return <LoadingScreen />;
+  }
+
   return (
     <main>
+      <MetaTags
+        description={game.description || ""}
+        title={`${game.name} Details, Updates, and Reviews | ${APP_NAME}`}
+        image={game.thumbnail?.url}
+      />
       <PageHead />
-      {loading || !game ? (
-        <PacmanLoader
-          className="absolute inset-1/2"
-          style={{ transform: "translate(-50%, -50%)" }}
-          color={PRIMARY_BRAND_COLOR}
-        />
-      ) : (
-        <GameDetail
-          onUpvoteBtnClick={onUpvoteBtnClick}
-          game={game}
-          userUpvoted={userUpvoted}
-          upvoteCount={upvoteCount}
-        />
-      )}
+      <GameDetail
+        onUpvoteBtnClick={onUpvoteBtnClick}
+        game={game}
+        userUpvoted={userUpvoted}
+        upvoteCount={upvoteCount}
+      />
     </main>
   );
 };
