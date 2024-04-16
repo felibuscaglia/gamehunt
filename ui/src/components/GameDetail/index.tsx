@@ -47,20 +47,20 @@ const GameDetail: React.FC<IProps> = ({
   };
 
   return (
-    <div className="w-1/2 mx-auto">
-      <section className="py-5 flex items-center gap-8">
+    <div className="w-11/12 sm:w-1/2 mx-auto">
+      <section className="py-5 flex flex-col sm:flex-row items-center justify-center sm:justify-normal gap-4 sm:gap-8">
         <Thumbnail url={game.thumbnail?.url || ""} />
-        <div>
-          <h1 className="text-2xl font-bold">{game.name}</h1>
+        <div className="text-center sm:text-left">
+          <h1 className="text-lg sm:text-2xl font-bold">{game.name}</h1>
           {game.tagline && (
-            <span className="font-light text-gray-400 text-lg italic">
+            <span className="font-light text-gray-400 sm:text-lg italic">
               {game.tagline}
             </span>
           )}
         </div>
       </section>
-      <section className="flex items-center justify-between mt-2">
-        <div className="flex items-center gap-4">
+      <section className="flex flex-col gap-4 sm:gap-0 sm:flex-row sm:items-center sm:justify-between mt-2">
+        <div className="flex items-center justify-center sm:justify-normal gap-2 sm:gap-4">
           <Link
             to={UI_PATHS.USER_PROFILE.replace(
               ":username",
@@ -95,7 +95,7 @@ const GameDetail: React.FC<IProps> = ({
             <Tooltip id="user-involved-in-development" />
           </Link>
         </div>
-        <div className="flex items-center gap-4 w-1/2">
+        <div className="flex items-center gap-4 w-full sm:w-1/2">
           <button
             className="flex items-center gap-1 hover:text-primary-brand-color"
             onClick={navigateToCommentsSection}
@@ -110,11 +110,11 @@ const GameDetail: React.FC<IProps> = ({
           />
           <button
             onClick={onUpvoteBtnClick}
-            className={`text-sm flex items-center gap-2 justify-center border border-primary-brand-color w-[170px] ${
+            className={`text-sm flex items-center gap-2 justify-center border border-primary-brand-color w-full sm:w-[170px] ${
               userUpvoted
                 ? "text-primary-brand-color"
                 : "bg-primary-brand-color text-white hover:bg-primary-brand-color-reduced"
-            } rounded font-medium py-4`}
+            } rounded font-medium py-2 sm:py-4`}
           >
             <IconChevronUp />
             <span>
@@ -123,9 +123,9 @@ const GameDetail: React.FC<IProps> = ({
           </button>
         </div>
       </section>
-      <section className="flex items-start my-8">
-        <div className="flex flex-col gap-4 w-3/4">
-          <p>{game.description}</p>
+      <section className="flex sm:flex-row flex-col items-start my-8">
+        <div className="flex flex-col gap-4 w-full sm:w-3/4">
+          <p className="sm:text-left text-center">{game.description}</p>
           <Tags<ISubgenre>
             elements={game.subgenres}
             title="Genres"
@@ -148,7 +148,7 @@ const GameDetail: React.FC<IProps> = ({
             displayKey="name"
           />
           {game.storyline && (
-            <section>
+            <section className="text-center sm:text-left">
               <h6 className="font-semibold mb-2 underline">Storyline</h6>
               <p>{game.storyline}</p>
             </section>

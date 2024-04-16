@@ -18,8 +18,8 @@ const GameDetailTags = <T,>({
 }: IProps<T>) => {
   return (
     <section className="w-full">
-      <span className="font-semibold underline">{title}</span>
-      <div className="flex items-center gap-2 mt-2 flex-wrap">
+      <span className="font-semibold underline sm:inline block sm:text-left text-center">{title}</span>
+      <div className="flex items-center sm:justify-normal justify-center gap-2 mt-2 flex-wrap">
         {elements.map((el) =>
           urlSlugGenerator ? (
             <Link

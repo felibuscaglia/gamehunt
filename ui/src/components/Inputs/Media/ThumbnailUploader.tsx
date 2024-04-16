@@ -67,20 +67,20 @@ const ThumbnailUploader: React.FC<IProps> = ({ onFileUpload, thumbnail }) => {
   };
 
   return (
-    <div className="flex items-center gap-8 w-full">
+    <div className="flex items-start sm:items-center gap-8 w-full">
       {!thumbnail ? (
-        <div className="flex items-center justify-center border-2 border-dashed rounded h-20 w-20 border-gray-300 p-5">
+        <div className="flex items-center justify-center border-2 border-dashed rounded h-14 min-w-14 sm:h-20 sm:w-20 border-gray-300 p-5">
           <IconPhotoScan className="text-gray-400" size={40} />
         </div>
       ) : (
         <div
-          className="bg-center bg-cover bg-no-repeat rounded h-20 w-20"
+          className="bg-center bg-cover bg-no-repeat rounded h-14 min-w-14 sm:h-20 sm:w-20"
           style={{ backgroundImage: `url('${thumbnail.url}')` }}
         />
       )}
       <div className="h-20 grow justify-center gap-2 flex flex-col">
         <div className="flex items-center gap-4">
-          <div className="w-1/4">
+          <div className="w-full sm:w-1/4">
             <Button
               text="Upload an image"
               textSize="small"

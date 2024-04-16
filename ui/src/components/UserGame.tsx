@@ -23,7 +23,7 @@ const UserGame: React.FC<IProps> = ({ game }) => {
   const IS_DRAFT = game.status === GameStatus.DRAFT;
   return (
     <>
-      <div className="flex items-center justify-between py-8 border-b border-b-gray-200">
+      <div className="flex sm:items-center sm:flex-row gap-4 sm:gap-0 flex-col justify-between py-8 border-b border-b-gray-200">
         <section className="flex items-center gap-2">
           {game.thumbnail?.url ? (
             <div
@@ -33,7 +33,7 @@ const UserGame: React.FC<IProps> = ({ game }) => {
           ) : (
             <div className="h-16 w-16 rounded bg-primary-brand-color-extra-light p-4">
               <IconDeviceGamepad3
-                height={"100%"}
+                 height={"100%"}
                 width={"100%"}
                 color={PRIMARY_BRAND_COLOR}
               />

@@ -48,7 +48,7 @@ const CommentsSectionForm: React.FC<IProps> = ({
         />
       </div>
       <div className="self-end w-1/2 flex flex-row-reverse items-center gap-4">
-        <div className="w-1/2">
+        <div className="w-full sm:w-1/2">
           {user ? (
             <Button
               text={`Post a ${id}`}

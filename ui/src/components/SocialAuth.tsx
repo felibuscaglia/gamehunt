@@ -6,7 +6,7 @@ const BTN_CLASSNAMES =
 
 const SocialAuth = () => {
   return (
-    <div className="flex flex-col gap-4 w-1/4 pb-8 border-b border-b-gray-200">
+    <div className="flex flex-col gap-4 w-full sm:w-1/4 pb-8 border-b border-b-gray-200">
       <button
         className={BTN_CLASSNAMES}
         onClick={() =>

@@ -25,7 +25,7 @@ import PlusButton from "components/Button/Plus";
 import useAxiosAuth from "lib/hooks/useAxiosAuth";
 import { API_PATHS } from "lib/constants";
 
-const SECTION_CLASSNAMES = "w-1/2 flex flex-col gap-8";
+const SECTION_CLASSNAMES = "sm:w-1/2 flex flex-col gap-8";
 
 const RADIO_BUTTON_OPTIONS: IRadioButtonOption[] = [
   { id: "free", value: GamePricing.FREE, text: "Free" },
@@ -265,7 +265,7 @@ const MainInfoSection = () => {
           onClick={handleAddPlatformBtnClick}
           disabled={loading.platforms}
         />
-        <div className="w-full" />
+        <div className="hidden sm:inline sm:w-full" />
       </section>
       <section
         className={`${
@@ -305,7 +305,7 @@ const MainInfoSection = () => {
           disabled={loading.modes}
         />
         <PlusButton onClick={handleAddModeBtnClick} disabled={loading.modes} />
-        <div className="w-full" />
+        <div className="hidden sm:inline sm:w-full" />
       </section>
       <section
         className={`${
@@ -337,7 +337,7 @@ const MainInfoSection = () => {
         }
         error={(errors.pricing || [])[0]}
       />
-      <div className="w-2/12 my-8">
+      <div className="sm:w-2/12 my-8">
         <Button
           onClick={() => {
             setSelectedSection(GameCreationSidebarSectionIndexes.LINKS);

@@ -14,7 +14,7 @@ const GameDayList: React.FC<IProps> = ({ games, date }) => {
   return (
     <div>
       <section className="flex items-center justify-between">
-        <p className="text-3xl flex items-center gap-2">
+        <p className="text-lg sm:text-3xl flex items-center gap-2">
           <strong>{DATE_DIFF}</strong>
           <span className="text-primary-brand-color-light">{REST.join(' ')}</span>
         </p>
@@ -25,7 +25,7 @@ const GameDayList: React.FC<IProps> = ({ games, date }) => {
           See all
         </Link>
       </section>
-      <section className="mt-4 flex flex-col">
+      <section className="sm:mt-4 flex flex-col">
         {games.map((game, i) => (
           <Game game={game} index={i} key={`game-${i}-${date}`} />
         ))}

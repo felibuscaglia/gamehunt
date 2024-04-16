@@ -37,10 +37,10 @@ const SidebarLayout: React.FC<IProps> = ({
 
   return (
     <section className="w-10/12 mx-auto">
-      <div className="grid grid-cols-5 grid-rows-1 gap-4 border-b sticky top-20 bg-white border-b-gray-200 py-5 z-30">
-        <h2 className="text-3xl font-bold col-span-3">{title}</h2>
+      <div className="sm:grid sm:grid-cols-5 sm:grid-rows-1 gap-4 border-b sticky top-0 sm:top-20 bg-white border-b-gray-200 py-5 z-30">
+        <h2 className="sm:text-left text-center text-3xl font-bold sm:col-span-3">{title}</h2>
         {DISPLAY_INDICATOR && (
-          <div className="col-start-4 w-full flex items-center">
+          <div className="sm:col-start-4 w-full flex items-center sm:justify-normal justify-center my-4 sm:my-0">
             <SavingIndicator
               saving={savingIndicator.saving || false}
               lastSaved={savingIndicator.lastSaved || null}
@@ -49,7 +49,7 @@ const SidebarLayout: React.FC<IProps> = ({
           </div>
         )}
         {btnText && (
-          <div className="w-full col-start-5 my-auto">
+          <div className="w-full sm:col-start-5 my-auto">
             <Button text={btnText} onClick={onBtnClick} loading={btnLoading} />
           </div>
         )}

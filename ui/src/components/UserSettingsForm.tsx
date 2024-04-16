@@ -80,7 +80,7 @@ const UserSettingsForm: React.FC<IProps> = ({ user }) => {
 
   return (
     <form
-      className="my-8 w-3/4 flex flex-col gap-4"
+      className="my-5 sm:my-8 sm:w-3/4 flex flex-col gap-4"
       onSubmit={handleFormSubmit}
     >
       <div>

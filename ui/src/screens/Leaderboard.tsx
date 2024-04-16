@@ -60,7 +60,7 @@ const LeaderboardScreen = () => {
   return (
     <main>
       <PageHead />
-      <section className="w-10/12 mx-auto py-5">
+      <section className="w-11/12 sm:w-10/12 mx-auto py-5">
         {DATE_PARAM && (
           <h2 className="text-3xl flex items-center gap-2 mb-4">
             <strong>{DATE_DIFF}</strong>
