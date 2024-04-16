@@ -42,13 +42,13 @@ const getPlatformIcon = (platform: Platform) => {
 
 const GameDetailLinks: React.FC<IProps> = ({ links }) => {
   return (
-    <div className="flex flex-col w-1/4 gap-4 ml-8">
+    <div className="flex flex-col w-full sm:w-1/4 gap-4 mt-8 sm:mt-0 sm:ml-8">
       {links.map(({ platform, url }) => (
         <a
           href={url}
           target="_blank"
           rel="noreferrer"
-          className="flex items-center gap-1 hover:text-primary-brand-color hover:underline"
+          className="flex items-center sm:justify-normal justify-center gap-1 hover:text-primary-brand-color hover:underline"
           key={`game-link-${platform}`}
         >
           {platform && (

@@ -40,7 +40,7 @@ const DialogLayout: React.FC<IProps> = ({ display, setDisplay, children }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-1/2 flex flex-col items-center transform overflow-hidden rounded-2xl bg-white p-6 text-left shadow-xl transition-all relative">
+              <Dialog.Panel className="w-full sm:w-1/2 flex flex-col items-center transform overflow-hidden rounded-2xl bg-white p-6 text-left shadow-xl transition-all relative">
                 <button
                   className="absolute top-2 right-2"
                   onClick={() => setDisplay(false)}
