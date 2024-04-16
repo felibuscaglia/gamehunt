@@ -17,10 +17,10 @@ const Notification: React.FC<IProps> = ({ notification }) => {
 
   return (
     <div
-      className="p-5 bg-white rounded h-[88px] flex items-center justify-between"
+      className="p-5 bg-white rounded sm:h-[88px] flex sm:flex-row flex-col items-center justify-between"
       style={{ boxShadow: "0 1px 2px 0 rgba(0,0,0,.1)" }}
     >
-      <section className="flex items-center gap-4 w-10/12">
+      <section className="flex items-center gap-4 sm:w-10/12">
         {IS_UPVOTE ? (
           <div className="flex flex-col items-center">
             <IconCaretUp
@@ -56,7 +56,7 @@ const Notification: React.FC<IProps> = ({ notification }) => {
           )}
         </p>
       </section>
-      <span className="text-sm text-gray-500 whitespace-nowrap w-2/12 text-right">
+      <span className="mt-2 sm:mt-0 text-sm text-gray-500 whitespace-nowrap w-full sm:w-2/12 text-right">
         {dayjs(notification.createdAt).fromNow()}
       </span>
     </div>

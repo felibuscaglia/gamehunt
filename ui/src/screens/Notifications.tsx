@@ -12,9 +12,9 @@ const NotificationsScreen = () => {
     >
       {(notifications) => (
         <section className="flex-grow bg-primary-brand-color-extra-light">
-          <div className="w-10/12 mx-auto py-8">
+          <div className="w-11/12 sm:w-10/12 mx-auto py-8">
             <h2 className="text-2xl font-semibold">Notifications</h2>
-            <div className="flex flex-col gap-4 mt-4 w-3/4">
+            <div className="flex flex-col gap-4 mt-4 sm:w-3/4">
               {notifications.length ? (
                 notifications.map((notification) => (
                   <Notification
