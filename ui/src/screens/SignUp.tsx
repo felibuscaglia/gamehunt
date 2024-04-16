@@ -87,7 +87,7 @@ const SignUpScreen = () => {
       onSubmit={handleFormSubmit}
       loading={loading}
       bottomComponent={
-        <p className="text-xs w-1/2 text-gray-400 text-center">
+        <p className="text-xs sm:w-1/2 text-gray-400 text-center">
           By clicking “Create account” above, you acknowledge that you have read
           and understood, and agree to {APP_NAME}'s{" "}
           <Link className={LINK_CLASSNAMES} to={UI_PATHS.TERMS}>
