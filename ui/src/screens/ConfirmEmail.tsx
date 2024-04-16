@@ -46,7 +46,7 @@ const ConfirmEmailScreen = () => {
     <main className="h-screen flex flex-col">
       <PageHead withMarginBottom={false} />
       <section className="bg-primary-brand-color-light flex-grow flex items-center justify-center">
-        <div className="bg-white rounded p-7 w-1/3 flex flex-col items-center">
+        <div className="bg-white rounded p-7 w-2/3 sm:w-1/3 flex flex-col items-center">
           {loading && <PacmanLoader color={PRIMARY_BRAND_COLOR} />}
           {error && <p>{error}</p>}
           {emailConfirmed && <p>Email confirmed</p>}

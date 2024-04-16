@@ -39,7 +39,7 @@ const AuthFormLayout: React.FC<IProps> = ({
         </section>
       </nav>
       <div className="flex-grow w-11/12 sm:w-10/12 mx-auto flex flex-col items-center justify-center gap-8">
-        <h2 className="text-2xl sm:text-5xl font-bold">{title}</h2>
+        <h2 className="text-2xl sm:text-5xl font-bold text-center">{title}</h2>
         {displayError && errorComponent}
         {withSso && <SocialAuth />}
         <form className="w-full sm:w-1/4 flex flex-col gap-4" onSubmit={onSubmit}>
