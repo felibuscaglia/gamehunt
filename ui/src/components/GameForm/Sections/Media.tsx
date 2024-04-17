@@ -1,6 +1,5 @@
 import GalleryInput from "components/Inputs/Media/Gallery";
 import ThumbnailUploader from "components/Inputs/Media/ThumbnailUploader";
-import TextInput from "components/Inputs/Text";
 import { GameFormContext } from "lib/contexts/GameForm.context";
 import { useContext } from "react";
 

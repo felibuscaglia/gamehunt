@@ -1,9 +1,7 @@
-import ConfirmDeleteDialog from "components/Dialog/ConfirmDeleteDialog";
 import UserGame from "components/UserGame";
 import AuthGuard from "guards/Auth";
 import { API_PATHS, UI_PATHS } from "lib/constants";
 import { IGame } from "lib/interfaces";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const UserGamesScreen = () => {

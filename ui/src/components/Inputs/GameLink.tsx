@@ -3,7 +3,6 @@ import SelectInput from "./Select";
 import TextInput from "./Text";
 import { IGameLinkSelectOption } from "lib/interfaces";
 import { IconMinus } from "@tabler/icons-react";
-import { PRIMARY_BRAND_COLOR } from "lib/constants";
 
 interface IProps {
   onChange: {

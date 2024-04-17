@@ -1,4 +1,4 @@
-import { hydrateRoot } from "react-dom/client";
+import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -6,9 +6,23 @@ import { Provider } from "react-redux";
 import { store } from "./store";
 import { BrowserRouter as Router } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
+import * as Sentry from "@sentry/react";
 
-hydrateRoot(
-    document.getElementById("root"),
+Sentry.init({
+  dsn: "https://b0dc854a77fef857b122c977aae1502e@o4507099539439616.ingest.us.sentry.io/4507099542716416",
+  integrations: [
+    Sentry.browserTracingIntegration(),
+    Sentry.replayIntegration(),
+  ],
+  tracesSampleRate: 1.0,
+  tracePropagationTargets: ["localhost", /^https:\/\/yourserver\.io\/api/],
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1.0,
+});
+
+const root = createRoot(document.getElementById("root") as HTMLElement);
+
+root.render(
   <HelmetProvider>
     <Provider store={store}>
       <Router>

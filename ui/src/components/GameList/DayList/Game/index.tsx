@@ -3,6 +3,7 @@ import { UI_PATHS } from "lib/constants";
 import { IGame } from "lib/interfaces";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
+import styles from "./styles.module.css";
 
 interface IProps {
   game: IGame;
@@ -20,7 +21,7 @@ const DayListGame: React.FC<IProps> = ({
   return (
     <Link
       to={UI_PATHS.GAME_DETAIL.replace(":gameUrlSlug", game.urlSlug || "")}
-      className="px-2 py-4 w-full flex items-center justify-between day-list-game rounded"
+      className={`px-2 py-4 w-full flex items-center justify-between ${styles.dayListGame} rounded`}
     >
       <section className="flex items-center gap-2">
         {index !== undefined && (
@@ -31,7 +32,7 @@ const DayListGame: React.FC<IProps> = ({
         <div
           className=" min-w-8 min-h-8 sm:min-w-12 sm:min-h-12 bg-center bg-cover bg-no-repeat h-8 w-8 sm:h-12 sm:w-12 rounded"
           style={{
-            backgroundImage: `url('${game.thumbnail?.url}')`,
+            backgroundImage: `url('${game.thumbnail?.url}-/resize/144x144/-/format/webp/')`,
           }}
         />
         <div>

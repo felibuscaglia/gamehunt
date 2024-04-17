@@ -5,6 +5,8 @@
   "dependencies": {
     "@headlessui/react": "^1.7.18",
     "@reduxjs/toolkit": "^2.0.1",
+    "@sentry/cli": "^2.31.0",
+    "@sentry/react": "^7.110.1",
     "@tabler/icons-react": "^2.45.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -33,9 +35,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && npm run sentry:sourcemaps && npm run sentry:sourcemaps",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org game-hunt --project javascript-react ./build && sentry-cli sourcemaps upload --org game-hunt --project javascript-react ./build"
   },
   "eslintConfig": {
     "extends": [

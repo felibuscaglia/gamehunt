@@ -1,4 +1,3 @@
-import { IconPlus } from "@tabler/icons-react";
 import Notification from "components/Notification";
 import AuthGuard from "guards/Auth";
 import { API_PATHS } from "lib/constants";

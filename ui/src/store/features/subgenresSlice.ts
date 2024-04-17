@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { IGenre, ISubgenre } from "lib/interfaces";
+import { ISubgenre } from "lib/interfaces";
 
 interface ISubgenreState {
   all: ISubgenre[];

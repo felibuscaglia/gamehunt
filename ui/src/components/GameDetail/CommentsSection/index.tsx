@@ -84,6 +84,8 @@ const GameDetailCommentsSection = forwardRef<HTMLElement, IProps>(
                   />
                 );
               }
+
+              return null;
             })}
           </div>
         </div>

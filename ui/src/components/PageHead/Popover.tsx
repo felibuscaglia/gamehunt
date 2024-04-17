@@ -31,13 +31,13 @@ const PageHeadPopover = () => {
 
   return (
     <div className="relative">
-      <li
+      <span
         onMouseEnter={() => setDisplay(true)}
         onMouseLeave={handleMouseLeave}
         className="rounded hover:bg-gray-100 text-gray-500 py-1 px-2 cursor-pointer hover:text-gray-700"
       >
         Genres
-      </li>
+      </span>
       <Transition
         show={display}
         as={Fragment}

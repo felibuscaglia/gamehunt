@@ -1,4 +1,4 @@
-import { IconBrandGoogle, IconBrandX } from "@tabler/icons-react";
+import { IconBrandGoogle } from "@tabler/icons-react";
 import { API_PATHS } from "lib/constants";
 
 const BTN_CLASSNAMES =
