@@ -1,15 +1,15 @@
 import React from "react";
 import { Platform } from "lib/enums";
 import { IGameLink } from "lib/interfaces";
-import SteamIcon from "assets/Icons/Platforms/steam.png";
+import SteamIcon from "assets/Icons/Platforms/steam.webp";
 import GameJoltIcon from "assets/Icons/Platforms/game-jolt.webp";
-import GOGIcon from "assets/Icons/Platforms/gog.png";
-import HumbleBundleIcon from "assets/Icons/Platforms/humble-bundle.png";
-import ItchIoIcon from "assets/Icons/Platforms/itch.io.png";
+import GOGIcon from "assets/Icons/Platforms/gog.webp";
+import HumbleBundleIcon from "assets/Icons/Platforms/humble-bundle.webp";
+import ItchIoIcon from "assets/Icons/Platforms/itch_io.webp";
 import AmazonAppStoreIcon from "assets/Icons/Platforms/amazonappstore.webp";
-import AppleStoreIcon from "assets/Icons/Platforms/applestore.png";
-import GamersGateIcon from "assets/Icons/Platforms/gamersgate.png";
-import GooglePlayIcon from "assets/Icons/Platforms/googleplay.png";
+import AppleStoreIcon from "assets/Icons/Platforms/applestore.webp";
+import GamersGateIcon from "assets/Icons/Platforms/gamersgate.webp";
+import GooglePlayIcon from "assets/Icons/Platforms/googleplay.webp";
 
 interface IProps {
   links: IGameLink[];

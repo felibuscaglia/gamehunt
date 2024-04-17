@@ -9,7 +9,7 @@ import { HelmetProvider } from "react-helmet-async";
 import * as Sentry from "@sentry/react";
 
 Sentry.init({
-  dsn: "https://b0dc854a77fef857b122c977aae1502e@o4507099539439616.ingest.us.sentry.io/4507099542716416",
+  dsn: process.env.REACT_APP_SENTRY_DSN,
   integrations: [
     Sentry.browserTracingIntegration(),
     Sentry.replayIntegration(),
