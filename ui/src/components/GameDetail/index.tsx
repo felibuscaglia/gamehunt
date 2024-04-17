@@ -49,7 +49,9 @@ const GameDetail: React.FC<IProps> = ({
   return (
     <div className="w-11/12 sm:w-1/2 mx-auto">
       <section className="py-5 flex flex-col sm:flex-row items-center justify-center sm:justify-normal gap-4 sm:gap-8">
-        <Thumbnail url={`${game.thumbnail?.url}-/resize/200x200/-/format/webp/` || ""} />
+        <Thumbnail
+          url={`${game.thumbnail?.url}-/resize/200x200/-/format/webp/` || ""}
+        />
         <div className="text-center sm:text-left">
           <h1 className="text-lg sm:text-2xl font-bold">{game.name}</h1>
           {game.tagline && (
@@ -84,15 +86,17 @@ const GameDetail: React.FC<IProps> = ({
               {game.creator?.fullName}
             </span>
             {game.creatorInvolvedInDevelopment && (
-              <IconCircleCheck
-                data-tooltip-id="user-involved-in-development"
-                data-tooltip-content="This user was involved in the development of this game."
-                size={15}
-                color={PRIMARY_BRAND_COLOR}
-                className="cursor-pointer"
-              />
+              <>
+                <IconCircleCheck
+                  data-tooltip-id="user-involved-in-development"
+                  data-tooltip-content="This user was involved in the development of this game."
+                  size={15}
+                  color={PRIMARY_BRAND_COLOR}
+                  className="cursor-pointer"
+                />
+                <Tooltip id="user-involved-in-development" />
+              </>
             )}
-            <Tooltip id="user-involved-in-development" />
           </Link>
         </div>
         <div className="flex items-center gap-4 w-full sm:w-1/2">

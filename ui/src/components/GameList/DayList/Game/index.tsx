@@ -1,9 +1,11 @@
-import { IconChevronUp } from "@tabler/icons-react";
-import { UI_PATHS } from "lib/constants";
+import { IconChevronUp, IconFreeRights } from "@tabler/icons-react";
+import { PRIMARY_BRAND_COLOR, UI_PATHS } from "lib/constants";
 import { IGame } from "lib/interfaces";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import styles from "./styles.module.css";
+import { GamePricing } from "lib/enums";
+import { Tooltip } from "react-tooltip";
 
 interface IProps {
   game: IGame;
@@ -36,14 +38,27 @@ const DayListGame: React.FC<IProps> = ({
           }}
         />
         <div>
-          <p className="flex gap-1 flex-col sm:flex-row sm:items-center items-start">
-            <strong>{game.name}</strong>
+          <p className="flex gap-1 flex-row items-center">
+            <strong className="text-sm sm:text-base">{game.name}</strong>
             {game.tagline && (
               <>
                 <p className="text-gray-600 text-sm sm:text-base sm:inline hidden">
                   —&nbsp;
                   {game.tagline}
                 </p>
+              </>
+            )}
+            {game.pricing === GamePricing.FREE && (
+              <>
+                <IconFreeRights
+                  data-tooltip-id={`free-to-play-${game.name}`}
+                  data-tooltip-content="Free to play."
+                  strokeWidth={1}
+                  color={PRIMARY_BRAND_COLOR}
+                  size={20}
+                  className="sm:inline hidden"
+                />
+                <Tooltip id={`free-to-play-${game.name}`} />
               </>
             )}
           </p>
