@@ -33,10 +33,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && npm run sentry:sourcemaps && npm run sentry:sourcemaps",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org game-hunt --project javascript-react ./build && sentry-cli sourcemaps upload --org game-hunt --project javascript-react ./build"
   },
   "eslintConfig": {
     "extends": [
