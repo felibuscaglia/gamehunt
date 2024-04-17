@@ -20,7 +20,7 @@ const UserPanel: React.FC<IProps> = ({ loading, user }) => {
       >
         Submit
       </Link>
-      <Link to={UI_PATHS.NOTIFICATIONS}>
+      <Link to={UI_PATHS.NOTIFICATIONS} aria-label="Notifications">
         <IconBell color={PRIMARY_BRAND_COLOR} />
       </Link>
       {loading ? (

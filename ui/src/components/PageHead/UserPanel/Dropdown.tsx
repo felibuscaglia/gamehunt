@@ -31,7 +31,7 @@ const UserPanelDropdown: React.FC<IProps> = ({ isAdmin, username }) => {
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="p-2 rounded-full bg-primary-brand-color-light">
+        <Menu.Button aria-label="User dropdown" className="p-2 rounded-full bg-primary-brand-color-light">
           <IconUser color={PRIMARY_BRAND_COLOR} />
         </Menu.Button>
       </div>

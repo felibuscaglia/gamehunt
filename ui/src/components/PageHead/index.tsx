@@ -32,12 +32,12 @@ const PageHead: React.FC<IProps> = ({ withMarginBottom = true }) => {
         <Link to={UI_PATHS.HOME}>
           <Logo withName />
         </Link>
-        <ul className="sm:items-center sm:gap-4 hidden sm:flex">
+        <div className="sm:items-center sm:gap-4 hidden sm:flex">
           <Link to={UI_PATHS.HOME} className={`${BTN_CLASSNAMES} rounded`}>
             Home
           </Link>
           <Popover />
-        </ul>
+        </div>
       </section>
       <section className={SECTION_CLASSNAMES + " justify-end w-1/2"}>
         <div className="w-full absolute top-16 sm:static sm:top-0 px-4 sm:px-0 inset-1/2 -translate-x-1/2 -translate-y-1/2 sm:inset-auto sm:translate-x-0 sm:translate-y-0">

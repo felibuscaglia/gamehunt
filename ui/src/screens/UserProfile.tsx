@@ -85,7 +85,7 @@ const UserProfileScreen = () => {
         )}
         <div>
           <label className="text-sm text-gray-500 font-semibold">
-            CREATIONS
+            POSTS
           </label>
           {user.games?.length ? (
             <section>
