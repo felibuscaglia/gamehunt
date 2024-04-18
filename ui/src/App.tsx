@@ -33,6 +33,8 @@ import ResetPasswordScreen from "screens/ResetPassword";
 import ChangePasswordScreen from "screens/ChangePassword";
 import { HttpStatusCode } from "axios";
 import ConfirmEmailScreen from "screens/ConfirmEmail";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 const App = () => {
   const loadingUser = useAppSelector((state) => state.loading.user);
@@ -124,6 +126,8 @@ const App = () => {
         />
       </Routes>
       <Toaster position="bottom-center" />
+      <Analytics />
+      <SpeedInsights />
     </>
   );
 };
