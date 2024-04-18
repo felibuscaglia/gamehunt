@@ -23,8 +23,8 @@ const LINK_CLASSNAMES =
 const UserPanelDropdown: React.FC<IProps> = ({ isAdmin, username }) => {
   const authApiClient = useAxiosAuth();
 
-  const logout = () => {
-    authApiClient.post(API_PATHS.SIGN_OUT);
+  const logout = async () => {
+    await authApiClient.post(API_PATHS.SIGN_OUT);
     window.location.reload();
   };
 
