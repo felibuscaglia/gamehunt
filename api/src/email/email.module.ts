@@ -23,10 +23,10 @@ import { JwtModule } from '@nestjs/jwt';
       }),
     }),
     MailerModule.forRootAsync({
-      useFactory: async (config: ConfigService) => ({
+      useFactory: (config: ConfigService) => ({
         transport: {
           host: config.get('MAIL_HOST'),
-          secure: false,
+          secure: true,
           port: Number(config.get('MAIL_PORT')),
           auth: {
             user: config.get('SMTP_USERNAME'),

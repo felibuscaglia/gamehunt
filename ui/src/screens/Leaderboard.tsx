@@ -64,7 +64,7 @@ const LeaderboardScreen = () => {
         {DATE_PARAM && (
           <h2 className="text-3xl flex items-center gap-2 mb-4">
             <strong>{DATE_DIFF}</strong>
-            <span className="text-primary-brand-color-light">
+            <span className="text-primary-brand-color-medium">
               {REST.join(" ")}
             </span>
           </h2>
