@@ -13,7 +13,7 @@ interface IProps {
 }
 
 const GameList: React.FC<IProps> = ({ games, setGames }) => {
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(!!games.length);
   const [index, setIndex] = useState(1);
 
   const fetchProductsByDay = () => {
@@ -51,7 +51,7 @@ const GameList: React.FC<IProps> = ({ games, setGames }) => {
       ))}
       endMessage={
         <span className="mt-4 text-sm block text-center text-gray-500">
-          🎉 You've reached the end!
+          {games.length ? "🎉 You've reached the end!" : "Nothing posted yet."}
         </span>
       }
       className="flex flex-col gap-8"
