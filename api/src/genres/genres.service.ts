@@ -1,7 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Genre } from '../entities';
-import { FindManyOptions, FindOptionsWhere, Repository } from 'typeorm';
+import {
+  FindManyOptions,
+  FindOptionsOrder,
+  FindOptionsWhere,
+  Repository,
+} from 'typeorm';
 import { CreateGenreDto } from './dto';
 import { formatUrlSlug } from 'users/lib/helpers';
 import { GameStatus } from 'games/lib/enums';
@@ -13,7 +18,12 @@ export class GenresService {
     private readonly genresRepository: Repository<Genre>,
   ) {}
 
-  public findAll(limit?: number, offset?: number, relations?: string[]) {
+  public findAll(
+    limit?: number,
+    offset?: number,
+    relations?: string[],
+    order?: FindOptionsOrder<Genre>,
+  ) {
     const options: FindManyOptions<Genre> = {};
 
     if (limit) {
@@ -26,6 +36,10 @@ export class GenresService {
 
     if (relations) {
       options.relations = relations;
+    }
+
+    if (order) {
+      options.order = order;
     }
 
     return this.genresRepository.find(options);

@@ -33,7 +33,12 @@ export class GenresController {
       relations.push('subgenres');
     }
 
-    return this.genresService.findAll(limit, offset, relations);
+    return this.genresService.findAll(limit, offset, relations, {
+      name: 'ASC',
+      subgenres: {
+        name: 'ASC',
+      },
+    });
   }
 
   @Get('/:urlSlug')
