@@ -3,4 +3,4 @@ export * from "./styles";
 export * from "./errors";
 export * from "./warns";
 
-export const APP_NAME = "GameHunt";
+export const APP_NAME = "Game Hunt";

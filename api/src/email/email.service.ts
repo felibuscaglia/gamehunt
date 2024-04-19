@@ -47,7 +47,7 @@ export class EmailService {
       try {
         await this.mailerService.sendMail({
           to: USER.email,
-          subject: 'GameHunt Daily Newsletter',
+          subject: 'Game Hunt Daily Newsletter',
           template: './newsletter',
           context: CONTEXT,
         });
