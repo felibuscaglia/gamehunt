@@ -39,6 +39,8 @@ const SubgenreDetailScreen = () => {
     return <LoadingScreen />;
   }
 
+  const GAMES = subgenre.games || [];
+
   return (
     <main>
       <MetaTags
@@ -58,11 +60,20 @@ const SubgenreDetailScreen = () => {
         />
         <section className="flex items-start gap-8">
           <div className="w-full sm:w-9/12">
-            {(subgenre.games || []).map((game, i) => (
-              <Game index={i} game={game} key={`subgenre-game-${game.id}`} />
-            ))}
+            {GAMES.length ? (
+              GAMES.map((game, i) => (
+                <Game index={i} game={game} key={`subgenre-game-${game.id}`} />
+              ))
+            ) : (
+              <div
+                className="w-full border border-gray-200 rounded p-5 text-center text-gray-500"
+                style={{ boxShadow: "rgba(0, 0, 0, 0.1) 0 1px 2px 0" }}
+              >
+                <p>No {subgenre.name.toLowerCase()} games yet.</p>
+              </div>
+            )}
           </div>
-          <div className="w-3/12 py-3 sm:block hidden">
+          <div className={`w-3/12 ${GAMES.length ? 'py-3' : ''} sm:block hidden`}>
             <label className="uppercase text-xs font-semibold text-gray-500">
               {subgenre.genre?.name}
             </label>
