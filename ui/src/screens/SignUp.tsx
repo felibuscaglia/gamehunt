@@ -90,13 +90,23 @@ const SignUpScreen = () => {
         <p className="text-xs sm:w-1/2 text-gray-400 text-center">
           By clicking “Create account” above, you acknowledge that you have read
           and understood, and agree to {APP_NAME}'s{" "}
-          <Link className={LINK_CLASSNAMES} to={UI_PATHS.TERMS}>
+          <a
+            className={LINK_CLASSNAMES}
+            href="https://www.privacypolicyonline.com/live.php?token=O95wOxE2jqg4NhM3fEN5KXUcpQWv6bSA"
+            target="_blank"
+            rel="noreferrer nofollow"
+          >
             Terms & Conditions
-          </Link>{" "}
+          </a>{" "}
           and{" "}
-          <Link className={LINK_CLASSNAMES} to={UI_PATHS.PRIVACY_POLICY}>
+          <a
+            className={LINK_CLASSNAMES}
+            href="https://www.privacypolicyonline.com/live.php?token=tGVCXtOpaSN4m5IfsmBKDAdplkAvxBHD"
+            target="_blank"
+            rel="noreferrer nofollow"
+          >
             Privacy Policy
-          </Link>
+          </a>
           .
         </p>
       }
