@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import LoadingScreen from "./Loading";
 import MetaTags from "components/MetaTags";
+import ReadMore from "components/ReadMore";
 
 const SubgenreDetailScreen = () => {
   const [loading, setLoading] = useState(true);
@@ -48,11 +49,12 @@ const SubgenreDetailScreen = () => {
       />
       <PageHead />
       <div className="w-11/12 sm:w-10/12 mx-auto py-5">
-        <h2 className="text-2xl sm:text-3xl font-semibold pb-5 sm:pb-10 text-primary-brand-color-medium sm:text-left text-center">
+        <h2 className="text-2xl sm:text-3xl font-semibold pb-5 text-primary-brand-color-medium sm:text-left text-center">
           {subgenre.name} games
         </h2>
+        <ReadMore text={subgenre.description} classNames="sm:w-9/12 sm:pr-8 text-center sm:text-left pb-5 text-sm text-gray-500" />
         <section className="flex items-start gap-8">
-          <div className="sm:w-9/12">
+          <div className="w-full sm:w-9/12">
             {(subgenre.games || []).map((game, i) => (
               <Game index={i} game={game} key={`subgenre-game-${game.id}`} />
             ))}
