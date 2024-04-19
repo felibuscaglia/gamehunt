@@ -30,7 +30,7 @@ class Game {
 
   @Column({
     nullable: false,
-    default: true,
+    default: false,
     name: 'creator_involved_in_development',
   })
   creatorInvolvedInDevelopment: boolean;

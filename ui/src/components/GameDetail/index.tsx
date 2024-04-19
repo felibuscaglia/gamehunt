@@ -1,6 +1,5 @@
 import {
   IconChevronUp,
-  IconCircleCheck,
   IconMessage,
   IconUser,
 } from "@tabler/icons-react";
@@ -10,7 +9,6 @@ import Tags from "./Tags";
 import Links from "./Links";
 import ImageGallery from "react-image-gallery";
 import { PRIMARY_BRAND_COLOR, UI_PATHS } from "lib/constants";
-import { Tooltip } from "react-tooltip";
 import CommentsSection from "./CommentsSection";
 import "react-tooltip/dist/react-tooltip.css";
 import { createRef } from "react";
@@ -85,7 +83,7 @@ const GameDetail: React.FC<IProps> = ({
             <span className="font-semibold whitespace-nowrap">
               {game.creator?.fullName}
             </span>
-            {game.creatorInvolvedInDevelopment && (
+            {/* {game.creatorInvolvedInDevelopment && (
               <>
                 <IconCircleCheck
                   data-tooltip-id="user-involved-in-development"
@@ -96,7 +94,7 @@ const GameDetail: React.FC<IProps> = ({
                 />
                 <Tooltip id="user-involved-in-development" />
               </>
-            )}
+            )} */}
           </Link>
         </div>
         <div className="flex items-center gap-4 w-full sm:w-1/2">
