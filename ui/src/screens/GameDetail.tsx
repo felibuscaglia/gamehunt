@@ -93,20 +93,22 @@ const GameDetailScreen = () => {
   }
 
   return (
-    <main>
+    <>
       <MetaTags
         description={game.description || ""}
         title={`${game.name} Details, Updates, and Reviews | ${APP_NAME}`}
         image={game.thumbnail?.url}
       />
-      <PageHead />
-      <GameDetail
-        onUpvoteBtnClick={onUpvoteBtnClick}
-        game={game}
-        userUpvoted={userUpvoted}
-        upvoteCount={upvoteCount}
-      />
-    </main>
+      <main>
+        <PageHead />
+        <GameDetail
+          onUpvoteBtnClick={onUpvoteBtnClick}
+          game={game}
+          userUpvoted={userUpvoted}
+          upvoteCount={upvoteCount}
+        />
+      </main>
+    </>
   );
 };
 
