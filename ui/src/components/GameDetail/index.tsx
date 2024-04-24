@@ -1,8 +1,4 @@
-import {
-  IconChevronUp,
-  IconMessage,
-  IconUser,
-} from "@tabler/icons-react";
+import { IconChevronUp, IconCircleCheck, IconMessage, IconUser } from "@tabler/icons-react";
 import Thumbnail from "components/Thumbnail";
 import { IGame, IGameMode, IPlatform, ISubgenre } from "lib/interfaces";
 import Tags from "./Tags";
@@ -16,6 +12,7 @@ import ShareGameDialog from "components/Dialog/ShareGameDialog";
 import { Link } from "react-router-dom";
 
 import "react-image-gallery/styles/css/image-gallery.css";
+import { Tooltip } from "react-tooltip";
 
 interface IProps {
   game: IGame;
@@ -83,7 +80,7 @@ const GameDetail: React.FC<IProps> = ({
             <span className="font-semibold whitespace-nowrap">
               {game.creator?.fullName}
             </span>
-            {/* {game.creatorInvolvedInDevelopment && (
+            {game.creatorInvolvedInDevelopment && (
               <>
                 <IconCircleCheck
                   data-tooltip-id="user-involved-in-development"
@@ -94,7 +91,7 @@ const GameDetail: React.FC<IProps> = ({
                 />
                 <Tooltip id="user-involved-in-development" />
               </>
-            )} */}
+            )}
           </Link>
         </div>
         <div className="flex items-center gap-4 w-full sm:w-1/2">
