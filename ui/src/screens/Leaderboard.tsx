@@ -1,7 +1,8 @@
 import DayListGame from "components/GameList/DayList/Game";
+import MetaTags from "components/MetaTags";
 import PageHead from "components/PageHead";
 import { apiClient } from "lib/axios/apiClient";
-import { API_PATHS, UI_PATHS } from "lib/constants";
+import { API_PATHS, APP_DESCRIPTION, APP_NAME, UI_PATHS } from "lib/constants";
 import { convertDateToUtc, formatDateAsString } from "lib/helpers";
 import { IGame } from "lib/interfaces";
 import { useEffect, useState } from "react";
@@ -58,37 +59,43 @@ const LeaderboardScreen = () => {
   const [DATE_DIFF, ...REST] = formatDateAsString(DATE_PARAM || "").split(" ");
 
   return (
-    <main>
-      <PageHead />
-      <section className="w-11/12 sm:w-10/12 mx-auto py-5">
-        {DATE_PARAM && (
-          <h2 className="text-3xl flex items-center gap-2 mb-4">
-            <strong>{DATE_DIFF}</strong>
-            <span className="text-primary-brand-color-medium">
-              {REST.join(" ")}
-            </span>
-          </h2>
-        )}
-        {initialLoading ? (
-          [...Array(8)].map((_, i) => (
-            <Skeleton key={`loader-${i}`} height={56} className="mb-4" />
-          ))
-        ) : (
-          <InfiniteScroll
-            loader={[...Array(8)].map((_, i) => (
+    <>
+      <MetaTags
+        title={`Best of ${REST.join(" ")} | ${APP_NAME}`}
+        description={APP_DESCRIPTION}
+      />
+      <main>
+        <PageHead />
+        <section className="w-11/12 sm:w-10/12 mx-auto py-5">
+          {DATE_PARAM && (
+            <h2 className="text-3xl flex items-center gap-2 mb-4">
+              <strong>{DATE_DIFF}</strong>
+              <span className="text-primary-brand-color-medium">
+                {REST.join(" ")}
+              </span>
+            </h2>
+          )}
+          {initialLoading ? (
+            [...Array(8)].map((_, i) => (
               <Skeleton key={`loader-${i}`} height={56} className="mb-4" />
-            ))}
-            hasMore={hasMore}
-            next={fetchGames}
-            dataLength={games.length}
-          >
-            {games.map((game, index) => (
-              <DayListGame game={game} index={index} key={`game-${index}`} />
-            ))}
-          </InfiniteScroll>
-        )}
-      </section>
-    </main>
+            ))
+          ) : (
+            <InfiniteScroll
+              loader={[...Array(8)].map((_, i) => (
+                <Skeleton key={`loader-${i}`} height={56} className="mb-4" />
+              ))}
+              hasMore={hasMore}
+              next={fetchGames}
+              dataLength={games.length}
+            >
+              {games.map((game, index) => (
+                <DayListGame game={game} index={index} key={`game-${index}`} />
+              ))}
+            </InfiniteScroll>
+          )}
+        </section>
+      </main>
+    </>
   );
 };
 

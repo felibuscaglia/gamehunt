@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import LoadingScreen from "./Loading";
 import MetaTags from "components/MetaTags";
+import ReadMore from "components/ReadMore";
 
 const SubgenreDetailScreen = () => {
   const [loading, setLoading] = useState(true);
@@ -38,6 +39,8 @@ const SubgenreDetailScreen = () => {
     return <LoadingScreen />;
   }
 
+  const GAMES = subgenre.games || [];
+
   return (
     <main>
       <MetaTags
@@ -48,33 +51,47 @@ const SubgenreDetailScreen = () => {
       />
       <PageHead />
       <div className="w-11/12 sm:w-10/12 mx-auto py-5">
-        <h2 className="text-2xl sm:text-3xl font-semibold pb-5 sm:pb-10 text-primary-brand-color-medium sm:text-left text-center">
+        <h2 className="text-2xl sm:text-3xl font-semibold pb-5 text-primary-brand-color-medium sm:text-left text-center">
           {subgenre.name} games
         </h2>
+        <ReadMore
+          text={subgenre.description}
+          classNames="sm:w-9/12 sm:pr-8 text-center sm:text-left pb-5 text-sm text-gray-500"
+        />
         <section className="flex items-start gap-8">
-          <div className="sm:w-9/12">
-            {(subgenre.games || []).map((game, i) => (
-              <Game index={i} game={game} key={`subgenre-game-${game.id}`} />
-            ))}
+          <div className="w-full sm:w-9/12">
+            {GAMES.length ? (
+              GAMES.map((game, i) => (
+                <Game index={i} game={game} key={`subgenre-game-${game.id}`} />
+              ))
+            ) : (
+              <div
+                className="w-full border border-gray-200 rounded p-5 text-center text-gray-500"
+                style={{ boxShadow: "rgba(0, 0, 0, 0.1) 0 1px 2px 0" }}
+              >
+                <p>No {subgenre.name.toLowerCase()} games yet.</p>
+              </div>
+            )}
           </div>
-          <div className="w-3/12 py-3 sm:block hidden">
-            <label className="uppercase text-xs font-semibold text-gray-500 mb-8">
+          <div className={`w-3/12 ${GAMES.length ? 'py-3' : ''} sm:block hidden`}>
+            <label className="uppercase text-xs font-semibold text-gray-500">
               {subgenre.genre?.name}
             </label>
-            <section>
+            <ul className="flex flex-col mt-4 gap-1">
               {(subgenre.genre.subgenres || []).map((sg) => (
-                <Link
-                  className="text-sm text-gray-500"
-                  key={`genre-subgenre-${sg.id}`}
-                  to={UI_PATHS.SUBGENRE_DETAIL.replace(
-                    ":genreUrlSlug",
-                    genreUrlSlug
-                  ).replace(":subgenreUrlSlug", sg.urlSlug)}
-                >
-                  {sg.name}
-                </Link>
+                <li key={`genre-subgenre-${sg.id}`}>
+                  <Link
+                    className="text-sm text-gray-500 hover:underline"
+                    to={UI_PATHS.SUBGENRE_DETAIL.replace(
+                      ":genreUrlSlug",
+                      genreUrlSlug
+                    ).replace(":subgenreUrlSlug", sg.urlSlug)}
+                  >
+                    {sg.name}
+                  </Link>
+                </li>
               ))}
-            </section>
+            </ul>
           </div>
         </section>
       </div>

@@ -7,6 +7,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GamesModule } from 'games/games.module';
 import { UsersModule } from 'users/users.module';
 import { JwtModule } from '@nestjs/jwt';
+import { APP_NAME } from 'auth/lib/constants';
 
 @Global()
 @Module({
@@ -34,7 +35,7 @@ import { JwtModule } from '@nestjs/jwt';
           },
         },
         defaults: {
-          from: `"Nice App" <${config.get('SMTP_USERNAME')}>`, // TODO: Change
+          from: `"${APP_NAME}" <${config.get('SMTP_USERNAME')}>`, // TODO: Change
         },
         template: {
           dir: join(__dirname, 'templates'),

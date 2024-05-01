@@ -245,7 +245,9 @@ const MainInfoSection = () => {
         ))}
       </section>
       {errors.subgenres && (
-        <span className="text-red-500 text-sm block capitalize-first mt-2">{errors.subgenres[0]}</span>
+        <span className="text-red-500 text-sm block capitalize-first mt-2">
+          {errors.subgenres[0]}
+        </span>
       )}
       <hr className="border-t border-t-gray-200 my-8" />
       <h6 className="font-bold text-2xl">Platforms</h6>
@@ -288,7 +290,9 @@ const MainInfoSection = () => {
         ))}
       </section>
       {errors.platforms && (
-        <span className="text-red-500 text-sm capitalize-first block mt-2">{errors.platforms[0]}</span>
+        <span className="text-red-500 text-sm capitalize-first block mt-2">
+          {errors.platforms[0]}
+        </span>
       )}
       <hr className="border-t border-t-gray-200 my-8" />
       <h6 className="font-bold text-2xl">Modes</h6>
@@ -325,7 +329,9 @@ const MainInfoSection = () => {
         ))}
       </section>
       {errors.modes && (
-        <span className="text-red-500 text-sm capitalize-first block mt-2">{errors.modes[0]}</span>
+        <span className="text-red-500 text-sm capitalize-first block mt-2">
+          {errors.modes[0]}
+        </span>
       )}
       <hr className="border-t border-t-gray-200 my-8" />
       <h6 className="font-bold text-2xl mb-8">Pricing</h6>
@@ -334,6 +340,28 @@ const MainInfoSection = () => {
         selectedValue={input.pricing}
         onChange={({ target }) =>
           setInput({ ...input, pricing: target.value as GamePricing })
+        }
+        error={(errors.pricing || [])[0]}
+      />
+      <hr className="border-t border-t-gray-200 my-8" />
+      <h6 className="font-bold text-2xl mb-8">
+        Did you work on this video game?
+      </h6>
+      <RadioInput
+        options={[
+          { id: "involved", value: "1", text: "I worked on this video game" },
+          {
+            id: "notInvolved",
+            value: "0",
+            text: "I didn't work on this video game",
+          },
+        ]}
+        selectedValue={input.creatorInvolvedInDevelopment ? "1" : "0"}
+        onChange={({ target }) =>
+          setInput({
+            ...input,
+            creatorInvolvedInDevelopment: target.value === "1",
+          })
         }
         error={(errors.pricing || [])[0]}
       />

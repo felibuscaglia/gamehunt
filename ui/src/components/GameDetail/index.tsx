@@ -1,16 +1,10 @@
-import {
-  IconChevronUp,
-  IconCircleCheck,
-  IconMessage,
-  IconUser,
-} from "@tabler/icons-react";
+import { IconChevronUp, IconCircleCheck, IconMessage, IconUser } from "@tabler/icons-react";
 import Thumbnail from "components/Thumbnail";
 import { IGame, IGameMode, IPlatform, ISubgenre } from "lib/interfaces";
 import Tags from "./Tags";
 import Links from "./Links";
 import ImageGallery from "react-image-gallery";
 import { PRIMARY_BRAND_COLOR, UI_PATHS } from "lib/constants";
-import { Tooltip } from "react-tooltip";
 import CommentsSection from "./CommentsSection";
 import "react-tooltip/dist/react-tooltip.css";
 import { createRef } from "react";
@@ -18,6 +12,7 @@ import ShareGameDialog from "components/Dialog/ShareGameDialog";
 import { Link } from "react-router-dom";
 
 import "react-image-gallery/styles/css/image-gallery.css";
+import { Tooltip } from "react-tooltip";
 
 interface IProps {
   game: IGame;
