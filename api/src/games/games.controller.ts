@@ -8,6 +8,7 @@ import {
   Post,
   Query,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CurrentUser } from 'auth/decorators';
 import { JwtGuard } from 'auth/guards';
@@ -18,6 +19,7 @@ import { GameOwnerGuard } from './guards';
 import { CurrentGame } from './decorators';
 import { GameStatus } from './lib/enums';
 import { ILike } from 'typeorm';
+import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 
 @Controller('games')
 export class GamesController {
@@ -50,6 +52,8 @@ export class GamesController {
     return draftGame;
   }
 
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(86400)
   @Get('/:gameUrlSlug')
   getGameByUrlSlug(@Param('gameUrlSlug') gameUrlSlug: string) {
     return this.gamesService.findOne(
